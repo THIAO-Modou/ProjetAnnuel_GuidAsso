@@ -407,7 +407,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                     
 
                     <!-------------------COMMUNE------------------>
-                    <?php if ($formulaireActif && !empty($champsActifs) && in_array('commune_div', $champsActifs)): ?>
+                   <?php if ($formulaireActif && !empty($champsActifs) && in_array('commune_div', $champsActifs)): ?>
 
                     <div id="commune_div"> 
                         <!-- Nom de la commune  avec prédiction -->
@@ -416,13 +416,26 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                             <input type="text" placeholder="Commune" id="commune" name="commune" >
                             <div id="communeSuggestions" class="suggestions-box"></div>
                         </div>
-                        <!--  HORS DEPARTEMENT -->
+
+                        <!-- HORS DEPARTEMENT -->
                         <div class="horsDep">
                             <input class="checkbox" type="checkbox" id="horsDepartement" name="horsDepartementCheckbox">
-                            <label class="bold" for="horsDepartementCheckbox">: Hors département</label>
+                            <label class="bold" for="horsDepartement"> : Hors département</label>
+                        </div>
+
+                        <!-- Champ département (caché par défaut) -->
+                        <div id="departementField" style="display:none; margin-top:8px;">
+                            <label class="bold" for="numeroDepartement">Numéro du département :</label>
+                            <input type="number" id="numeroDepartement" name="numeroDepartement" placeholder="Ex : 75" maxlength="2" pattern="\d{2}" min="1" max="99" >
+                            
                         </div>
                     </div><br>
+
+
+
                     <?php endif; ?>
+                   
+
 
                     <?php if ($formulaireActif && !empty($champsActifs) && in_array('activite_reseau', $champsActifs)): ?>
                         <div id="activite_reseau" class="activites-themes-container">

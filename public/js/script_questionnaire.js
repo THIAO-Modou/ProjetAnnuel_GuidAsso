@@ -144,6 +144,27 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+    document.addEventListener("DOMContentLoaded", function () {
+        const checkbox = document.getElementById("horsDepartement");
+        const departementField = document.getElementById("departementField");
+
+        checkbox.addEventListener("change", function () {
+            if (this.checked) {
+                departementField.style.display = "block";
+            } else {
+                departementField.style.display = "none";
+            }
+        });
+    });
+        const numeroDepartement = document.getElementById("numeroDepartement");
+
+        numeroDepartement.addEventListener("input", function() {
+            // Supprime tout ce qui n'est pas un chiffre
+            this.value = this.value.replace(/\D/g, '');
+            // Limite à 2 chiffres
+            if (this.value.length > 2) this.value = this.value.slice(0,2);
+        });
+
 
 
 // ----------------- Questionnaire Réseau : "Autres" (dans menu déroulant) ---------------------
