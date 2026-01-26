@@ -597,34 +597,64 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
         // ----- COMPORTEMENT DE LA CASE "export-date" ---
         // -----------------------------------------------
         document.addEventListener("DOMContentLoaded", function () {
-            /**
-             * Fonction utilitaire pour afficher/masquer dynamiquement une section liée à une checkbox
-             * @param {string} checkboxValue - valeur ciblée de la case
-             * @param {string} autreChampId - identifiant du bloc à montrer/cacher
-             */
-            function setupCheckboxToggle(checkboxValue, autreChampId) {
-                // Sélectionne la checkbox avec le bon nom et la bonne valeur
-                const checkbox = document.querySelector(`input[name='date-select'][value='${checkboxValue}']`);
-                const autreChamp = document.getElementById(autreChampId); // Sélectionne le champ secondaire à afficher
+        // --------------------------------------------------------------
+        // ----------- FONCTION GÉNÉRIQUE POUR AFFICHER / CACHER --------
+        // ----------- DES BLOCS LIÉS À DES CHECKBOX DYNAMIQUES ---------
+        // --------------------------------------------------------------
 
-                if (!checkbox || !autreChamp) {
-                    console.warn("Un des éléments nécessaires n'a pas été trouvé pour la valeur:", checkboxValue);
-                    return;
-                }
-                // Ajoute un écouteur sur changement d’état de la checkbox
-                checkbox.addEventListener("change", function () {
-                    if (checkbox.checked) { // Si cochée
-                        autreChamp.style.display = "block";     // Affiche la section date quand la case est cochée
-                        checkbox.value = "";                    // Réinitialise la valeur (peut être utile pour des soumissions)
-                    } else {
-                        autreChamp.style.display = "none";      // Cache le champ date si la case est décochée
-                        autreChamp.value = "";                  // Réinitialise son contenu
-                    }
-                });
+        /**
+        * Affiche ou masque un conteneur en fonction d'une checkbox.
+        *
+        * @param {string} checkboxName - Le nom (name="...") de la checkbox
+        * @param {string} checkboxValue - La valeur (value="...") de la checkbox   
+        * @param {string} containerId - L'ID du bloc HTML à afficher/masquer   
+        */
+        function setupCheckboxToggle(checkboxName, checkboxValue, containerId) {
+        // Sélectionne la checkbox correspondant au name + value
+            const checkbox = document.querySelector(`input[name='${checkboxName}'][value='${checkboxValue}']`);
+
+            // Sélectionne le conteneur à afficher/masquer
+            const container = document.getElementById(containerId);
+
+            // Vérification : si un des deux éléments n'existe pas, on arrête
+            if (!checkbox || !container) {
+                console.warn(
+                "Élément introuvable pour :",
+                "name =", checkboxName,
+                "value =", checkboxValue,
+                "container =", containerId);
+                return;
             }
 
-            // Initialise le comportement pour la case “export-date”
-            setupCheckboxToggle("export-date", "export-date-container");
+            // Ajoute un écouteur sur le changement d'état de la checkbox
+            checkbox.addEventListener("change", function () {
+
+            // Si la checkbox est cochée → on affiche le conteneur
+            if (checkbox.checked) {
+            container.style.display = "block";
+            } 
+            // Sinon → on le masque
+            else {
+            container.style.display = "none";
+
+            // Réinitialisation du contenu interne (utile pour les dates)
+            if (container.querySelector("input")) {
+                container.querySelectorAll("input").forEach(input => input.value = "");
+            }
+        }
+    });
+}
+
+// --------------------------------------------------------------
+// ---------------------- INITIALISATIONS ------------------------
+// --------------------------------------------------------------
+
+// Active le comportement pour la période d’exportation
+setupCheckboxToggle("date-select", "export-date", "export-date-container");
+
+// Active le comportement pour l’export par utilisateur(s)
+setupCheckboxToggle("user-select", "export-user", "export-user-container");
+
         });
 
        
