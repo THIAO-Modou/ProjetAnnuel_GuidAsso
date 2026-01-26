@@ -49,9 +49,8 @@ if (!$dateDebut && $dateFin)     $dateDebut = $minDate;
 if ($dateDebut && !$dateFin)     $dateFin = $maxDate;
 if (!$dateDebut && !$dateFin)    { $dateDebut = $minDate; $dateFin = $maxDate; }
 
-//echo($dateDebut);
-//echo($dateFin);
-
+// Récupération des utilisateurs sélectionnés (si présents)
+$selectedUsers = $_GET['users'] ?? [];
 
 // Définir les en-têtes HTTP pour le téléchargement du fichier CSV
 $filename = "base_de_donnees_GuidAsso.csv";
@@ -68,6 +67,18 @@ $query_questionnaire = "SELECT QUESTIONNAIRE.*, CONTACT.*
     LEFT JOIN CONTACT ON QUESTIONNAIRE.IDCONTACT = CONTACT.IDCONTACT
     WHERE QUESTIONNAIRE.HORODATEUR BETWEEN :start AND :end";
 
+    // Si des utilisateurs sont sélectionnés, on ajoute un filtre IN (...)
+    if (!empty($selectedUsers)) {
+        // Création de placeholders dynamiques : :u0, :u1, :u2...
+        $placeholders = implode(',', array_map(
+            fn($i) => ":u$i",
+            array_keys($selectedUsers)
+    ));
+
+    $query_questionnaire .= " AND QUESTIONNAIRE.MAILGUIDASSO IN ($placeholders)";
+}
+
+
 // Ajouter filtre MAIL si nécessaire
 if ($idFonction == 1) {
     $query_questionnaire .= " AND QUESTIONNAIRE.MAILGUIDASSO = :email";
@@ -77,6 +88,14 @@ $query_questionnaire .= " ORDER BY QUESTIONNAIRE.HORODATEUR ASC";
 $stmt = $pdo->prepare($query_questionnaire);
 $stmt->bindValue(':start', $dateDebut);
 $stmt->bindValue(':end', $dateFin);
+
+// Bind dynamique des utilisateurs sélectionnés
+if (!empty($selectedUsers)) {
+    foreach ($selectedUsers as $i => $mail) {
+        $stmt->bindValue(":u$i", $mail);
+    }
+}
+
 
 if ($idFonction == 1) {
     $stmt->bindValue(':email', $email);
