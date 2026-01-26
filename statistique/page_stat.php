@@ -65,11 +65,20 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
 
 <body>
     <div class="image-container">
-        <img src="/../public/img/LogoRéseau1.png">
-        <img src="/../public/img/LogoInformation.png">
-        <img src="/../public/img/LogoOrientation1.png">
-        <img src="/../public/img/LogoAccompagnementG1.png">
-    </div>
+	<a href="/../views/pageadmin.php">
+    	<img src="/../public/img/LogoRéseau1.png" alt="Logo Réseau">
+	</a>
+	<a href="/../views/pageadmin.php">
+    	<img src="/../public/img/LogoInformation.png" alt="Logo Information">
+	</a>
+	<a href="/../views/pageadmin.php">
+    	<img src="/../public/img/LogoOrientation1.png" alt="Logo Orientation">
+	</a>
+	<a href="/../views/pageadmin.php">
+    	<img src="/../public/img/LogoAccompagnementG1.png" alt="Logo Accompagnement">
+	</a>
+</div>
+
     <div class="setting-button-container">
         <a href="https://guide-asso-m2.geniephy.net/views/pageadmin.php" class="setting-button">Page Admin</a>
         <a href="https://guide-asso-m2.geniephy.net/views/questionnaire.php" class="setting-button">Questionnaire</a>
