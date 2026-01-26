@@ -117,11 +117,19 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
         <!--image en haut à droite-->
         <!--img src="guid'asso.jpg" class="top-right-image"-->
         <div class="image-container">
-            <img src="/../public/img/LogoRéseau1.png">
-            <img src="/../public/img/LogoInformation.png">
-            <img src="/../public/img/LogoOrientation1.png">
-            <img src="/../public/img/LogoAccompagnementG1.png">
-        </div>
+	<a href="/../views/pageadmin.php">
+    	<img src="/../public/img/LogoRéseau1.png" alt="Logo Réseau">
+	</a>
+	<a href="/../views/pageadmin.php">
+    	<img src="/../public/img/LogoInformation.png" alt="Logo Information">
+	</a>
+	<a href="/../views/pageadmin.php">
+    	<img src="/../public/img/LogoOrientation1.png" alt="Logo Orientation">
+	</a>
+	<a href="/../views/pageadmin.php">
+    	<img src="/../public/img/LogoAccompagnementG1.png" alt="Logo Accompagnement">
+	</a>
+</div>
         <br>
         <div class="setting-button-container">
             <?php if ($idFonction == 2 || $idFonction == 3) { ?>
