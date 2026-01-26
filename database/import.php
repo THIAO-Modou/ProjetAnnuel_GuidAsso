@@ -7,18 +7,18 @@ error_reporting(E_ALL);
 include_once __DIR__ . '/../config/BD.php';
 include_once __DIR__ . '/../config/session.php';
 
-// ✅ Vérifie session utilisateur
+// Vérifie session utilisateur
 if (!isset($_SESSION['MAIL'])) {
-    header("Location: /../views/pageconnexion.php");
+    header("Location: /CRAIG86/views/pageconnexion.php");
     exit();
 }
 
-// ✅ Vérifie connexion PDO
+// Vérifie connexion PDO
 if (!isset($pdo)) {
     die("Erreur : connexion à la base de données non établie.");
 }
 
-// 📥 Traitement du fichier CSV envoyé via formulaire POST
+// Traitement du fichier CSV envoyé via formulaire POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
     try {
         // 🔎 Vérifie transmission du fichier
@@ -26,24 +26,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
             throw new Exception("Erreur : fichier non envoyé.");
         }
 
-        // 📎 Vérifie extension CSV
+        // Vérifie extension CSV
         if (pathinfo($_FILES['csv_file']['name'], PATHINFO_EXTENSION) !== 'csv') {
             throw new Exception("Erreur : Format non supporté. Veuillez utiliser un fichier CSV.");
         }
 
-        // 📂 Ouvre le fichier en lecture
+        // Ouvre le fichier en lecture
         $csvFile = fopen($_FILES['csv_file']['tmp_name'], 'r');
         if (!$csvFile) {
             throw new Exception("Erreur : impossible d'ouvrir le fichier CSV.");
         }
 
-        // 🏷️ Récupère les noms de colonnes
+        // Récupère les noms de colonnes
         $columns = fgetcsv($csvFile, 1000, ';');
         if (!$columns) {
             throw new Exception("Erreur : fichier CSV vide ou mal formaté.");
         }
 
-        // 🗺️ Mappage des colonnes
+        //  Mappage des colonnes
         // Mappings des colonnes
         $columnMap_questionnaire = [
             'HORODATEUR' => ':horodateur',
@@ -92,9 +92,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
         ];
 
         $insertedRows = 0;
+        $row = fgetcsv($csvFile, 1000, ';', '"', '\\');
 
-        // 📄 Parcours des lignes CSV
-        while (($row = fgetcsv($csvFile, 1000, ';')) !== false) {
+
+        //  Parcours des lignes CSV
+        while (($row = fgetcsv($csvFile, 1000, ';', '"', '\\')) !== false) {
             if (count($row) < count($columns)) {
                 $row = array_pad($row, count($columns), '');
             }
@@ -111,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
                 }
             }
 
-            // 🔍 Recherche du contact via email
+            //  Recherche du contact via email
             $stmt_contact = $pdo->prepare("SELECT IDCONTACT FROM CONTACT WHERE EMAILCORRESPONDANT = :email_correspondant");
             $email = $data_contact[':email_correspondant'] ?? null;
             $stmt_contact->execute([':email_correspondant' => $email]);
@@ -121,17 +123,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
             if ($row_contact) {
                 $id_contact = $row_contact['IDCONTACT'];
             } else {
-                // ➕ Insertion nouveau contact
+                //  Insertion nouveau contact
                 $stmt_insert_contact = $pdo->prepare("INSERT INTO CONTACT (NOMCONTACT, PRENOMCONTACT, CIVILITE, EMAILCORRESPONDANT)
                                                       VALUES (:nom_contact, :prenom_contact, :civilite, :email_correspondant)");
                 $stmt_insert_contact->execute($data_contact);
                 $id_contact = $pdo->lastInsertId();
             }
 
-            // 🧬 Ajout IDCONTACT dans données questionnaire
+            //  Ajout IDCONTACT dans données questionnaire
             $data_questionnaire[':id_contact'] = $id_contact;
 
-            // 🕒 Traitement horodateur
+            //  Traitement horodateur
             if (!empty($data_questionnaire[':horodateur'])) {
                 $originalDate = str_replace('/', '-', trim($data_questionnaire[':horodateur']));
                 $formats = ['Y-m-d H:i:s', 'Y-m-d H:i', 'd-m-Y H:i', 'd-m-Y H:i:s', 'Y/m/d H:i:s'];
@@ -147,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
                 $data_questionnaire[':horodateur'] = date('Y-m-d H:i:s');
             }
 
-            // 🧱 Construction SQL
+            //  Construction SQL
             $columns_sql = [];
             $placeholders = [];
             foreach ($columns as $colName) {
@@ -157,14 +159,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
                 }
             }
 
-            $columns_sql[] = 'IDCONTACT';            // 🛠️ Ajoute colonne manuellement
-            $placeholders[] = ':id_contact';         // 🛠️ Ajoute valeur correspondante
+            $columns_sql[] = 'IDCONTACT';            //  Ajoute colonne manuellement
+            $placeholders[] = ':id_contact';         //  Ajoute valeur correspondante
 
-            // 🧹 Ignore si ligne vide
+            // Ignore si ligne vide
             $temp = $data_questionnaire;
             unset($temp[':id_contact']);
             if (count(array_filter($temp)) === 0) {
-                error_log("🚫 Ligne ignorée car vide");
+                error_log(" Ligne ignorée car vide");
                 continue;
             }
 
@@ -175,9 +177,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
             try {
                 $stmt->execute($data_questionnaire);
                 $insertedRows++;
-                error_log("✅ Ligne insérée avec succès");
+                error_log(" Ligne insérée avec succès");
             } catch (PDOException $e) {
-                error_log("💥 Échec insertion ligne : " . $e->getMessage());
+                error_log(" Échec insertion ligne : " . $e->getMessage());
             }
         }
 
@@ -186,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv_file'])) {
         $_SESSION['success_message'] = $insertedRows > 0
             ? "Importation réussie ! $insertedRows lignes insérées."
             : "Erreur : Aucune ligne insérée.";
-        header("Location: /../views/pageadmin.php");
+        header("Location: /CRAIG86/views/pageadmin.php");
         exit();
 
     } catch (Exception $e) {

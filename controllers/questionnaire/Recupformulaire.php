@@ -250,6 +250,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             elseif ($horsDept) {
                 $commune = "Hors département";
                 $INSEE = 0;
+                $numeroDepartement = $_POST['numeroDepartement'] ?? '';
                 $CP = $Arrondissement = $EPCI = "N/A";
             }
             // Cas : commune saisie
@@ -351,8 +352,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Insertion dans la table QUESTIONNAIRE
-        $sql = "INSERT INTO QUESTIONNAIRE (IDCONTACT, NOMSTRUCTURE, ACTIVITESTRUCTURE, NOMASSO, ACTIVITEPRINCIPALEASSO, ACTIVITESECONDAIRE, PERMANENCE, CLASSIFICATIONGUIDASSO, TRANSMISPAR, TRANSMISA, NATUREECHANGE, NBRDV, QUESTION, REPONSE, TEMPSPASSE, THEMEGENERAL, AUTRETHEMATIQUE, RESSOURCE, RECHERCHE, MAILGUIDASSO, NOMEVENEMENT, TITREEVENEMENT, AUDIENCE, DATEEVE, COMMUNE, CODE_INSEE, CODE_POSTAL, ARRONDISSEMENT, EPCI, FILE, BLOCNOTE, PJBLOCNOTE, EMPLOYEUR, TYPEQUESTIONNAIRE) 
-        VALUES (:id_contact, :nom_structure, :activite_structure, :nom_association, :activite_principale, :activite_secondaire, :permanence, :classification, :dossier_transmis_par, :dossier_transmis_a, :nature_echange, :nbrdv, :question, :reponse, :temps_passe, :theme_general, :autre_thematique, :ressources, :recherche, :mail_guidasso, :evenement, :titre_ev, :personne, :date_ev, :commune, :code_insee, :code_postal, :arrondissement, :epci, :file, :bloc_note, :pj_bloc_note, :employeur, :TypeQuestionnaire)";
+        $sql = "INSERT INTO QUESTIONNAIRE (IDCONTACT, NOMSTRUCTURE, ACTIVITESTRUCTURE, NOMASSO, ACTIVITEPRINCIPALEASSO, ACTIVITESECONDAIRE, PERMANENCE, CLASSIFICATIONGUIDASSO, TRANSMISPAR, TRANSMISA, NATUREECHANGE, NBRDV, QUESTION, REPONSE, TEMPSPASSE, THEMEGENERAL, AUTRETHEMATIQUE, RESSOURCE, RECHERCHE, MAILGUIDASSO, NOMEVENEMENT, TITREEVENEMENT, AUDIENCE, DATEEVE, COMMUNE, CODE_INSEE, CODE_POSTAL, ARRONDISSEMENT, EPCI, FILE, BLOCNOTE, PJBLOCNOTE, EMPLOYEUR, TYPEQUESTIONNAIRE, NUMERODEPARTEMENT) 
+        VALUES (:id_contact, :nom_structure, :activite_structure, :nom_association, :activite_principale, :activite_secondaire, :permanence, :classification, :dossier_transmis_par, :dossier_transmis_a, :nature_echange, :nbrdv, :question, :reponse, :temps_passe, :theme_general, :autre_thematique, :ressources, :recherche, :mail_guidasso, :evenement, :titre_ev, :personne, :date_ev, :commune, :code_insee, :code_postal, :arrondissement, :epci, :file, :bloc_note, :pj_bloc_note, :employeur, :TypeQuestionnaire, :numeroDepartement)";
 
         $stmt = $pdo->prepare($sql);
 
@@ -406,7 +407,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':bloc_note' => $BN,
             ':pj_bloc_note' => $PJ,
             ':employeur' => $employeur,
-            ':TypeQuestionnaire' => $TypeQuestionnaire
+            ':TypeQuestionnaire' => $TypeQuestionnaire,
+            ':numeroDepartement' => $numeroDepartement
         ]);
 
 
