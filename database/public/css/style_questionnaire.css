@@ -1,0 +1,1915 @@
+/*************************************************/
+/***** Modifications de base - Style Global ******/
+/*************************************************/
+
+body {
+    font-family: 'Helvetica', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-bottom: 80px;
+}
+
+#main-content {
+    max-width: 800px;
+    width: 90%;
+    margin: 0 auto;
+    padding-bottom: 70px;
+    box-sizing: border-box;
+}
+
+
+/* bouton couleur verte et forme */
+.button-vert {
+    background-color: #66c282;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+/* Bouton couleur verte curseur */
+.button-vert:hover {
+    background-color: #4ba867;
+}
+
+/* bouton couleur bleu et forme */
+.button-bleu {
+    background-color: #3a7ee2;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+/* Bouton couleur bleu curseur */
+.button-bleu:hover {
+    background-color: #2e60ab;
+}
+
+/* bouton couleur violet et forme */
+.button-purple {
+    background-color: #8e64ad;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+/* Bouton couleur verte curseur */
+.button-purple:hover {
+    background-color: #714d8b;
+}
+
+/* bouton desactive couleur grise */
+.button-desactive{
+    width: 100px;
+    background-color: #c0c0c0;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+
+
+
+/*************************************************/
+/************ MISE EN PAGE IMAGES ****************/
+/*************************************************/
+
+.image-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.image-container img {
+    width: 200px;
+    height: auto;
+}
+
+/*************************************************/
+/******************** BOUTONS *******************/
+/***********************************************/
+
+/********** Bandeau bouton page questionnaire *****************/
+
+#dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 90%; /* Augmenter la largeur */
+    max-width: 900px; /* Permet d'afficher plus de boutons */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+    animation: fade-in 1s forwards; /* Facultatif */
+}
+
+
+.dashboard-button-green {
+    padding: 10px 20px;
+    background-color: #66c282;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size:18px ;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+.dashboard-button-green:hover {
+    background-color: #4ba867;
+}
+.dashboard-button-green.active {
+    background-color: #4ba867; /* Vert plus foncé */
+}
+
+.dashboard-button-purple {
+    padding: 10px 20px;
+    background-color: #8e64ad;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    font-size:18px ;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dashboard-button-purple:hover {
+    background-color: #714d8b;
+}
+
+.dashboard-button-purple.active {
+    background-color: #714d8b; /* Violet plus foncé */
+}
+
+.dashboard-button-blue {
+    padding: 10px 20px;
+    background-color: #3a7ee2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size:18px ;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dashboard-button-blue:hover {
+    background-color: #2e60ab;
+}
+
+.dashboard-button-blue.active {
+    background-color: #2e60ab; /* Bleu plus foncé */
+}
+
+/*-------------------------------BOUTON RED ---------------------------------------------------------- */
+/*--------LE marging-left DU BOUTON RED DOIT ETRE ENLEVER POUR AJOUTER UN AUTRE BOUTON  -------------- */
+
+
+.dashboard-button-red {
+    padding: 10px 20px;
+    background-color: #e5343e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size:18px ;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+   
+}
+
+.dashboard-button-red:hover {
+    background-color: #ae161f;
+}
+
+.dashboard-button-red.active {
+    background-color: #ae161f; /* Bleu plus foncé */
+}
+
+.dashboard-button-green,
+.dashboard-button-blue,
+.dashboard-button-purple,
+.dashboard-button-red {
+    transition: transform 0.3s ease-in-out;
+}
+
+.dashboard-button-green:hover,
+.dashboard-button-blue:hover,
+.dashboard-button-purple:hover,
+.dashboard-button-red:hover {
+    transform: scale(1.1); /* Effet de zoom au survol */
+}
+
+
+/* container bouton avec titre après */
+
+#buttons-container {
+    display: flex !important;
+    justify-content: center !important;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+button{
+    max-height: 100%;
+}
+
+.dashboard-title {
+    text-align: center;
+    margin-bottom: 20px; /* Ajout de l'espace en bas du titre */
+}
+
+/**************************************************/
+/********** FORMULAIRES GENERAUX *****************/
+/************************************************/
+
+.formulaire-container-vert {
+    max-width: 700px; /* ✅ Réduit la largeur du formulaire */
+    width: 90%;
+    margin: 20px auto; /* Centre le formulaire */
+    padding: 20px;
+    background: #f8f8f8; /* Couleur de fond neutre */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3); /* ✅ Ombre douce et naturelle */
+}
+
+
+
+.formulaire-container-bleu {
+    max-width: 700px; /* ✅ Réduit la largeur du formulaire */
+    width: 90%;
+    margin: 20px auto; /* Centre le formulaire */
+    padding: 20px;
+    color: #1a3d7c !important; /* ✅ Bleu foncé pour le texte */
+    background-color: #f8f8f8; /* Couleur de fond neutre */
+    border: 1px solid #90caf9 !important; /* ✅ Contour bleu doux */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 255, 0.1); /* ✅ Ombre légère bleue */
+}
+
+/* pour fiche asso */
+.formulaire-container-purple {
+    max-width: 700px; /* ✅ Réduit la largeur du formulaire */
+    width: 90%;
+    margin: 20px auto; /* Centre le formulaire */
+    padding: 20px;
+    color: #56205c !important; /* ✅ Vert très foncé pour une meilleure lisibilité */
+    background-color: #e7d7e9 !important; /* ✅ Vert pastel très clair */
+    border: 2px solid #98799b !important; /* ✅ Bordure vert clair mais distincte */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(129, 199, 132, 0.3); /* ✅ Ombre douce et naturelle */
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: justify;
+    gap: 15px;
+}
+
+input[type="checkbox"] {
+    margin-bottom: 7px;
+}
+
+textarea {
+    resize: vertical; /* Permet uniquement un redimensionnement vertical */
+}
+
+.etoile {
+    color: red;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-radius: 1px rgb(0, 0, 0);
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #fcfbfb;
+    color: #060606;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 150%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.tooltip-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 5px;
+}
+.tooltip-icon-img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  margin-left: 6px;
+  cursor: default;
+  display: inline-block;
+}
+
+
+
+.bold {
+    font-weight: bold;
+    font-size: 14px !important;
+    display: block;
+    margin-bottom: 5px;
+    
+}
+.bold-checkbox {
+    font-weight: bold;
+    font-size: 14px !important;
+    margin-bottom: 5px;
+    
+}
+
+
+/*****************************************************************************/
+/**************** MESSAGES D'ERREURS ou de SUCCES ****************************/
+/*****************************************************************************/
+
+/* Conteneur d'erreurs */
+.error-container {
+    margin: 10px auto;
+    max-width: 1000px; /* Aligné au conteneur du formulaire */
+    background-color: #fff4f4;
+    color: #d9534f;
+    border: 1px solid #d43f3a;
+    border-radius: 5px;
+    padding: 13px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+.error-message-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.error-icon {
+    font-size: 1.5em;
+    color: #d9534f;
+
+}/* ✅ Conteneur du message de succès */
+.success-container {
+    margin: 15px auto;
+    max-width: 600px; /* Réduit la largeur pour un affichage plus compact */
+    background-color: #eaf7ea; /* Vert doux et léger */
+    color: #3c763d;
+    border: 1px solid #d6e9c6; /* Contour plus fin et discret */
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-weight: bold;
+}
+
+/* ✅ Style du message */
+.success-message-form {
+    display: flex;
+    flex-direction: column; /* Aligner le texte et l'icône verticalement */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* ✅ Icône verte élégante */
+.success-icon {
+    font-size: 1.8em;
+    color: #3c763d;
+    margin-bottom: 5px; /* Espace entre l'icône et le texte */
+}
+
+
+
+/*****************************************************************************/
+/******************************* VISIONNEUSE *********************************/
+/*****************************************************************************/
+
+
+/********************************************************/
+/************** VISIONNEUSE QUESTIONNAIRE***************/
+
+
+/* 🌐 Espacement entre le dashboard et la visionneuse */
+#dashboard {
+    margin-bottom: 40px;
+}
+
+/* 📌 Conteneur de la visionneuse */
+#visionneuse-container,
+#visionneuse-container_admin_monEspace  {
+    display: none; /* Caché par défaut */
+    max-width: 95%;
+    margin: 20px auto;
+    padding: 20px;
+    background: #F3F8F3; /* Fond vert très clair */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    border: none;
+    overflow-x: auto;
+    font-family: 'Raleway', sans-serif; /* Police plus douce */
+}
+
+/* 🏆 Tableau */
+#visionneuse-container table,
+#visionneuse-container_admin_monEspace table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: none;
+}
+
+/* 🟢 En-tête du tableau */
+#visionneuse-container th,
+#visionneuse-container_admin_monEspace th {
+    background: linear-gradient(90deg, #4C9A2A, #388E3C); /* Dégradé vert élégant */
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    padding: 14px;
+    border-bottom: 3px solid #2E7D32; /* Trait vert foncé */
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+}
+
+/* 📄 Cellules du tableau */
+#visionneuse-container td,
+#visionneuse-container_admin_monEspace td {
+    font-size: 14px;
+    color: #1F3321; /* Vert foncé lisible */
+    padding: 14px;
+    border-bottom: 1px solid #CDE5C8; /* Liseré doux */
+    text-align: center;
+}
+
+/* 🌿 Bas du tableau : même style, juste un trait horizontal */
+#visionneuse-container tr:last-child td,
+#visionneuse-container_admin_monEspace tr:last-child td{
+    border-bottom: 3px solid #2E7D32; /* Trait vert foncé en bas */
+}
+
+/* 🎨 Alternance des couleurs */
+#visionneuse-container tr:nth-child(even),
+#visionneuse-container_admin_monEspace tr:nth-child(even) {
+    background-color: #E8F5E9; /* Vert très clair */
+}
+
+#visionneuse-container tr:nth-child(odd),
+#visionneuse-container_admin_monEspace tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* ✨ Effet de survol */
+#visionneuse-container tr:hover,
+#visionneuse-container_admin_monEspace tr:hover {
+    background-color: #C8E6C9; /* Vert pastel léger */
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* 🌿 Conteneur du filtre et pagination */
+#filtre-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px auto; /* Espacement avec le tableau */
+    gap: 10px; /* Espacement entre les éléments */
+}
+
+/* 🎛 Sélecteur du nombre de lignes (réduit) */
+#nbLignes {
+    padding: 5px;
+    font-size: 13px;
+    border: 2px solid #2E7D32;
+    border-radius: 5px;
+    background: #E8F5E9;
+    color: #1F3321;
+    cursor: pointer;
+    width: 60px;
+    margin-top: 5px;
+}
+
+/* 🔘 Boutons de pagination verts */
+#prevPage, #nextPage {
+    background: #4CAF50; /* Vert dynamique */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    height: 30px;
+    align-items: center;
+    margin-top: 6px;
+}
+
+#prevPage:hover, #nextPage:hover {
+    background: #2E7D32; /* Vert plus foncé */
+}
+
+#prevPage:disabled, #nextPage:disabled {
+    background: #A5D6A7; /* Vert clair désactivé */
+    cursor: default;
+}
+
+/* 🔹 Texte "Page X" */
+#pageInfo {
+    font-size: 15px;
+    font-weight: bold;
+    color: #388E3C;
+    margin-top: 10px;
+}
+
+
+
+
+/********************************************************/
+/************** VISIONNEUSE FICHE ASSO ***************/
+
+/* 📌 Conteneur de la visionneuse */
+#visionneuse-container-fiche{
+    max-width: 95%;
+    margin: 20px auto;
+    padding: 20px;
+    background: #F5E6FC; /* Fond violet très clair */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    border: none;
+    overflow-x: auto;
+    font-family: 'Raleway', sans-serif; /* Police plus douce */
+}
+
+/* 🏆 Tableau */
+#visionneuse-container-fiche table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: none;
+}
+
+/* 🔮 En-tête du tableau */
+#visionneuse-container-fiche th {
+    background: linear-gradient(90deg, #7B1FA2, #6A1B9A); /* Dégradé violet élégant */
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    padding: 14px;
+    border-bottom: 3px solid #4A148C; /* Trait violet foncé */
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+}
+
+/* 📄 Cellules du tableau */
+#visionneuse-container-fiche td {
+    font-size: 14px;
+    color: #311B92; /* Violet foncé lisible */
+    padding: 14px;
+    border-bottom: 1px solid #E1BEE7; /* Liseré doux */
+    text-align: center;
+}
+
+/* 🌿 Bas du tableau : même style, juste un trait horizontal */
+#visionneuse-container-fiche tr:last-child td {
+    border-bottom: 3px solid #4A148C; /* Trait violet foncé en bas */
+}
+
+/* 🎨 Alternance des couleurs */
+#visionneuse-container-fiche tr:nth-child(even) {
+    background-color: #F3E5F5; /* Violet très clair */
+}
+
+#visionneuse-container-fiche tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* ✨ Effet de survol */
+#visionneuse-container-fiche tr:hover {
+    background-color: #CE93D8; /* Violet pastel léger */
+    transition: background-color 0.3s ease-in-out;
+}
+
+
+
+/*****************************************************************************/
+/*************************** QUESTIONNAIRE ***********************************/
+/*****************************************************************************/
+
+/********** Boutons administrateurs  *************/
+
+/*** boutons questionnaire et se déconnecter */
+
+.setting-button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: nowrap;
+}
+
+.setting-button-container a {
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 12px 12px;
+    font-size: 14px;
+}
+
+.setting-button {
+    padding: 10px 20px;
+    background-color: #66c282;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size:18px ;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.setting-button-green:hover {
+    background-color: #4ba867;
+}
+
+
+/******************** THEME GENERALE DES Q ***********************************/
+/*****************************************************************************/
+
+/******* Projet associatif ******/
+.projetAsso {
+    display: flex;
+    align-items: center; /* Aligne la checkbox et le label verticalement */
+    gap: 15px; /* Ajoute un espace entre la checkbox et le texte */
+    padding-left: 25%;
+    padding-top : -30px;
+
+}
+
+.projetAsso input[type="checkbox"] {
+    width: 16px; /* Ajuste la taille de la checkbox */
+    height: 20px;
+    margin: 0; /* Supprime toute marge indésirable */
+    
+}
+.nonCommunique {
+    display: flex;
+    align-items: center; /* Aligne la checkbox et le label verticalement */
+    gap: 10px; /* Ajoute un espace entre la checkbox et le texte */
+    padding-left:  210px;
+    padding-bottom : 30px;
+}
+
+.nonCommunique input[type="checkbox"] {
+    width: 16px; /* Ajuste la taille de la checkbox */
+    height: 20px;
+    margin: 0; /* Supprime toute marge indésirable */
+    
+}
+
+/******* hors departement******/
+
+.horsDep {
+    display: flex;
+    align-items: center; /* Aligne la checkbox et le label verticalement */
+    gap: 10px; /* Ajoute un espace entre la checkbox et le texte */
+    padding-left:  210px;
+    padding-bottom: 30px;
+    padding-top : -60px;
+}
+
+.horsDep input[type="checkbox"] {
+    width: 16px; /* Ajuste la taille de la checkbox */
+    height: 20px;
+    margin: 0; /* Supprime toute marge indésirable */
+    
+}
+
+/******* Autres (précisez autre) ******/
+
+[id^="autreThemeContainer"] {
+    display: none; /* Masqué par défaut */
+    display: flex;
+    flex-direction: column; /* Met le label au-dessus de l'input */
+    align-items: flex-start; /* Aligne à gauche */
+    gap: 5px; /* Ajoute un léger espace entre le label et l'input */
+}
+
+[id^="autreThemeContainer"] label {
+    font-weight: bold;
+    font-size: 14px;
+    width: max-content; /* Ajuste la largeur au texte */
+}
+
+[id^="autreThemeContainer"] input {
+    width: 100%;
+    max-width: 250px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+
+/******* Groupes de champs ******/
+
+/********** Alignement label + input en ligne **********/
+
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    position: relative;
+    margin-bottom: 15px;
+    gap: 20px;
+}
+
+.form-group label {
+    flex: 0 0 180px; /* Largeur fixe pour aligner tous les labels */
+    text-align: left;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 15px;
+    width: 70%;  /* Augmentation de la largeur de l'input */
+    max-width: 300px; /* Limite la largeur pour éviter qu'il soit trop grand */
+    padding: 10px; /* Réduit le padding interne */
+}
+
+/********** Gestion des boutons radio **********/
+
+.form-group-radio-bouton {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 50px;
+}
+
+.form-group-radio-reseau {
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 50px;
+}
+
+.radio-group {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+}
+
+.radio-group label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.radio-group input[type="radio"] {
+    margin-bottom: 3px;
+}
+
+
+/**Classifcation ***/
+.form-group-radio-bouton-classification {
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Conteneur des options */
+.radio-group-classification {
+    display: flex;
+    justify-content: center; /* Centre les options dans le formulaire */
+    flex-wrap: wrap; /* Permet de passer à la ligne si nécessaire */
+    gap: 30px; /* Définit un espacement constant entre les options */
+    margin-top: 10px;
+    margin-bottom : 20px; 
+}
+
+/* Alignement des labels avec les boutons radio */
+.radio-group-classification label {
+    display: flex;
+    flex-direction: column; /* Positionne le texte sous le bouton */
+    align-items: center; /* Centre le bouton et le texte */
+    font-size: 15px; /* Ajuste la taille du texte */
+    cursor: pointer; /* Curseur pointer sur le label */
+    text-align: center; /* Centre le texte sous le bouton */
+    max-width: 120px; /* Définit une largeur maximale pour le label */
+    word-wrap: break-word; /* Coupe les mots longs à la ligne */
+}
+
+/* Style pour les boutons radio */
+.radio-group-classification input[type="radio"] {
+    margin: 0; /* Supprime les marges autour du bouton radio */
+    margin-bottom: 5px; /* Espace entre le bouton et le texte */
+}
+
+
+/********** Suggestions sous l'input (sans décalage) **********/
+
+.suggestions-box {
+    
+    position: absolute;
+    top: 100%;
+    left: 190px;
+    width: calc(100% - 190px);
+    max-width: 250px;
+    max-height: 150px; /* ✅ Hauteur maximale pour éviter que la suggestion soit trop grande */
+    background-color: #d2edd0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none;
+    overflow-y: auto; /* ✅ Active un scroll vertical si nécessaire */
+    overflow-x: hidden; /* ✅ Cache l'éventuel débordement horizontal */
+}
+
+.suggestions-box ul {
+    list-style-type: none;
+    margin-left: 5px;
+    padding: 0;
+}
+
+    /* ✅ Ajustement spécifique pour les thématiques */
+    .themes-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 20px; /* ✅ Espace entre les deux colonnes */
+        margin-bottom: 15px;
+    }
+
+    .colonne_div{
+        display: flex; /* Active flexbox */
+        align-items: flex-start; /* Assure l’alignement en haut */
+        justify-content: space-between; /* Espacement entre les colonnes */
+        gap: 10px;
+    }
+
+    .colonne {
+        flex: 1;
+        display: inline-block;
+        position: relative;
+        flex: 1;
+        min-width: 150px;
+        width: 40%;
+    }
+
+    #civilite {
+        display: flex; /* Active flexbox */
+        align-items: center; /* Alignement vertical */
+        gap: 10px; /* Espacement entre le label et les radios */
+    }
+
+    #civilite .radio-group {
+        display: flex; /* Permet d'afficher les boutons en ligne */
+        flex-direction: row; /* Alignement horizontal */
+        align-items: center; /* Assure l'alignement avec le texte */
+        gap: 20px; /* Espacement entre chaque label-radio */
+    }
+    #civilite .radio-group label {
+        display: flex; /* Pour aligner le bouton et le texte */
+        align-items: center;
+        gap: 5px; /* Espacement entre le radio et son label */
+    }
+
+
+    /* Cases à cocher */
+    .theme-group label {
+        display: flex;
+        font-size: 14px;
+        white-space: normal;  
+        align-items: center;
+        gap: 8px;
+    }
+    .longueurraccourcie {
+        width: 100%; /* Fait en sorte qu'il s'adapte à la colonne */
+        min-width: 150px; /* ✅ Définit une largeur minimale */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+    
+
+    
+/***************** temps consacré **********************/
+
+/*  Conteneur principal */
+.time-input-container {
+    display: flex;
+    
+    align-items: center; /*  Alignement horizontale */
+    gap: 8px; /*  Augmente l’espacement entre les éléments */
+    border-radius: 8px;
+    width: 96%;
+    justify-content: flex-start;
+}
+
+/*  Ajustement du label principal */
+.time-input-container label{
+    font-size: 15px; /* ✅ Plus grand */
+    font-weight: bold;
+    margin-right: 5px;
+    margin-left: 10px;
+    pad: 2px;
+    
+}
+
+/*  Labels "Heures" et "Minutes" */
+.time-input-container label[for="heures"],
+.time-input-container label[for="minutes"] {
+    font-size: 14px; /* ✅ Plus grand */
+}
+
+
+/*  Effet au focus */
+.time-input-container input:focus {
+    outline: none;
+    box-shadow: 0px 0px 6px rgba(74, 143, 74, 0.5);
+}
+
+.time-input-container input[type="text"] {
+    width: 45px;
+    height: 35px;
+    max-width: 45px;
+    min-width: 45px;
+    padding: 4px;
+    box-sizing: border-box;
+    margin-right: 10px;
+}
+
+
+
+
+@media (max-width: 500px) {
+    .time-input-container {
+        
+        align-items: flex-start;
+    }
+
+    .time-input-container input[type="text"] {
+        min-width: 50px; 
+    }
+
+
+
+}
+
+
+
+
+/*************************************************/
+/********** STYLE DU FORMULAIRE recherche ********/
+/*************************************************/
+
+#type_rdv {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espacement entre le texte et les cases à cocher */
+}
+
+.checkbox-container {
+    display: flex;
+    gap: 10px; /* Espacement entre les cases à cocher */
+}
+
+
+
+
+/********************************************************/
+/********** STYLE DU FORMULAIRE LONG SUIVI *************/
+/******************************************************/
+
+#employeur{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+
+.label-employeur{
+  margin-right: 10%;
+}
+
+.radio-group-employeur {
+  display: flex;
+  gap: 15%;
+}
+
+.radio-group label,
+.radio-group-employeur label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#dossier_provenant{
+    gap: 10%;
+}
+
+#type_rdv .bold{
+    display: inline-block;
+}
+
+#employeur,
+#contact,
+#type_rdv,
+#type_rdv_radio,
+#question_utile,
+#reponse,
+#email,
+#commune_div,
+#thematique_generale,
+#activites-themes-container,
+#activite_reseau,
+#assoc_div,
+#nom_structure,
+#rdv_dans_la_cadre,
+#reponse_partagee_div,
+#insert_div,
+#temps_consacre,
+#nombre_rdv,
+#temps_h_mn,
+#assoc_div,
+#bloc_note_div,
+#piece_jointe_div,
+#insert_div,
+#accompagnement_recherche{
+    background: rgba(226, 252, 226, 0.7); /* Vert très clair translucide */
+    border: 2px solid #66c282; /* Bordure verte moyen-clair */
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(123, 194, 126, 0.3);
+    transition: all 0.3s ease-in-out;
+    color: #245c26; 
+}
+
+/* ✅ Effet au survol */
+
+#form-group-radio-bouton:hover,
+#reponse_partagee_div:hover, 
+#insert_div:hover,
+#longsuivi #employeur:hover
+#longsuivi #type_rdv:hover,
+#longsuivi #assoc_div:hover,
+#longsuivi #commune_div:hover,
+#longsuivi #activites-themes-container:hover,
+#longsuivi #activite_reseau:hover,
+#longsuivi #thematique_generale:hover,
+#longsuivi .form-group-radio-bouton:hover,
+#longsuivi #reponse_partagee_div:hover,
+#longsuivi #bloc_note_div:hover,
+#longsuivi #piece_jointe_div:hover, 
+#longsuivi #insert_div:hover,
+#longsuivi #dossier_provenant:hover,
+#longsuivi #type_rdv_radio:hover,
+#longsuivi #classification_guidasso:hover,
+#longsuivi #temps_consacre:hover,
+#longsuivi #temps_h_mn:hover,
+#longsuivi #rdv_dans_la_cadre:hover,
+#longsuivi #contact:hover,
+#longsuivi #email:hover,
+#longsuivi #nombre_rdv,
+#longsuivi #reponse:hover,
+#longsuivi #question_utile:hover,
+#longsuivi #accompagnement_recherche:hover{
+    background: rgba(220, 245, 220, 0.9);
+    box-shadow: 0 3px 10px rgba(172, 237, 192, 0.3);
+}
+
+/* ✅ Organisation des champs texte et cases à cocher */
+#longsuivi .form-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+/* ✅ Alignement des labels */
+#longsuivi .form-group label {
+    font-weight: bold;
+    font-size: 15px;
+    color: #245c26; /* Texte vert foncé */
+    flex: 0 0 180px;
+    text-align: left;
+    width: 47%;
+}
+
+/* ✅ Champs de saisie */
+#longsuivi input[type="text"],
+#longsuivi input[type="email"],
+#longsuivi input[type="number"],
+#longsuivi select,
+#longsuivi textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #66bb6a; /* Bordure verte moyenne */
+    border-radius: 6px;
+    font-size: 14px;
+    background: rgba(207, 249, 207, 0.8); /* Fond vert très pâle */
+    transition: all 0.3s ease-in-out;
+}
+
+/* ✅ Effet au focus */
+#longsuivi input:focus,
+#longsuivi select:focus,
+#longsuivi textarea:focus {
+    border-color: #2e7d32; /* Bordure verte foncée */
+    box-shadow: 0 0 6px rgba(46, 125, 50, 0.5);
+    outline: none;
+}
+
+/* ✅ Alignement spécifique pour les cases à cocher */
+#longsuivi .projetAsso,
+#longsuivi .nonCommunique,
+#longsuivi .horsDep {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+/* ✅ Agrandissement des cases à cocher */
+#longsuivi input[type="checkbox"] {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* ✅ Style des labels des cases à cocher */
+#longsuivi .projetAsso label,
+#longsuivi .nonCommunique label,
+#longsuivi .horsDep label {
+    font-size: 14px;
+    color: #245c26; /* Texte vert foncé */
+}
+
+/* ✅ Espacement pour la commune */
+#longsuivi #commune_div .form-group {
+    margin-bottom: 10px;
+}
+
+
+/********** Bouton Envoyer longsuivi **********/
+
+
+#longsuivi button {
+    width: 30%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #66c282;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;  /* S'assure qu'il prend toute la largeur disponible */
+    margin: 0 auto;  /* Centre horizontalement */
+    text-align: center; /* Centre le texte */
+}
+
+
+#longsuivi button:hover {
+    background-color: #4ba867;
+}
+
+
+/********************************************************/
+/********* STYLE DU FORMULAIRE EVENEMENT  **************/
+/******************************************************/
+
+/* ✅ Encadrés harmonieux pour les groupes d'informations */
+#evenement #commune_div,
+#evenement .activites-themes-container,
+#evenement .form-group-radio-bouton,
+#evenement #reponse_partagee_div,
+#evenement #bloc_note_div,
+#evenement #piece_jointe_div,
+#evenement #insert_div,
+#evenement #type_evenement,
+#evenement #thematique_generale,
+#evenement #titre_evenement,
+#evenement #temps_h_mn,
+#evenement #nombre_personne,
+#evenement #date,
+#evenement #commentaire,
+#evenement #feuille_evenement{
+    background: #d3e2f9 ;
+    border: 2px solid #3a7ee2; 
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px #bcd5ebbe;
+    transition: all 0.3s ease-in-out;
+    color: #36546d;
+}
+
+/* ✅ Effet au survol */
+#evenement #commune_div:hover,
+#evenement .activites-themes-container:hover,
+#evenement .form-group-radio-bouton:hover,
+#evenement #reponse_partagee_div:hover,
+#evenement #bloc_note_div:hover,
+#evenement #piece_jointe_div:hover, 
+#evenement #insert_div:hover,
+#evenement #type_evenement:hover,
+#evenement #thematique_generale:hover,
+#evenement #titre_evenement:hover,
+#evenement #nombre_personne:hover,
+#evenement #date:hover,
+#evenement #commentaire:hover,
+#evenement #feuille_evenement:hover,
+#evenement #classification_guidasso:hover,
+#evenement #temps_h_mn:hover,
+#evenement #classification_guidasso:hover{
+    background: #cad8ef;
+    box-shadow: 0 3px 10px #749dbec9;
+}
+
+/* ✅ Organisation des champs texte et cases à cocher */
+#evenement .form-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+/* ✅ Alignement des labels */
+#evenement .form-group label {
+    font-weight: bold;
+    font-size: 15px;
+    flex: 0 0 180px;
+    text-align: left;
+    color: #36546d;
+}
+
+
+/* ✅ Champs de saisie */
+#evenement input[type="text"],
+#evenement input[type="email"],
+#evenement input[type="number"],
+#evenement input[type="date"],
+#evenement select,
+#evenement textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid  #8abfebd2 ; 
+    border-radius: 6px;
+    font-size: 14px;
+    background: #8fbee4b6 ;; 
+    transition: all 0.3s ease-in-out;
+}
+
+/* ✅ Effet au focus */
+#evenement input:focus,
+#evenement select:focus,
+#evenement textarea:focus {
+    border-color:  #36546d ; /* Bordure verte foncée */
+    box-shadow: 0 0 6px rgba(46, 53, 125, 0.5);
+    outline: none;
+}
+
+/* ✅ Agrandissement des cases à cocher */
+#evenement input[type="checkbox"] {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* ✅ Style des labels des cases à cocher */
+#evenement .projetAsso label,
+#evenement .nonCommunique label,
+#evenement .horsDep label {
+    font-size: 14px;
+    color: #36546d; /* Texte vert foncé */
+}
+
+
+/* ✅ Alignement spécifique pour les cases à cocher */
+#evenement .horsDep {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+/* ✅ Agrandissement des cases à cocher */
+#evenement input[type="checkbox"] {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* ✅ Style des labels des cases à cocher */
+#evenement .horsDep label {
+    font-size: 14px;
+    color:  #36546d;
+}
+
+/* ✅ Espacement pour la commune */
+#evenement #commune_div .form-group {
+    margin-bottom: 10px;
+}
+
+/********** Bouton Envoyer evenement **********/
+
+
+#evenement button {
+    width: 30%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color:#3a7ee2;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;  /* S'assure qu'il prend toute la largeur disponible */
+    margin: 0 auto;  /* Centre horizontalement */
+    text-align: center; /* Centre le texte */
+}
+
+
+#evenement button:hover {
+    background-color:#2e60ab;
+}
+
+
+/********************************************************/
+/********* STYLE DU FORMULAIRE RECHERCHE  **************/
+/******************************************************/
+
+/* ✅ Encadrés harmonieux pour les groupes d'informations */
+
+#recherche #commune_div,
+#recherche .activites-themes-container,
+#recherche .form-group-radio-bouton,
+#recherche #reponse_partagee_div,
+#recherche #bloc_note_div,
+#recherche #piece_jointe_div,
+#recherche #insert_div,
+#recherche #thematique_generale,
+#recherche #commentaire,
+#recherche #fiche_synthese,
+#recherche #temps_h_mn{
+    background: #d3e2f9 ;
+    border: 2px solid #3a7ee2; 
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px #bcd5ebbe;
+    transition: all 0.3s ease-in-out;
+    color: #36546d;
+}
+
+/* ✅ Effet au survol */
+#recherche #commune_div:hover,
+#recherche .activites-themes-container:hover,
+#recherche .form-group-radio-bouton:hover,
+#recherche #reponse_partagee_div:hover,
+#recherche #bloc_note_div:hover,
+#recherche #piece_jointe_div:hover, 
+#recherche #insert_div:hover,
+#recherche #thematique_generale:hover,
+#recherche #commentaire:hover,
+#recherche #temps_h_mn:hover,
+#recherche #fiche_synthese:hover,
+#recherche #dossier_provenant:hover{
+    background: #cad8ef;
+    box-shadow: 0 3px 10px #749dbec9;
+}
+
+/* ✅ Style des labels des cases à cocher */
+#recherche .projetAsso label,
+#recherche .nonCommunique label,
+#recherche .horsDep label {
+    font-size: 14px;
+    color: #36546d; /* Texte vert foncé */
+}
+
+#fiche_synthese .bold-2{
+    max-width: 50%;
+    flex-wrap: wrap;
+    display: flex;
+}
+#fiche_synthese .radio-group{
+    max-width: 20%;
+   
+}
+
+/* ✅ Organisation des champs texte et cases à cocher */
+.form-groupRecherche {
+   display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    position: relative;
+    margin-bottom: 15px;
+    gap: 20px;
+}
+
+/* ✅ Alignement des labels */
+.form-groupRecherche label {
+    font-weight: bold;
+    font-size: 15px;
+    color: #36546d; 
+    text-align: left;
+    max-width: 50%;
+}
+
+
+/* ✅ Champs de saisie */
+#recherche input[type="text"],
+#recherche input[type="email"],
+#recherche input[type="number"],
+#recherche input[type="date"],
+#recherche select,
+#recherche textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid  #8abfebd2 ; 
+    border-radius: 6px;
+    font-size: 14px;
+    background: #8fbee4b6 ;; 
+    transition: all 0.3s ease-in-out;
+}
+
+/* ✅ Effet au focus */
+#recherche input:focus,
+#recherche select:focus,
+#recherche textarea:focus {
+    border-color: #36546d; /* Bordure verte foncée */
+    box-shadow: 0 0 6px rgba(46, 59, 125, 0.5);
+    outline: none;
+}
+
+
+/********** Bouton Envoyer recherche **********/
+
+
+#recherche button {
+    width: 30%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color:#3a7ee2;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;  /* S'assure qu'il prend toute la largeur disponible */
+    margin: 0 auto;  /* Centre horizontalement */
+    text-align: center; /* Centre le texte */
+}
+
+
+#recherche button:hover {
+    background-color:#2e60ab;
+}
+
+
+/********************************************************/
+/********** STYLE DU FORMULAIRE ANONYME *************/
+/******************************************************/
+#anonyme #employeur,
+#anonyme #contact,
+#anonyme #type_rdv_radio,
+#anonyme #type_rdv_radio,
+#anonyme #question_utile,
+#anonyme #reponse,
+#anonyme #email,
+#anonyme #thematique_generale,
+#anonyme #activites-themes-container,
+#anonyme #assoc_div,
+#anonyme #commune_div,
+#anonyme #rdv_dans_la_cadre,
+#anonyme #reponse_partagee_div,
+#anonyme #temps_h_mn,
+#anonyme #bloc_note_div,
+#anonyme #piece_jointe_div,
+#anonyme #accompagnement_recherche{
+    background: rgba(242, 211, 212, 0.7); /* Vert très clair translucide */
+    border: 2px solid #ae161f; /* Bordure verte moyen-clair */
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(194, 129, 123, 0.3);
+    transition: all 0.3s ease-in-out;
+    color: #632822; 
+}
+
+/* ✅ Effet au survol */
+#anonyme #employeur:hover,
+#anonyme #form-group-radio-bouton:hover,
+#anonyme #reponse_partagee_div:hover, 
+#anonyme #type_rdv_radio:hover,
+#anonyme #assoc_div:hover,
+#anonyme #commune_div:hover,
+#anonyme #activites-themes-container:hover,
+#anonyme #thematique_generale:hover,
+#anonyme .form-group-radio-bouton:hover,
+#anonyme #reponse_partagee_div:hover,
+#anonyme #bloc_note_div:hover,
+#anonyme #piece_jointe_div:hover, 
+#anonyme #dossier_provenant:hover,
+#anonyme #classification_guidasso:hover,
+#anonyme #temps_h_mn:hover,
+#anonyme  #rdv_dans_la_cadre:hover,
+#anonyme #contact:hover,
+#anonyme #email:hover,
+#anonyme #reponse:hover,
+#anonyme #question_utile:hover,
+#anonyme #accompagnement_recherche:hover{
+    background: rgba(245, 220, 220, 0.9);
+    box-shadow: 0 3px 10px rgba(229, 201, 202, 0.3);
+}
+
+/* ✅ Champs de saisie */
+#anonyme input[type="text"],
+#anonyme input[type="email"],
+#anonyme input[type="number"],
+#anonyme input[type="date"],
+#anonyme #themeG3,
+#anonyme textarea,
+#anonyme select,
+#anonyme .longueurraccourcie,
+#anonyme #Reponsepartagee1,
+#anonyme #Reponsepartagee{
+    width: 100%;
+    padding: 12px;
+    border: 2px solid  #edb1b1b6; 
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #edb1b1b6;
+    transition: all 0.3s ease-in-out;
+}
+
+
+
+/* ✅ Alignement des labels */
+#anonyme .form-group label {
+    font-weight: bold;
+    font-size: 14px;
+    flex: 0 0 180px;
+    text-align: left;
+    color:#632822;
+}
+
+/* ✅ Champs de saisie */
+#anonyme input[type="text"],
+#anonyme input[type="email"],
+#anonyme input[type="number"],
+#anonyme textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #a8212a; /* Bordure verte moyenne */
+    border-radius: 6px;
+    font-size: 14px;
+    background: #edb1b1b6; /* Fond vert très pâle */
+    transition: all 0.3s ease-in-out;
+}
+
+/* ✅ Style des labels des cases à cocher */
+#anonyme .projetAsso label,
+#anonyme .nonCommunique label,
+#anonyme .horsDep label {
+    font-size: 14px;
+    color: #632822; /* Texte vert foncé */
+}
+
+/* ✅ Effet au focus */
+#anonyme input:focus,
+#anonyme select:focus,
+#anonyme textarea:focus {
+    border-color: #a8212a; /* Bordure verte foncée */
+    box-shadow: 0 0 6px rgba(125, 46, 46, 0.5);
+    outline: none;
+}
+
+#anonyme input[type="text"]:not(:placeholder-shown),
+#anonyme input[type="email"]:not(:placeholder-shown),
+#anonyme input[type="number"]:not(:placeholder-shown),
+#anonyme textarea:not(:placeholder-shown),
+#anonyme select:not([value=""]):not([value="..."]) {
+    background-color: #f0c7c7 !important; /* Fond gris clair */
+    transition: background-color 0.3s ease-in-out;
+    border-color: #a8212a;
+}
+
+/* Revenir au blanc au focus*/ 
+#anonyme input[type="text"]:focus,
+#anonyme input[type="email"]:focus,
+#anonyme input[type="number"]:focus,
+#anonyme textarea:focus,
+#anonyme select:focus {
+    background-color: rgb(232, 204, 204) !important;
+}
+
+#anonyme button {
+    width: 30%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color:#b1433f;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;  /* S'assure qu'il prend toute la largeur disponible */
+    margin: 0 auto;  /* Centre horizontalement */
+    text-align: center; /* Centre le texte */
+}
+
+#anonyme button:hover {
+    background-color:#7e1c1c;
+}
+
+
+
+
+/******************************************************/
+/*************** FICHE ASSOC *************************/
+/*****************************************************/
+
+/* 📌 Conteneur des résultats */
+#results-container, #results-container1 {
+    max-width: 95%;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f8fdf8; /* Vert très clair et doux */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08); /* Ombre douce */
+    border-radius: 12px;
+    border: 1px solid #d4e9d4; /* Contour vert pastel */
+    overflow-x: auto;
+    transition: all 0.3s ease-in-out;
+}
+
+/* 🏆 Tableau */
+#results-container table, #results-container1 table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* 🟢 En-tête du tableau */
+#results-container th, #results-container1 th {
+    background: linear-gradient(90deg, #4a8f4a, #6dbf6d); /* Dégradé vert doux */
+    color: white;
+    text-transform: uppercase;
+    font-size: 14px;
+    text-align: center;
+    padding: 12px;
+    border-bottom: 2px solid #3b7c3b; /* Liseré vert foncé */
+}
+
+/* 📄 Cellules du tableau */
+#results-container td, #results-container td {
+    font-size: 14px;
+    color: #2d472d; /* Vert très foncé pour lisibilité */
+    padding: 12px;
+    border-bottom: 1px solid #cfe8cf; /* Contour doux */
+    text-align: center;
+}
+
+/* 🎨 Alternance des couleurs */
+#results-container tr:nth-child(even), #results-container1 tr:nth-child(even) {
+    background-color: #eef7ee; /* Vert très clair */
+}
+
+#results-container tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* ✨ Effet de survol UI/UX */
+#results-container tr:hover, #results-container1 tr:hover {
+    background-color: #d9f2d9; /* Vert pastel */
+    transition: background-color 0.3s ease-in-out;
+}
+
+
+
+/*****************************************************************************/
+/*************************** Autres  **************************************/
+/*****************************************************************************/
+
+
+
+/**************************************************************/
+/************************* FOOTER*****************************/
+/************************************************************/
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #90db68;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.5s ease, opacity 0.5s ease; /* Transition fluide pour cacher/afficher */
+    z-index: 1000;
+}
+/* Système dynamique de vue de bas de page */
+.hidden-footer {
+    transform: translateY(100%); /* Déplace le footer hors de l'écran */
+    opacity: 0; /* Rend le footer invisible */
+}
+
+.visible-footer {
+    transform: translateY(0); /* Réaffiche le footer */
+    opacity: 1; /* Rétablit la visibilité */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-text {
+    text-align: left;
+    color: black;
+}
+
+.footer-text p {
+    margin: 0;
+}
+
+.footer-image img {
+    max-width: 100px;
+    border-radius: 50%;
+}
+
+/*********************************************************/
+/*********************** BOUTON HOME  ********************/
+/*********************************************************/
+.btn-home {
+    margin-right: 435px;
+    position: relative;
+    border-radius: 25%;
+    transition: transform 0.3s ease;
+   margin-bottom: 50px;
+}
+
+.btn-home img:hover {
+    transform: scale(1.1);
+}
+
+.btn-home img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-top: 0;
+}
+
+/* désactive toute bordure résiduelle sur le bouton et l’image */
+.btn-home,
+.btn-home img {
+  border: none;
+  outline: none;
+}
+
+/****************************************************/
+/********** RESPONSIVE DESIGN  ********************/
+/*********************************************************/
+
+/********** ecran très petit 480px  ********************/
+
+/* PORTRAIT */
+@media only screen and (max-width: 480px)  {
+     .image-container img {
+        max-width: 70px; /* Taille réduite pour les petits écrans */
+    }
+    .btn-home {
+        margin-right: 235px;
+        margin-bottom: 50px;
+    }
+    .footer-text {
+        margin-right: 100px;
+    }
+
+}
+
+/**************** Paysage **********************/
+
+@media only screen and (max-width: 468px) and (orientation: landscape)  {
+
+    .footer-image img {
+        max-width: 50px; /* Taille adaptée pour les petits écrans */
+    }
+
+    .btn-home {
+        margin-right: 235px;
+    }
+     .footer-text {
+        margin-right: 100px;
+    }
+}
+
+
+/********** Tablettes 481 à 768px ********************
+/* PORTRAIT */
+@media only screen and (max-width: 768px) {
+
+    .btn-home {
+        margin-right: 335px;
+    }
+     .footer-text {
+        margin-right: 200px;
+    }
+}
+
+/* PAYSAGE */
+@media only screen and (max-width: 768px) and (orientation: landscape) {
+
+    .btn-home {
+        margin-right: 335px;
+    }
+     .footer-text {
+        margin-right: 200px;
+    }
+
+
+}
+
+/* Écrans moyens (768px à 1024px) */
+@media only screen and (max-width: 1024px) {
+    .btn-home {
+        margin-right: 335px;
+    }
+     .footer-text {
+        margin-right: 200px;
+    }
+    
+}
+
+

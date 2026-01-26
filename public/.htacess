@@ -1,0 +1,10 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+
+# Ne pas réécrire si c'est un fichier ou un dossier existant
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirection pour accéder aux fichiers PHP dans /views/
+RewriteRule ^([a-zA-Z0-9_-]+)\.php$ views/$1.php [L,QSA]

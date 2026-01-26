@@ -1,0 +1,1122 @@
+body {
+    font-family: 'Helvetica', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Style pour les images en haut*/
+.image-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px; /* Ajout de marge intérieure pour l'espace entre les images et le contenu */
+}
+  
+.image-container img {
+    width: 200px; /* Ajustez la largeur souhaitée pour les images */
+    height: auto;
+}
+/* Style du container dédié aux boutons reliés aux formulaires */
+.bouton-container {
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 2500px;
+    opacity: 0;
+    animation: fade-in 1s forwards;
+    margin-top: 0px;
+    margin-bottom: 50px;
+}
+
+.bouton-container h2 {
+    text-align: center;
+}
+
+
+/*Style des boutons du container 1*/
+.button-group {
+    opacity: 0;
+    animation: fade-in 1s forwards;
+    animation-delay: 0.5s;
+    text-align: center;
+}
+
+.button-group button {
+    display: inline-block; /* Afficher les boutons en ligne */
+}
+
+.label-group,
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fade-in 1s forwards;
+    animation-delay: 0.5s;
+    margin-bottom: 15px;
+}
+
+.label-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.input-group label {
+    margin-right: 10px;
+}
+
+button {
+    background-color: #2ecc71;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #27ae60;
+}
+
+
+/* Style du container dédié aux formulaires */
+.formulaire-container {
+    display: flex; /* Utiliser un conteneur flex */
+    flex-direction: column;
+    text-align: left; /* Aligner les éléments sur le côté gauche */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 3000px;
+    margin-top: 0px;
+    margin-bottom: 80px;
+}
+
+.activites-themes-container {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.colonne {
+    width: 50%; 
+}
+
+.theme-group {
+    margin-top: 5px; /* Espacement entre les checkboxes et le label */
+}
+.theme-group label {
+    display: block; /* Afficher chaque label sur une seule ligne */
+}
+.form-group {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Le titre prendra autant de place que nécessaire, le champ d'entrée prendra le reste */
+    grid-column-gap: 10px; /* Espacement horizontal entre les colonnes */
+    align-items: flex-start; /* Alignement vertical des éléments */
+    margin-bottom: 30px; /* Espacement vertical entre les groupes de champs */
+}
+
+.form-group label {
+    width: 300px; /* Largeur fixe pour les labels */
+    margin-right: 60px; /* Ajoute une marge à droite du label */
+}
+
+/*Radio button classification et type rendez vous */
+.form-group1 {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Le titre prendra autant de place que nécessaire, le champ d'entrée prendra le reste */
+    grid-column-gap: 5px; /* Espacement horizontal entre les colonnes */
+    align-items: flex-start; /* Alignement vertical des éléments */
+    margin-bottom: 25px; /* Espacement vertical entre les groupes de champs */
+}
+
+.form-group1 label {
+    width: 200px; /* Largeur fixe pour les labels */
+    margin-right: 40px; /* Ajoute une marge à droite du label */
+}
+.form-group1 label.bold {
+    display: inline-block; /* Afficher le label en ligne avec le texte */
+    width: auto; /* Supprimer la largeur fixe pour permettre au texte de s'adapter */
+    margin-right: 5px; /* Réduire la marge entre le texte et le point d'interrogation */
+}
+
+/*Ressouces recherche*/
+.form-group2 {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Le titre prendra autant de place que nécessaire, le champ d'entrée prendra le reste */
+    align-items: start; /* Alignement vertical des éléments */
+    margin-bottom: 25px; /* Espacement vertical entre les groupes de champs */
+}
+
+.form-group2 label.bold {
+    width: 500px; /* Supprimer la largeur fixe pour permettre au texte de s'adapter */
+    margin-right: 800px; /* Ajouter de l'espace entre le titre et les checkboxes */
+}
+
+.form-group2 .Ressources label {
+    margin: 0; /* Supprimer les marges des labels pour les checkboxes */
+}
+
+/* Mettre titre des questions en gras et à gauche */
+.formulaire-container label.bold {
+    font-weight: bold;
+    display: flex;
+    align-items : center;
+}
+
+/* Style des champs de saisie */
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="time"],
+    input[type="date"],
+    textarea {
+        width: 60%;
+        padding: 15px;
+        margin-bottom: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+select {
+    width: 55%;
+    padding: 15px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+select#Réponse {
+    width: calc(34% - 33px); /* ajuster cette valeur selon votre préférence */
+}
+select#evenement {
+    width: 300px; /* ajuster cette valeur selon votre préférence */
+}
+
+
+.longueurraccourcie {
+    width: 360px;
+}
+
+.longueurraccourcie2 {
+    width: 500px;
+}
+.radio-group {
+    display: flex;
+}
+
+.radio-group label {
+    margin-right: 5px;
+}
+
+.formulaire-container input[type="checkbox"] {
+    margin-bottom: 7px;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.checkbox-container label {
+    display: inline-block;
+    margin-right: 10px; /* Espacement entre les checkboxes */
+}
+/* styles champ obligatoire de checkboxe évènement*/
+.error {
+    color: black;
+    border: 1px solid black ;
+    padding: 10px ;
+    display: flex ;
+    align-items: center ;
+    background-color: white ;
+    margin-top: 10px ;
+    border-radius: 5px ;
+}
+
+
+
+.error-text {
+    flex-grow: 1 ;
+}
+/* styles champ obligatoire de checkboxe recherche*/
+.form-group2 .error {
+    color: black;
+    border: 1px solid black ;
+    padding: 10px ;
+    display: flex ;
+    align-items: center ;
+    background-color: white ;
+    margin-top: 10px ;
+    border-radius: 5px ;
+}
+
+.form-group2 .error-icon {
+    color: orange ;
+    margin-right: 10px ;
+    font-size: 1.5em ;
+}
+
+.form-group2 .error-text {
+    flex-grow: 1 ;
+}
+
+/*aligner les labels à gauche*/
+#evenement label,
+#recherche label,
+#longsuivi label {
+    display: block;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+#autreThemeContainer {
+    display: none;
+}
+
+#autreThemeContainer label {
+    font-weight: bold;
+}
+
+#autreTheme {
+    width: 34%; /* largeur du champ de saisie autre*/
+}
+#autreThemeContainer1 {
+    display: none;
+}
+
+#autreThemeContainer1 label {
+    font-weight: bold;
+}
+
+#autreTheme1 {
+    width: 34%; /* largeur du champ de saisie autre*/
+}
+#autreThemeContainer2 {
+    display: none;
+}
+
+#autreThemeContainer2 label {
+    font-weight: bold;
+    display: inline-block; /* Afficher le label en ligne */
+}
+
+#autreThemeContainer2 input[type="text"] {
+    display: inline-block; /* Afficher le champ de saisie en ligne */
+    vertical-align: middle; /* Aligner verticalement au milieu */
+    width: 33%;
+}
+#autreThemeContainer3 {
+    display: none;
+}
+
+#autreThemeContainer3 label {
+    font-weight: bold;
+    display: inline-block; /* Afficher le label en ligne */
+}
+
+#autreThemeContainer3 input[type="text"] {
+    display: inline-block; /* Afficher le champ de saisie en ligne */
+    vertical-align: middle; /* Aligner verticalement au milieu */
+    width: 33%;
+}
+
+/* Centrer le bouton envoyer */
+.center-button {
+    display: block;
+    margin: 0 auto; /* Cela centre horizontalement le bouton */
+}
+
+/* Boutons page admin & déconnexion en haut à droite*/
+.admin-button-container {
+    display: flex;
+    justify-content: flex-end; /* Alignement des éléments à droite */
+    align-items: center; /* Alignement vertical au centre */
+    margin-bottom: 10px; /* Espace sous le container */
+    flex-wrap: nowrap; /* Empêcher le retour à la ligne des éléments */
+    font-family: 'Helvetica', sans-serif;
+}
+
+.admin-button-container a {
+    margin-left: 15px;
+    margin-right:15px;
+    padding: 12px 12px; /* Ajoutez le padding pour définir la taille des boutons */
+    font-size: 14px; /* Définissez la taille de la police */
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Style pour le contenu de la page */
+#content {
+    padding-bottom: 120px; /* La hauteur du footer + un espace supplémentaire */
+    margin-bottom: 80px; /* Hauteur du footer + un espace supplémentaire pour éviter le chevauchement */
+}
+ 
+
+/*bouton aide*/
+/* Ajout de styles pour le conteneur */
+.input-container {
+    display: flex;
+    align-items: center; /* Pour aligner les éléments verticalement */
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 150%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.tooltip-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.etoile {
+    color: red;
+}
+
+button[type="submit"] {
+        width: 100px; /* Choisissez la largeur désirée */
+        margin: 0 auto; /* Les marges automatiques centreront le bouton horizontalement */
+}
+
+/* Style pour la boîte de suggestions */
+.suggestions-box {
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    max-height: 150px; /* Limite la hauteur pour éviter le débordement */
+    max-width: 250px; 
+    overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
+    margin-top: 5px; /* Ajoute un peu d'espace au-dessus */
+    margin-left: 230px;
+    padding: 5px;
+    background-color: #d2edd0; /* Couleur de fond */
+}
+
+/* Style pour les éléments de la liste de suggestions */
+.suggestions-box ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+/* Masquer la boîte de suggestions par défaut */
+.suggestions-box {
+    display: none;
+}
+
+/* Afficher la boîte de suggestions lorsqu'un champ de saisie a le focus */
+input[type="text"]:focus + .suggestions-box {
+    display: block;
+}
+
+/* Masquer la boîte de suggestions lorsque vous cliquez en dehors des champs de saisie */
+input[type="text"]:not(:focus) + .suggestions-box {
+    display: none;
+}
+/*css temps consacré*/
+
+.time-input-container {
+    display: flex;
+    align-items: center; /* Aligner les éléments verticalement sur la même ligne */
+    margin-bottom: 1px; /* Espacement sous le conteneur */
+}
+
+.time-input-container label.bold {
+    margin-right: 5px; /* Réduit la marge à droite du label Temps consacré */
+}
+
+.time-input-container table {
+    margin-left: 160px; /* Augmente la marge gauche de la table */
+}
+
+.time-input-container label.bold,
+.time-input-container label[for="heures"],
+.time-input-container label[for="minutes"] {
+    margin-bottom: 0; /* Supprime l'espacement en bas des labels */
+}
+
+.time-input-container input[type="text"] {
+    margin-left: 5px; /* Réduit la marge à gauche des champs d'entrée */
+}
+
+
+
+
+/*page connexion*/
+
+
+
+.title-container {
+    display: flex;
+    align-items: center;
+}
+.container {
+    display:flow-root;
+    align-items:center;
+    justify-content:center;
+    max-width: 480px;
+    width: 100%;
+    border: 12px  ;
+    background-color: #ffffff;
+    padding: 20px 50px 1px; /* écart de remplissage premier px en hauteur et deuxième px en largeur */ 
+    border-radius: 10px;
+    box-shadow: 1 5px 10px rgba(0,0,0,0.15);
+    margin: auto;  
+    margin-top: 2%;                 /* marge haute du div (bloc) */ 
+    margin-bottom: 3%;            /* marge basse du div (bloc) */ 
+    position: relative;
+    z-index: 1; /* Assure que le contenu est au-dessus du footer fixe */
+    padding-bottom: 60px;  /* Ajoutez une marge basse équivalente à la hauteur du footer */
+} 
+
+/* Génère les espaces entre les titres */
+.container .titre{
+    font-family:Arial,  sans-serif;
+    font-size:  30px;
+    font-weight: 700;
+    text-align: center;
+    position:relative;
+    margin-bottom: 20px; /* Ajoute un espace en bas du titre */
+}   
+
+form .button{
+    height: 45px;
+    margin: 35px;
+}
+
+form .button input{
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #90db68,   #90db68)
+}
+
+form .button input:hover{
+    background: linear-gradient(135deg,#90db68,#90db68);
+}
+
+
+/* CSS Page administrateur*/
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: justify;
+    gap: 15px; /* Espacement entre les éléments */
+}
+
+
+#dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 700px; /* Ajustez la largeur maximale selon vos besoins */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px; /* Ajoutez de l'espace entre le formulaire de connexion et le tableau de bord */
+    opacity: 0;
+    animation: fade-in 1s forwards;
+    animation-delay: 0.5s; /* Ajoutez un délai pour l'animation */
+}
+
+#buttons-container {
+    display: flex;
+    justify-content: space-evenly; /* Ajustez la propriété pour obtenir l'espacement souhaité */
+    margin-top: 20px; /* Ajoutez de l'espace entre le texte et les boutons */
+    gap: 10px; /* Ajoutez un espace entre chaque bouton */
+    position: relative;
+}
+
+.dashboard-button1 {
+    background-color: #e3cd0c;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s; 
+}
+
+.dashboard-button1:hover {
+    background-color: #c9a30b;
+}
+
+.dashboard-button {
+    background-color: #2ecc71;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s; 
+}
+
+.dashboard-button:hover {
+    background-color: #27ae60;
+}
+
+#dashboard .dashboard-title {
+    text-align: center;
+    margin-bottom: 20px; /* Ajoutez de l'espace en bas du titre */
+}
+.user-details1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Espacement entre les champs */
+}
+
+.input-box1, .input-box4 {
+    display: flex;
+    flex-direction: row; /* Affiche les éléments en ligne */
+    align-items: center;
+    justify-content: center; /* Centre les éléments horizontalement */
+    width: 100%;
+}
+
+.input-box1 label, .input-box4 label {
+    margin-right: 15px; /* Ajoute un espacement entre le label et le champ de texte */
+}
+
+.input-box1 input, .input-box4 input {
+    width: 350px; 
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 30px; 
+}
+
+.user-details2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Espacement entre les champs */
+}
+
+.input-box2 {
+    display: flex;
+    flex-direction: row; /* Affiche les éléments en ligne */
+    align-items: center;
+    justify-content: flex-start; /* Centre les éléments horizontalement */
+    width: 100%;
+}
+
+.input-box2 select {
+    width: 100%; 
+    padding: 6px;
+    margin-bottom: 16px;
+    margin-left: -20%;
+    margin-right: 0%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 30px;
+}
+
+.input-box2 label {
+    text-align: left;
+    margin-right: 10px; /* Ajoute un espacement entre le label et le champ de texte */
+}
+
+.input-box2 input {
+    width: 800px;
+    padding: 12px;
+    margin-bottom: 16px;
+    margin-left: -20%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 30px;
+}
+
+.user-details3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Espacement entre les champs */
+}
+
+.input-box3 {
+    display: flex;
+    flex-direction: row; /* Affiche les éléments en ligne */
+    align-items: center;
+    justify-content: center; /* Centre les éléments horizontalement */
+    width: 100%;
+}
+
+.input-box3 label {
+    margin-right: 10px; /* Ajoute un espacement entre le label et le champ de texte */
+}
+
+#ModifUser{
+    margin-top: 20px; 
+    margin-bottom: 80px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 670px; 
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Style pour le formulaire d'ajout de personne */
+#add-user-form-container,
+#ModifUser {
+    margin-top: 20px; 
+    margin-bottom: 80px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 670px; 
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#add-user-form label, 
+#modif-user-form label{
+    display: inline-block;
+    width: 50%; 
+    margin-bottom: 5px;
+}
+
+#add-user-form input,
+#add-user-form select,
+#modif-user-form input,
+#modif-user-form select {
+    width: 50%; 
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#add-user-form button,
+#modif-user-form button {
+    background-color: #2ecc71;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#add-user-form button:hover, 
+#modif-user-form button:hover {
+    background-color: #27ae60;
+}
+
+.classification-options {
+    display: flex;
+    flex-direction: row; /* Affiche chaque option de classification en ligne */
+}
+
+.classification-options label {
+    display: flex;
+    flex-direction: column; /* Affiche chaque option de classification en colonne */
+    justify-content: flex-end; /* Décale les boutons radios à droite */
+}
+
+.classification-options input {
+    margin-right: 10px; /* Ajoute un espacement entre le bouton radio et le texte */
+}
+.classification-label {
+    margin-bottom: 30px; /* Ajoute un espace entre le label et les options de classification */
+}
+.input-box2 label,
+.input-box3 label.classification-label {
+    font-weight: bold; /* Rend les labels des champs en gras */
+}
+
+
+#import-export-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px; 
+    margin-bottom: 80px;
+    border: 1px solid #ddd;
+    max-width: 670px; 
+    width: 80%;
+     
+}
+
+.import-export-form {
+    display: flex;
+    flex-direction: row; /* Aligner les boutons horizontalement */
+    justify-content: center;
+    align-items: center;
+}
+.import-export-form button {
+    margin-right: 10px; /* Ajoute un espace à droite du bouton "Export" */
+}
+
+.import-export-form button:last-child {
+    margin-right: 0; /* Retire la marge à droite du dernier bouton */
+}
+
+/* Media queries pour les téléphones */
+@media only screen and (max-width: 767px) {
+    #login-form,
+    #dashboard,
+    #add-user-form {
+        max-width: 100%;
+    }
+
+    .input-box1,
+    .input-box1 input {
+        width: 100%;
+    }
+
+    .classification-options label {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+
+
+/* Style pour le pied de page */
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #90db68;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.5s ease, opacity 0.5s ease; /* Transition fluide pour cacher/afficher */
+    z-index: 1000;
+}
+/* Système dynamique de vue de bas de page */
+.hidden-footer {
+    transform: translateY(100%); /* Déplace le footer hors de l'écran */
+    opacity: 0; /* Rend le footer invisible */
+}
+
+.visible-footer {
+    transform: translateY(0); /* Réaffiche le footer */
+    opacity: 1; /* Rétablit la visibilité */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-text {
+    text-align: left;
+    color: black;
+}
+
+.footer-text p {
+    margin: 0;
+}
+
+.footer-image img {
+    max-width: 100px;
+    border-radius: 50%;
+}
+
+/* Media queries pour les téléphones */
+@media only screen and (max-width: 390px) {
+    body {
+        font-size: 14px; /* Ajuster la taille de la police pour les petits écrans */
+    }
+
+    .container {
+        margin: 0; /* Réinitialiser la marge */
+        padding: 10px; /* Ajouter de la marge intérieure */
+    }
+
+    .titre {
+        font-size: 24px; /* Ajuster la taille du titre pour une meilleure lisibilité */
+    }
+
+    .image-container img {
+        width: 100%; /* Ajuster la largeur des images pour qu'elles occupent toute la largeur du conteneur */
+        height: auto; /* Garder le rapport hauteur-largeur */
+    }
+
+    .bouton-container {
+        margin-top: 10px; /* Réduire l'espacement en haut du container */
+        margin-bottom: 20px; /* Réduire l'espacement en bas du container */
+        padding: 10px; /* Réduire l'espacement intérieur */
+    }
+
+    .button-group button {
+        margin-bottom: 10px; /* Espacement entre les boutons */
+    }
+
+    .formulaire-container {
+        margin: 10%; /* Réduire la marge autour du formulaire */
+        padding: 10%; /* Réduire l'espacement intérieur du formulaire */
+    }
+
+    .form-group,
+    .form-group1,
+    .form-group2 {
+        margin-bottom: 10px; /* Réduire l'espacement entre les groupes de champs */
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="time"],
+    input[type="date"],
+    textarea,
+    select {
+        width: 100%; /* Ajuster la largeur des champs de saisie */
+    }
+
+    .center-button {
+        text-align: center; /* Centrer le bouton */
+    }
+
+    .admin-button-container a {
+        margin: 5px; /* Réduire l'espacement entre les boutons */
+    }
+
+    .time-input-container table {
+        margin-left: 0; /* Réinitialiser la marge gauche de la table */
+    }
+
+    .import-export-form-container,
+    #add-user-form-container, 
+    #ModifUser {
+        width: auto; /* Ajuster la largeur automatiquement */
+        padding: 10px; /* Réduire l'espacement intérieur */
+        margin: 10px; /* Réduire la marge */
+    }
+
+    .input-box2 select {
+        margin-left: 0; /* Réinitialiser la marge gauche du select */
+    }
+
+    .classification-options label {
+        align-items: flex-start; /* Aligner les options en haut */
+    }
+
+    #footer {
+        padding: 10px; /* Réduire le rembourrage du pied de page */
+    }
+
+    .footer-image img {
+        max-width: 80px; /* Réduire la taille de l'image du pied de page */
+    }
+
+    .radio-group label {
+        display: block;
+        margin-bottom: 10px; /* Ajouter un espacement entre les boutons radio */
+    }
+    
+
+}
+/********************************************************************/
+/*************************PARTIE ADMIN *****************************/
+/*******************************************************************/
+
+/*********FORMS********/
+/* Conteneur principal du formulaire de suppression */
+
+#delete-user-form-container input#delete-email {
+    width: 70%; /* Largeur spécifique */
+    padding: 10px;
+    margin-top: 30px; /* Ajustez la marge selon vos besoins */
+    border: 1px solid #e0a0a0;
+    background-color: #fff5f5;
+}
+#delete-user-form-container input#delete-email {
+    width: 70% !important;
+    padding: 10px !important;
+    margin-top: 30px !important;
+    border: 1px solid #e0a0a0 !important;
+    background-color: #fff5f5 !important;
+}
+
+/* Conteneur du tableau */
+#visionneuse-container {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Tableau spécifique à visionneuse-container */
+#visionneuse-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+#visionneuse-container th, 
+#visionneuse-container td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+#visionneuse-container th {
+    background-color: #006400; /* Vert foncé */
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    text-align: center;
+}
+
+#visionneuse-container td {
+    font-size: 14px;
+    color: #333;
+}
+
+#visionneuse-container tr:nth-child(even) {
+    background-color: #f2f2f2; /* Gris clair */
+}
+
+#visionneuse-container tr:hover {
+    background-color: #e6ffe6; /* Vert très clair */
+}
+
+#main-content {
+    max-width: 800px; /* Largeur maximale du contenu principal */
+    width: 90%; /* Largeur relative pour un affichage adaptatif */
+    margin: 0 auto; /* Centre le contenu */
+    padding-bottom: 70px; /* Espace pour éviter le chevauchement avec le footer */
+    box-sizing: border-box;
+}
+
+
+
+/*****************************************************************************/
+/**************** MESSAGES D'ERREURS ou de SUCCES ****************************/
+/*****************************************************************************/
+
+/* Conteneur d'erreurs */
+.error-container {
+    margin: 8px auto;
+    max-width: 1000px; /* Aligné au conteneur du formulaire */
+    background-color: #fff4f4;
+    color: #d9534f;
+    border: 1px solid #d43f3a;
+    border-radius: 5px;
+    padding: 13px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+.error-message-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.error-icon {
+    font-size: 1.5em;
+    color: #d9534f;
+}
+
+.success-container {
+    margin: 10px auto;
+    max-width: 1000px; /* Aligné au conteneur du formulaire */
+    background-color: #f4fff4;
+    color: #5cb85c;
+    border: 1px solid #4cae4c;
+    border-radius: 5px;
+    padding: 13px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+.success-message-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.success-icon {
+    font-size: 1.5em;
+    color: #5cb85c;
+}

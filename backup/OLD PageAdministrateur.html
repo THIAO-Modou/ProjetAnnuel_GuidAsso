@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion Utilisateur</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+
+<body>
+
+    <h3>
+        <!--image en haut à droite-->
+        <!--img src="guid'asso.jpg" class="top-right-image"-->
+        <div class="image-container">
+            <img src="LogoRéseau1.png">
+            <img src="LogoInformation.png">
+            <img src="LogoOrientation1.png">
+            <img src="LogoAccompagnementG1.png">
+        </div>
+        <br><br>
+    </h3>
+
+         <!-- Tableau de bord -->
+    <section id="dashboard" class="dashboard" style="display: block;">
+        <h1 class="dashboard-title">Gestion Utilisateur </h1>
+
+
+        <!-- Boutons -->
+        <div id="buttons-container" class="buttons-container">
+            <button class="dashboard-button" onclick="showAddUserForm()">Ajout Personne</button>
+            <button class="dashboard-button" onclick="showImportExportForm()">Gestion BDD</button>
+            <button class="dashboard-button" onclick="generateMap()">Générer Cartographie</button>
+            <button id="logout-button" class="logout-button" onclick="logout()">Déconnexion</button>
+        </div>
+
+    </section>
+
+    <!-- Formulaire d'ajout de personne -->
+<div id="add-user-form-container" class="add-user-container" style="display: none;">
+    <section id="add-user-form" class="add-user-form">
+       <!--<h2>Ajouter une personne</h2> -->
+       <form id="user-form" action="Inscription.php" method="post">
+        <div class="user-details2">
+            <div class="input-box2">
+                <label for="nom">Nom :</label>
+                <input type="text" id="nom" name="nom" required>
+            </div>
+            <div class="input-box2">
+                <label for="prenom">Prénom :</label>
+                <input type="text" id="prenom" name="prenom" required>
+            </div>
+            <div class="input-box2">
+                <label for="email">Adresse mail :</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-box2">
+                <label for="role">Rôle :</label>
+                <select id="role" name="role">
+                    <option value="1">Utilisateur</option>
+                    <option value="2">Administrateur</option>
+                </select>
+            </div>
+            <div class="input-box3">
+                <label for="classification" class="classification-label">Classification Guid'Asso :</label>
+                <div class="classification-options">
+                    <label>
+                        <input type="radio" class="classification" name="classification" value="orientation"> Orientation
+                    </label>
+                    <label>
+                        <input type="radio" class="classification" name="classification" value="info"> Information
+                    </label>
+                    <label>
+                        <input type="radio" class="classification" name="classification" value="accompagnementG"> Accompagnement Généraliste
+                    </label>
+                    <label>
+                        <input type="radio" class="classification" name="classification" value="accompagnementSpe"> Accompagnement Spécialiste
+                    </label>
+                    <label>
+                        <input type="radio" class="classification" name="classification" value="autre"> Autre
+                    </label>
+                </div>
+            </div>
+            <button type="submit">Envoyer</button>
+        </div>
+    </form>
+    </section>
+</div>
+
+ <!--<h2>Gestion BDD</h2> -->
+ <div id="import-export-form-container" class="import-export-container" style="display: none;">
+    <section id="import-export-form" class="import-export-form">
+        <button class="dashboard-button" onclick="importData()">Import</button>
+        <button class="dashboard-button" onclick="exportToExcel()">Export</button>
+    </section>
+</div>
+    
+<script src="script.js"></script>
+
+    <!--BANDEROLE FIN DE PAGE-->
+    <section id="footer" class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                <p>Guid'Asso</p>
+                <p>Patrice Mancino : 06 07 08 09 10</p>
+                <p>Assistance client : vieasso86@gmail.com</p>
+            </div>
+            <div class="footer-image">
+                <img src="vienneA.png" alt="Logo">
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

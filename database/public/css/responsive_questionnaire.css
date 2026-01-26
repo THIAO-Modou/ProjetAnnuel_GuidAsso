@@ -1,0 +1,287 @@
+/* ✅ MODE PORTRAIT : 2 BOUTONS PAR LIGNE, TEXTE CENTRÉ */
+@media screen and (max-width: 1024px) and (orientation: portrait) {
+    #dashboard {
+        width: 100%;
+        max-width: 850px;
+        padding: 20px;
+    }
+    
+
+    /* 📌 Conteneur des boutons : Deux par ligne */
+    #buttons-container {
+        display: flex !important;
+        flex-wrap: wrap !important; 
+        justify-content: center !important; 
+        gap: 20px !important;
+    }
+
+    /* 📌 Styles des boutons */
+    .dashboard-button-green,
+    .dashboard-button-purple,
+    .dashboard-button-pink,
+    .dashboard-button-blue,
+    .dashboard-button-red {
+        width: 47% !important;
+        max-width: 380px !important;
+        height: 90px !important;
+        font-size: 26px !important;
+        font-weight: bold !important;
+        text-align: center !important;
+        display: flex !important;
+        align-items: center !important; /* ✅ Centre verticalement */
+        justify-content: center !important; /* ✅ Centre horizontalement */
+        padding: 10px !important;
+        border-radius: 6px !important; /* ✅ Réduction de l’arrondi */
+        line-height: 1.2 !important; /* ✅ Ajuste la hauteur de ligne */
+        text-wrap: balance !important; /* ✅ Optimise le retour à la ligne */
+        transition: all 0.3s ease-in-out !important;
+    }
+
+    /* 📌 Effet au survol */
+    .dashboard-button-green:hover,
+    .dashboard-button-purple:hover,
+    .dashboard-button-pink:hover,
+    .dashboard-button-blue:hover,
+    .dashboard-button-red:hover {
+        transform: scale(1.05) !important;
+        filter: brightness(90%) !important;
+    }
+
+    /***** FORMULAIRE ****/
+
+    #QR .bold {
+        font-weight: bold;
+        font-size: 22px !important;
+        display: block;
+        margin-bottom: 5px;
+        color: #205f35;
+    }
+
+    #QR,
+    .formulaire-container-vert {
+        max-width: 98% !important; /* ✅ Prend quasiment toute la largeur */
+        width: 98% !important;
+        padding: 30px !important; /* ✅ Plus de confort */
+        font-size: 20px !important; /* ✅ Texte bien lisible */
+        border-radius: 10px !important; /* ✅ Design arrondi mais pas trop */
+    }
+
+    /* 📌 Agrandissement des champs de texte */
+    #QR input[type="text"],
+    #QR input[type="email"],
+    #QR select,
+    #QR textarea,
+    .formulaire-container-vert input[type="text"],
+    .formulaire-container-vert input[type="email"],
+    .formulaire-container-vert select,
+    .formulaire-container-vert textarea {
+        font-size: 20px; /* ✅ Texte encore plus lisible */
+        padding: 16px !important; /* ✅ Plus de confort */
+        border-radius: 10px !important;
+    }
+
+    /* 📌 Boutons plus grands */
+    #QR button,
+    .formulaire-container-vert button {
+        width: 100% !important; /* ✅ Pleine largeur */
+        font-size: 22px !important; /* ✅ Texte plus grand */
+        padding: 18px !important;
+        border-radius: 10px !important;
+    }
+}
+
+
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+   
+    
+    /* MODE PAYSAGE : 3 BOUTONS PAR LIGNE, TEXTE CENTRÉ */
+    #dashboard {
+        width: 100%;
+        max-width: 90vw;
+        padding: 20px;
+    }
+
+    /* 📌 Conteneur des boutons : Trois par ligne */
+    #buttons-container {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 20px !important;
+    }
+
+    /* 📌 Styles des boutons */
+    .dashboard-button-green,
+    .dashboard-button-purple,
+    .dashboard-button-pink,
+    .dashboard-button-blue,
+    .dashboard-button-red {
+        width: 30% !important;
+        max-width: 350px !important;
+        height: 90px !important;
+        font-size: 24px !important;
+        font-weight: bold !important;
+        text-align: center !important;
+        display: flex !important;
+        align-items: center !important; /* ✅ Centre verticalement */
+        justify-content: center !important; /* ✅ Centre horizontalement */
+        padding: 10px !important;
+        border-radius: 6px !important; /* ✅ Réduction de l’arrondi */
+        line-height: 1.2 !important; /* ✅ Ajuste la hauteur de ligne */
+        text-wrap: balance !important; /* ✅ Optimise le retour à la ligne */
+        transition: all 0.3s ease-in-out !important;
+    }
+
+    /* 📌 Effet au survol */
+    .dashboard-button-green:hover,
+    .dashboard-button-purple:hover,
+    .dashboard-button-pink:hover,
+    .dashboard-button-blue:hover {
+        transform: scale(1.05) !important;
+        filter: brightness(95%) !important;
+    }
+
+    .colonne select{
+        min-width: 25%;
+    }
+
+}
+
+/********** ecran très petit 480px  ********************/
+
+/* PORTRAIT */
+@media only screen and (max-width: 480px)  {
+    body {
+        font-size: 14px;
+        padding: 5px; /* Réduction des marges */
+    }
+
+    .image-container img {
+        max-width: 90px; /* Taille réduite pour les petits écrans */
+    }
+
+    #footer {
+        font-size: 5px;
+        padding: 0px;
+    }
+
+    #footer-img img{
+        width: 100px;
+         
+    }
+
+}
+
+/**************** Paysage **********************/
+
+@media only screen and (max-width: 468px) and (orientation: landscape)  {
+    body {
+        font-size: 14px;
+        padding: 5px; /* Réduction des marges */
+    }
+
+    .image-container img {
+        max-width: 70px; /* Taille réduite pour les petits écrans */
+    }
+
+    #footer {
+        position: fixed; /* Fixe le footer en bas de l'écran */
+        bottom: 0; /* Place le footer tout en bas */
+        left: 0; /* Aligne le footer au bord gauche */
+        width: 100%; /* S'étend sur toute la largeur */
+        background-color: #90db68;
+        font-size: 5px;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Ajoute une légère ombre pour le contraste */
+    }
+
+    .footer-content {
+        display: flex;
+        flex-direction: row; /* Place les éléments horizontalement */
+        justify-content: space-between; /* Espacement entre les blocs */
+        align-items: center;
+        max-width: 1200px; /* Limite la largeur maximale pour les grands écrans */
+        margin: 0 auto; /* Centre le contenu */
+    }
+
+    .footer-text {
+        text-align: left; /* Texte aligné à gauche */
+    }
+
+    .footer-image img {
+        max-width: 50px; /* Taille adaptée pour les petits écrans */
+    }
+}
+
+
+/********** Tablettes 481 à 768px ********************
+/* PORTRAIT */
+@media only screen and (max-width: 768px) {
+
+    #footer{
+        max-height: 100px;
+    }
+
+    .footer-content {
+        flex-direction: column; /* Empile les blocs du footer */
+        text-align: center;
+    }
+    
+    .footer-text {
+        text-align: center; /* Texte centré sur petits écrans */
+    }
+    
+    .footer-image img {
+        max-width: 50px; /* Réduit la taille des images */
+    }
+
+    .image-container img {
+        max-width: 70px; /* Taille réduite pour les petits écrans */
+    }
+
+
+}
+
+/* PAYSAGE */
+@media only screen and (max-width: 768px) and (orientation: landscape) {
+
+    #footer {
+        position: fixed; /* Fixe le footer en bas de l'écran */
+        bottom: 0; /* Place le footer tout en bas */
+        left: 0; /* Aligne le footer au bord gauche */
+        width: 100%; /* S'étend sur toute la largeur */
+        background-color: #90db68;
+        font-size: 12px;
+        padding: 10px;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Ajoute une légère ombre pour le contraste */
+    }
+
+    .footer-content {
+        display: flex;
+        flex-direction: row; /* Place les éléments horizontalement */
+        justify-content: space-between; /* Espacement entre les blocs */
+        align-items: center;
+        max-width: 1200px; /* Limite la largeur maximale pour les grands écrans */
+        margin: 0 auto; /* Centre le contenu */
+    }
+
+    .footer-text {
+        text-align: left; /* Texte aligné à gauche */
+    }
+
+    .footer-image img {
+        max-width: 70px; /* Taille adaptée pour les petits écrans */
+    }
+
+    .image-container img {
+        max-width: 70px; /* Taille réduite pour les petits écrans */
+    }
+
+
+}
+
+/* Écrans moyens (768px à 1024px) */
+@media only screen and (max-width: 1024px) {
+    #footer {
+        font-size: 12px;
+        padding: 10px;
+    }
+}

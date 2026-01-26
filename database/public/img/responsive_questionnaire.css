@@ -1,0 +1,208 @@
+
+/******************************************************************************/
+/******************************* RESPONSIVE DESIGN ***************************/
+/****************************************************************************/
+
+/* Tablettes en mode portrait et smartphones en mode paysage (largeur maximale de 768px)*/ 
+
+@media screen and (max-width: 767px) {
+
+    body {
+        padding-bottom: 120px;
+    }
+    .image-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap; /* Permet le retour à la ligne si nécessaire */
+        gap: 5px; /* Réduit l’espace entre les images */
+        padding: 5px;
+    }
+
+    .image-container img {
+        width: 80px; /* ✅ Réduit la taille des images */
+        height: auto;
+    }
+
+    /* ✅ Formulaires optimisés */
+    form {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    /****** DASHBOARD BUTTONS ******/ 
+
+    #buttons-container {
+        flex-direction: column; /* Empile les boutons verticalement sur petits écrans */
+        gap: 10px; /* Réduit l'espacement entre les boutons */
+    }
+
+    .dashboard-button {
+        width: 80%; /* Rend les boutons plus larges sur petits écrans */
+        max-width: 300px;
+    }
+
+    .dashboard-button-green, .dashboard-button-red, .dashboard-button-blue, .dashboard-button-purple {
+        width: 80%; /* Rend les boutons plus larges sur petits écrans */
+        max-width: 300px;
+    }
+
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="time"],
+    input[type="date"],
+    textarea,
+    select {
+        width: 100%;
+    }
+
+    label.show-password {
+        align-items: center; /* Aligne à gauche */
+        font-size: 12px; /* Réduit la taille de la police */
+        margin-top: 10px; /* Ajoute de l'espace entre le champ mot de passe et la case */
+        gap: 0; /* Supprime l'espace horizontal */
+    }
+
+    label.show-password input[type="checkbox"] {
+        margin-bottom: 5px; /* Espace entre la case et le texte */
+    }
+
+
+    
+    #visionneuse-container {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    #visionneuse-container th,
+    #visionneuse-container td {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    #add-user-form-container,
+    #delete-user-form-container,
+    #modif-user-form-container {
+        max-width: 100%;
+        padding: 10px;
+        margin: 10px;
+    }
+
+}
+
+/******************* Smartphones (largeur maximale de 480px) *******************/
+@media screen and (max-width: 480px) {
+
+    body {
+        padding-bottom: 120px;
+        font-size: 18px; /* Augmente la taille globale du texte */
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap; /* Permet le retour à la ligne si nécessaire */
+        gap: 5px; /* Réduit l’espace entre les images */
+        padding: 5px;
+    }
+
+    .image-container img {
+        width: 80px; /* ✅ Réduit la taille des images */
+        height: auto;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px; /* Espace accru entre les champs pour une meilleure ergonomie */
+    }
+
+    label {
+        font-size: 20px; /* Taille du texte des labels augmentée */
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="time"],
+    input[type="date"],
+    textarea,
+    select {
+        width: 100%;
+        padding: 15px; /* Augmente la zone cliquable des champs */
+        font-size: 18px; /* Taille du texte des champs augmentée */
+    }
+    
+    /****** DASHBOARD BUTTONS ******/ 
+
+    #buttons-container {
+        flex-direction: column; /* Empile les boutons verticalement sur petits écrans */
+        gap: 10px; /* Réduit l'espacement entre les boutons */
+    }
+
+    .dashboard-button {
+        width: 80%; /* Rend les boutons plus larges sur petits écrans */
+        max-width: 300px;
+    }
+
+}
+
+/* 📱 RESPONSIVE DESIGN : Adapter le formulaire aux petits écrans (iPhone 12 et autres) */
+@media screen and (max-width: 430px) { /* iPhone 12 : 390px de largeur, mais on prend un peu plus large */
+
+    .formulaire-container-vert {
+        width: 95% !important; /* ✅ Formulaire plus large */
+        max-width: none !important; /* ✅ Supprime la limite max */
+        padding: 25px !important; /* ✅ Ajoute plus d'espace */
+        font-size: 16px; /* ✅ Texte plus grand */
+    }
+
+    /* 📌 Ajustement des champs input et select */
+    .formulaire-container-vert input[type="text"],
+    .formulaire-container-vert input[type="email"],
+    .formulaire-container-vert input[type="number"],
+    .formulaire-container-vert select,
+    .formulaire-container-vert textarea {
+        width: 100% !important; /* ✅ Prend toute la largeur */
+        font-size: 16px !important; /* ✅ Texte plus grand */
+        padding: 12px !important; /* ✅ Plus d'espace */
+    }
+
+    /* 📌 Ajustement des labels */
+    .formulaire-container-vert .form-group label {
+        flex: none; /* ✅ Évite que les labels prennent trop de place */
+        width: 100% !important; /* ✅ Labels passent sur une ligne */
+        text-align: left !important; /* ✅ Alignement à gauche */
+        font-size: 16px !important; /* ✅ Texte plus grand */
+        margin-bottom: 5px; /* ✅ Ajoute un peu d'espace */
+    }
+
+    /* 📌 Organisation des form-group */
+    .formulaire-container-vert .form-group {
+        flex-direction: column !important; /* ✅ Passe les éléments en colonne */
+        align-items: stretch !important; /* ✅ Remplit toute la largeur */
+    }
+
+    /* 📌 Ajustement des cases à cocher */
+    .formulaire-container-vert .projetAsso,
+    .formulaire-container-vert .nonCommunique,
+    .formulaire-container-vert .horsDep {
+        flex-direction: row !important; /* ✅ Remet en ligne */
+        align-items: center !important;
+        padding-left: 0 !important; /* ✅ Supprime le padding inutile */
+    }
+
+    /* 📌 Correction des boutons radio et checkbox */
+    .formulaire-container-vert .radio-group label,
+    .formulaire-container-vert .theme-group label {
+        font-size: 16px !important; /* ✅ Texte plus grand */
+    }
+
+    /* 📌 Ajustement des boutons */
+    .formulaire-container-vert button {
+        width: 100% !important; /* ✅ Bouton prend toute la largeur */
+        font-size: 18px !important; /* ✅ Texte plus grand */
+        padding: 14px !important; /* ✅ Plus d'espace */
+    }
+}

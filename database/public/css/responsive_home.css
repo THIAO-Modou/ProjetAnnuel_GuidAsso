@@ -1,0 +1,323 @@
+/**************************************************************/
+/************************* FOOTER*****************************/
+/************************************************************/
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #90db68;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    z-index: 1000;
+}
+
+/* Classes dynamiques pour cacher ou afficher le footer */
+.hidden-footer {
+    transform: translateY(100%); /* Déplace le footer en dehors de l'écran */
+    opacity: 0; /* Rend le footer invisible */
+}
+
+.visible-footer {
+    transform: translateY(0); /* Affiche le footer */
+    opacity: 1; /* Rétablit la visibilité */
+}
+    
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-text {
+    text-align: left;
+    color: black;
+    
+}
+
+.footer-text p {
+    margin: 0;
+}
+.footer-image{
+    display: inline;
+    width: 600px;
+    padding: 0;
+}
+.footer-image img {
+    max-width: 100px;
+    border-radius: 50%;
+}
+
+.footer-image .logo_CRAIG{
+    margin-right: 0;
+}
+
+/*********************************************************/
+/*********************** BOUTON HOME  ********************/
+/*********************************************************/
+.btn-home {
+    margin-right: 435px;
+    position: relative;
+    border-radius: 25%;
+    transition: transform 0.3s ease;
+   margin-bottom: 50px;
+}
+
+.btn-home img:hover {
+    transform: scale(1.1);
+}
+
+.btn-home img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-top: 0;
+}
+
+/* désactive toute bordure résiduelle sur le bouton et l’image */
+.btn-home,
+.btn-home img {
+  border: none;
+  outline: none;
+}
+
+
+/****************************************************/
+/********** RESPONSIVE DESIGN  ********************/
+/*********************************************************/
+
+/********** ecran très petit 480px  ********************/
+
+/* PORTRAIT */
+@media only screen and (max-width: 480px)  {
+    body {
+        font-size: 14px;
+        padding-bottom: 120px /* Réduction des marges */
+    }
+
+    button {
+        width: 100%; /* Boutons larges pour mobile */
+        padding: 5px;
+        font-size: 16px;
+    }
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: none;
+        margin: 0 auto;
+        padding: 0 20px;
+        max-height: 100px;
+    }
+
+    .image-container img {
+        max-width: 70px; /* Taille réduite pour les petits écrans */
+    }
+
+    #footer {
+        font-size: 5px;
+        padding: 0px;
+    }
+
+    #footer-img img{
+        max-width: 50px;
+         
+    }
+
+     .image-container img {
+        max-width: 70px; /* Taille réduite pour les petits écrans */
+    }
+    .btn-home {
+        margin-right: 235px;
+        margin-bottom: 50px;
+    }
+    .footer-text {
+        margin-right: 100px;
+    }
+
+}
+
+/**************** Paysage **********************/
+
+@media only screen and (max-width: 468px) and (orientation: landscape)  {
+    body {
+        font-size: 14px;
+        padding: 5px; /* Réduction des marges */
+    }
+
+    button {
+        width: 100%; /* Boutons larges pour mobile */
+        padding: 5px;
+        font-size: 16px;
+    }
+
+    .image-container img {
+        max-width: 70px; /* Taille réduite pour les petits écrans */
+    }
+
+    #footer {
+        position: fixed; /* Fixe le footer en bas de l'écran */
+        bottom: 0; /* Place le footer tout en bas */
+        left: 0; /* Aligne le footer au bord gauche */
+        width: 100%; /* S'étend sur toute la largeur */
+        background-color: #90db68;
+        font-size: 5px;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Ajoute une légère ombre pour le contraste */
+    }
+
+    .footer-content {
+        display: flex;
+        flex-direction: row; /* Place les éléments horizontalement */
+        justify-content: space-between; /* Espacement entre les blocs */
+        align-items: center;
+        max-width: none; /* Limite la largeur maximale pour les grands écrans */
+        margin: 0 auto; /* Centre le contenu */
+    }
+
+    .footer-text {
+        text-align: left; /* Texte aligné à gauche */
+    }
+
+    .footer-image img {
+        max-width: 50px; /* Taille adaptée pour les petits écrans */
+    }
+
+    .btn-home {
+        margin-right: 235px;
+    }
+     .footer-text {
+        margin-right: 100px;
+    }
+}
+
+
+/********** Tablettes 481 à 768px ********************
+/* PORTRAIT */
+@media only screen and (max-width: 768px) {
+
+    button {
+        width: 100%; /* Boutons larges */
+        font-size: 16px;
+    }
+
+    #buttons-container {
+        flex-direction: column; /* Empile les boutons verticalement sur petits écrans */
+        gap: 10px; /* Réduit l'espacement entre les boutons */
+    }
+
+    .dashboard-button {
+        width: 80%; /* Rend les boutons plus larges sur petits écrans */
+        max-width: 300px;
+    }
+
+    #footer{
+        max-height: 100px;
+    }
+
+    .footer-content {
+        flex-direction: column; /* Empile les blocs du footer */
+        text-align: center;
+    }
+    
+    .footer-text {
+        text-align: center; /* Texte centré sur petits écrans */
+    }
+    
+    .footer-image img {
+        max-width: 50px; /* Réduit la taille des images */
+    }
+
+    .image-container img {
+        max-width: 70px; /* Taille réduite pour les petits écrans */
+    }
+
+    .btn-home {
+        margin-right: 335px;
+    }
+     .footer-text {
+        margin-right: 200px;
+    }
+}
+
+/* PAYSAGE */
+@media only screen and (max-width: 768px) and (orientation: landscape) {
+    
+    button {
+        width: 100%; /* Boutons larges */
+        font-size: 16px;
+    }
+
+    #buttons-container {
+        flex-direction: column; /* Empile les boutons verticalement sur petits écrans */
+        gap: 10px; /* Réduit l'espacement entre les boutons */
+    }
+
+    .dashboard-button {
+        width: 80%; /* Rend les boutons plus larges sur petits écrans */
+        max-width: 300px;
+    }
+
+
+    #footer {
+        position: fixed; /* Fixe le footer en bas de l'écran */
+        bottom: 0; /* Place le footer tout en bas */
+        left: 0; /* Aligne le footer au bord gauche */
+        width: 100%; /* S'étend sur toute la largeur */
+        background-color: #90db68;
+        font-size: 12px;
+        padding: 10px;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Ajoute une légère ombre pour le contraste */
+    }
+
+    .footer-content {
+        display: flex;
+        flex-direction: row; /* Place les éléments horizontalement */
+        justify-content: space-between; /* Espacement entre les blocs */
+        align-items: center;
+        max-width: 1200px; /* Limite la largeur maximale pour les grands écrans */
+        margin: 0 auto; /* Centre le contenu */
+    }
+
+    .footer-text {
+        text-align: left; /* Texte aligné à gauche */
+    }
+
+    .footer-image img {
+        max-width: 70px; /* Taille adaptée pour les petits écrans */
+    }
+
+    .image-container img {
+        max-width: 70px; /* Taille réduite pour les petits écrans */
+    }
+    .btn-home {
+        margin-right: 335px;
+    }
+     .footer-text {
+        margin-right: 200px;
+    }
+
+
+}
+
+/* Écrans moyens (768px à 1024px) */
+@media only screen and (max-width: 1024px) {
+    body {
+        font-size: 14px;
+        padding: 5px; /* Réduction des marges */
+    }
+    #footer {
+        font-size: 12px;
+        padding: 10px;
+    }
+    .btn-home {
+        margin-right: 335px;
+    }
+     .footer-text {
+        margin-right: 200px;
+    }
+    
+}
+

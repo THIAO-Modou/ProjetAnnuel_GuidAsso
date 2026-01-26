@@ -1,0 +1,733 @@
+/*****************************************************************************/
+/******************************* VISIONNEUSE PAGE ACUEIL *********************/
+/*****************************************************************************/
+
+
+/* Espacement entre le dashboard et la visionneuse */
+#dashboard {
+    margin-bottom: 40px;
+}
+
+/*  Conteneur de la visionneuse */
+#visionneuse-container_admin_monEspace {
+    max-width: 95%;
+    margin: 20px auto;
+    padding: 20px;
+    background: #F3F8F3; /* Fond vert très clair */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    border: none;
+    overflow-x: auto;
+    font-family: 'Raleway', sans-serif; /* Police plus douce */
+} 
+
+/* Tableau */
+#visionneuse_admin_monEspace table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: none;
+}
+
+/* En-tête du tableau */
+#visionneuse_admin_monEspace th {
+    background: linear-gradient(90deg, #4C9A2A, #388E3C); /* Dégradé vert élégant */
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    padding: 14px;
+    border-bottom: 3px solid #2E7D32; /* Trait vert foncé */
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+}
+
+/*  Cllules du tableau */
+#visionneuse_admin_monEspace td {
+    font-size: 14px;
+    color: #1F3321; /* Vert foncé lisible */
+    padding: 14px;
+    border-bottom: 1px solid #CDE5C8; /* Liseré doux */
+    text-align: center;
+}
+
+/* 🌿 Bas du tableau : même style, juste un trait horizontal */
+#visionneuse_admin_monEspace tr:last-child td {
+    border-bottom: 3px solid #2E7D32; /* Trait vert foncé en bas */
+}
+
+
+/* Alternance des couleurs */
+#visionneuse_admin_monEspace tr:nth-child(even) {
+    background-color: #E8F5E9; /* Vert très clair */
+}
+
+#visionneuse_admin_monEspace tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* Effet de survol */
+#visionneuse_admin_monEspace tr:hover {
+    background-color: #C8E6C9; /* Vert pastel léger */
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Conteneur du filtre et pagination */
+#filtre-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px auto; /* Espacement avec le tableau */
+    gap: 10px; /* Espacement entre les éléments */
+}
+
+/* Sélecteur du nombre de lignes (réduit) */
+#nbLignes {
+    padding: 6px;
+    font-size: 13px;
+    border: 2px solid #2E7D32;
+    border-radius: 5px;
+    background: #E8F5E9;
+    color: #1F3321;
+    cursor: pointer;
+    width: 60px;
+    margin-top: 15px;
+}
+/* Boutons de pagination verts */
+#prevPage, #nextPage {
+    background: #4CAF50; /* Vert dynamique */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+#prevPage:hover, #nextPage:hover {
+    background: #2E7D32; /* Vert plus foncé */
+}
+
+#prevPage:disabled, #nextPage:disabled {
+    background: #A5D6A7; /* Vert clair désactivé */
+    cursor: default;
+}
+
+/* Texte "Page X" */
+#pageInfo {
+    font-size: 15px;
+    font-weight: bold;
+    color: #388E3C;
+}
+
+/*************************************************************/
+/******************** BACKGROUND VISIONNEUSE *****************/
+#visionneuse-logo-background {
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  width: 50%;
+  opacity: 0.08; /* Ajuste la transparence */
+  z-index: 0;
+}
+
+#logo-background {
+  width: 100%;
+  height: auto;
+}
+
+#visionneuse_admin_monEspace {
+  position: relative;
+  z-index: 1;
+  background: white;
+  padding: 20px;
+}
+
+/*************************************************************/
+/******************** PIECES JOINTES  ************************/
+/*************************************************************/
+
+/* Styles généraux */
+#pieces-jointes-container {
+    display: none;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin: auto;
+}
+
+/* Titre du tableau */
+.pieces-jointes-form h3 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Style du tableau */
+#fileTable {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+/* En-tête du tableau */
+#fileTable thead {
+    background: #9a5575;
+    color: white;
+}
+
+#fileTable thead th {
+    padding: 12px;
+    text-align: left;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+/*  Lignes du tableau */
+#fileTable tbody tr {
+    border-bottom: 1px solid #ddd;
+    transition: background 0.3s ease-in-out;
+}
+
+#fileTable tbody tr:nth-child(even) {
+    background: #f4f4f4;
+}
+
+/* Effet au survol */
+#fileTable tbody tr:hover {
+    background: #e8f0fe;
+}
+
+/* Style des cellules */
+#fileTable td {
+    padding: 12px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Style des boutons d'action (icônes) */
+.file-actions {
+    text-align: center;
+}
+
+.file-actions a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    margin: 0 5px;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+/*  Bouton Aperçu */
+.file-actions .preview-btn {
+    color:#9a5575;
+    border: 1px solid  #9a5575;
+    background: white;
+}
+
+.file-actions .preview-btn:hover {
+    background:  #9a5575;;
+    color: white;
+}
+
+/*  Bouton Télécharger */
+.file-actions .download-btn {
+    color: #28a745;
+    border: 1px solid #28a745;
+    background: white;
+}
+
+.file-actions .download-btn:hover {
+    background: #28a745;
+    color: white;
+}
+
+/* Icônes */
+.file-actions img {
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+}
+
+/* Conteneur du filtre et pagination pour bloc Note*/
+/* Sélecteur du nombre de lignes (réduit) */
+#nbLignes-pj{
+    padding: 6px;
+    font-size: 13px;
+    border: 2px solid #9a5575;
+    border-radius: 5px;
+    background: #eddeec;
+    color: #803859;
+    cursor: pointer;
+    width: 60px;
+    margin-top: 15px;
+}
+
+/* Boutons de pagination verts */
+#prevPage-pj, #nextPage-pj {
+    background: #9a5575; /* Vert dynamique */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+#prevPage-pj:hover,
+#nextPage-pj:hover{
+    background: #9a5575; /* Vert plus foncé */
+}
+
+#prevPage-pj:disabled,
+#nextPage-pj:disabled{
+    background: #9a5575; /* Vert clair désactivé */
+    cursor: default;
+}
+
+/* Texte "Page X" */
+#pageInfo-pj {
+    font-size: 15px;
+    font-weight: bold;
+    color: #9a5575;
+}
+
+
+    
+/*******************************************************************/
+/*********************** BLOCS-NOTES  ******************************/
+/*******************************************************************/
+
+#blocs-notes-container {
+    display: none;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 1650px;  /* Légèrement plus grand */
+    width: 100%; /* Pour s'adapter aux écrans plus grands */
+    margin: auto;
+    overflow-x: auto; /* Permet un scroll horizontal si nécessaire */
+}
+
+/* Ajout d'un conteneur avec un scroll vertical si + de 10 entrées */
+.blocs-notes-wrapper {
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border-radius: 10px;
+}
+
+/* Titre plus grand et centré */
+.blocs-notes-form h3 {
+    font-size: 22px;  /* 🔹 Augmenté */
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 25px; /* 🔹 Un peu plus d’espace */
+}
+
+/* Style du tableau BLOCS-NOTES */
+#blocsNotesTable {
+    
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    table-layout: fixed;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* En-tête du tableau BLOCS-NOTES */
+#blocsNotesTable thead {
+    background: #27a49e; 
+    color: white;
+}
+
+#blocsNotesTable thead th {
+    padding: 12px; /* 🔹 Augmenté pour plus d'espace */
+    text-align: center; /* 🔹 Centré */
+    font-size: 14px; /* 🔹 Légèrement plus gros */
+    text-transform: uppercase;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+/* Lignes du tableau */
+#blocsNotesTable tbody tr {
+    border-bottom: 1px solid #ddd;
+    transition: background 0.3s ease-in-out;
+}
+
+#blocsNotesTable tbody tr:nth-child(even) {
+    background: #f4f4f4;
+}
+
+/* Effet au survol */
+#blocsNotesTable tbody tr:hover {
+    background: #e0f2f1;
+}
+
+/* Style des cellules */
+#blocsNotesTable td {
+    padding: 12px;
+    font-size: 14px;
+    color: #333;
+    word-wrap: break-word;
+    white-space: normal;
+    text-align: center; /* Centrage du contenu */
+}
+
+/* Spé pour les cellules */ 
+
+/* cellule bloc note */
+#blocsNotesTable td:nth-child(4),
+#blocsNotesTable th:nth-child(4) {
+    max-width: 300px; /* Plus large */
+    min-width: 250px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    white-space: normal;
+    max-height: 9.8em;       /* 7 lignes × environ 1.4em */
+    overflow-y: auto;
+    display: block;
+    line-height: 1.4em;
+}
+
+#blocsNotesTable td:nth-child(4){
+    text-align: left; /*a gauche pour le texte */
+}
+/* Augmenter un peu la colonne Nom du fichier */
+#blocsNotesTable td:nth-child(5) {
+    max-width: 150px;
+    min-width: 100px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Style des boutons Aperçu et Téléchargement */
+.file-actions {
+    text-align: center;
+}
+
+.file-actions a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px; 
+    margin: 0 5px;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Bouton Aperçu */
+.file-actions .preview-btn {
+    color: #27a49e;
+    border: 1px solid #27a49e;
+    background: white;
+}
+
+.file-actions .preview-btn:hover {
+    background: #27a49e;
+    color: white;
+}
+
+/* Bouton Télécharger */
+.file-actions .download-btn {
+    color: #218838;
+    border: 1px solid #218838;
+    background: white;
+}
+
+.file-actions .download-btn:hover {
+    background: #218838;
+    color: white;
+}
+
+/* Icônes affichage tableau */
+.file-actions img {
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+}
+
+/* Texte gris pour valeurs N/A */
+.no-file {
+    color: #999;
+    font-style: italic;
+    font-size: 14px;
+}
+
+/* Scroll bar customisée pour trop d'entrées ***/
+.blocs-notes-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+.blocs-notes-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.blocs-notes-wrapper::-webkit-scrollbar-thumb {
+    background: #27a49e;
+    border-radius: 10px;
+}
+
+.blocs-notes-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #21838a;
+}
+
+/* Conteneur du filtre et pagination pour bloc Note*/
+/* Sélecteur du nombre de lignes (réduit) */
+#nbLignes-bloc{
+    padding: 6px;
+    font-size: 13px;
+    border: 2px solid #27a49e;
+    border-radius: 5px;
+    background: #E8F5E9;
+    color: #146864;
+    cursor: pointer;
+    width: 60px;
+    margin-top: 15px;
+}
+
+/* Boutons de pagination verts */
+#prevPage-bloc, #nextPage-bloc {
+    background: #27a49e; /* Vert dynamique */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+#prevPage-bloc:hover,
+#nextPage-bloc:hover{
+    background: #27a49e; /* Vert plus foncé */
+}
+
+#prevPage-bloc:disabled,
+#nextPage-bloc:disabled{
+    background: #a5ccd6; /* Vert clair désactivé */
+    cursor: default;
+}
+
+/* Texte "Page X" */
+#pageInfo-bloc{
+    font-size: 15px;
+    font-weight: bold;
+    color: #27a49e;
+}
+
+/*****************************************************************************/
+/******************************* VISIONNEUSE UTILISATEURS ********************/
+/*****************************************************************************/
+
+
+/* Espacement entre le dashboard et la visionneuse */
+
+/* Tableau */
+#Users_visionneuse table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: none;
+}
+
+/* En-tête du tableau */
+#Users_visionneuse th {
+    background: linear-gradient(90deg, #4C9A2A, #388E3C); /* Dégradé vert élégant */
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    padding: 14px;
+    border-bottom: 3px solid #2E7D32; /* Trait vert foncé */
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+}
+
+/* Cellules du tableau */
+#Users_visionneuse td {
+    font-size: 14px;
+    color: #1F3321; /* Vert foncé lisible */
+    padding: 14px;
+    border-bottom: 1px solid #CDE5C8; /* Liseré doux */
+    text-align: center;
+}
+
+/* Bas du tableau : même style, juste un trait horizontal */
+#Users_visionneuse tr:last-child td {
+    border-bottom: 3px solid #2E7D32; /* Trait vert foncé en bas */
+}
+
+
+/* Alternance des couleurs */
+#Users_visionneuse tr:nth-child(even) {
+    background-color: #E8F5E9; /* Vert très clair */
+}
+
+#Users_visionneuse tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* Effet de survol */
+#Users_visionneuse tr:hover {
+    background-color: #C8E6C9; /* Vert pastel léger */
+    transition: background-color 0.3s ease-in-out;
+}
+
+/*****************************************************************************/
+/*************************** BOUTON D'EXPORT PDF *****************************/
+/*****************************************************************************/
+
+#btnExportPdf{
+    margin-left: 77%;
+}
+
+/*****************************************************************************/
+/*************************** BOUTON DE SUPRESSION ****************************/
+/*****************************************************************************/
+
+
+/*  Style du bouton */
+.delete-blocNote, .delete-pj {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30%;
+}
+
+/*  Style de l’icône PNG */
+.delete-blocNote img,
+.delete-pj img {
+    width: 24px; /* Taille normale */
+    height: 24px;
+    transition: transform 0.3s ease-in-out; /* Effet fluide */
+}
+
+/*  Effet au survol : agrandir légèrement */
+.delete-blocNote:hover img,
+.delete-pj:hover img{
+    transform: scale(1.3);
+}
+
+
+
+/*******************************************************************/
+/*********************** RESPONSIVE VISIONNEUSE MON ESPACE ********/
+/*******************************************************************/
+
+@media screen and (max-width: 768px) {
+  /* Filtres et boutons en colonne */
+  #filtre-container {
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  #nbLignes {
+    width: 20%;
+    margin-top: 10px;
+  }
+
+  #prevPage-bloc, #nextPage-bloc,
+  #prevPage-pj, #nextPage-pj,
+  #prevPage, #nextPage {
+    width: 10%;
+    height: 30px;
+    margin-top: 10px;
+  }
+
+  #btnExportPdf {
+    margin-top: 10px;
+    width: 100px;
+    padding: 10px;
+    padding-right: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #visionneuse-container_admin_monEspace h2 {
+    font-size: 18px;
+  }
+
+  #pageInfo {
+    font-size: 13px;
+    margin-top: 10px;
+  }
+
+    /* Filtres et boutons en colonne */
+  #filtre-container {
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  #filtre-container label{
+    margin-top: 10px;
+  }
+
+  #pageInfo-bloc, #pageInfo-pj, #pageInfo{
+    margin-top: 15px;
+  }
+
+  #nbLignes {
+    width: 100px;
+    margin-top: 10px;
+  }
+
+  #prevPage-bloc, #nextPage-bloc,
+  #prevPage-pj, #nextPage-pj,
+  #prevPage, #nextPage {
+    width: 50px;
+    height: 30px;
+    margin-top: 10px;
+  }
+
+  #btnExportPdf {
+    margin-top: 10px;
+    width: 100px;
+    padding: 10px;
+    padding-right: 20px;
+    margin-left: 68%;
+  }
+
+}
+
+/*  Pour les écrans moyens (tablette ≤ 1024px) */
+@media screen and (max-width: 1024px) {
+    #blocs-notes-container,
+    #pieces-jointes-container {
+        padding: 15px;
+    }
+}
+
+
+
