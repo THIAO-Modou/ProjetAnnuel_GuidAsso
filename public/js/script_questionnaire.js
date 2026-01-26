@@ -86,32 +86,36 @@ document.addEventListener("DOMContentLoaded", function () {
 //---------------------------AFFICHAGE BOUTONS -----------------------------------------
 //--------------------------------------------------------------------------------------
 
-// ----------------- Projet association ou Non communiqué ou association  -----------------
+// ----------------- Gestion association (oui / non / projet) -----------------
 
+document.addEventListener("DOMContentLoaded", function () {
+    const radios = document.querySelectorAll('input[name="choixAsso"]');
+    const inputAsso = document.getElementById("association");
 
-function updateStructureField() {
-  const selected = document.querySelector("input[name='choixAsso']:checked")?.value;
-  const structureField = document.getElementById("nom_structure");
-  const structureInput = document.getElementById("structure");
+    if (!inputAsso || radios.length === 0) return;
 
-  if (!structureField || !structureInput) return;
+    function toggleAssociationField() {
+        const selected = document.querySelector('input[name="choixAsso"]:checked')?.value;
 
-  // RÈGLE FINALE :
-  // "non communiqué" => champ caché
-  // autres => champ visible
-  if (selected === "noncommunique") {
-    structureField.style.display = "none";
-    structureInput.disabled = true;
-    structureInput.value = "";
-  } else {
-    structureField.style.display = "block";
-    structureInput.disabled = false;
-  }
-}
+        if (selected === "oui") {
+            inputAsso.disabled = false;
+            inputAsso.required = true;
+            inputAsso.classList.remove("input-disabled");
+        } else {
+            inputAsso.value = "";
+            inputAsso.disabled = true;
+            inputAsso.required = false;
+            inputAsso.classList.add("input-disabled");
+        }
+    }
 
-// état initial au chargement
-document.addEventListener("DOMContentLoaded", updateStructureField);
+    radios.forEach(radio => {
+        radio.addEventListener("change", toggleAssociationField);
+    });
 
+    // état initial
+    toggleAssociationField();
+});
 
 
 // -----------------------------  HORS DEPARTEMENT ------------------------------------
