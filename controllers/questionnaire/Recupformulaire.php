@@ -185,21 +185,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $themeG = $autreT;
         }
         
-        $nom_association='';
-        if($RDV || $QR || $longsuivi){
-            //Gestion du nom de l'association en cas de projet d'association ou de nom non communiqué
-            $choix = $_POST['choixAsso'] ?? null;
-            if (!empty($assoc) && !$choix) {
+        $nom_association = '';
+        $choix = $_POST['choixAsso'] ?? null;
+
+        if ($RDV || $QR || $longsuivi) {
+
+            if ($choix === "oui") {
+                // L'utilisateur dit qu'il a une association → on prend le nom
                 $nom_association = $assoc;
-            } elseif (empty($assoc) && $choix === "projet") {
+
+            } elseif ($choix === "projet") {
                 $nom_association = "Projet d'association";
-            } elseif (empty($assoc) && $choix === "noncommunique") {
+
+            } elseif ($choix === "non") {
                 $nom_association = "Nom non communiqué";
-            } 
-            //else {
-                //throw new Exception("Veuillez renseigner un nom d'association ou choisir une option alternative, mais pas les deux.");
-            //}
-        }else $nom_association = $assoc;
+            }
+
+        } else {
+            // Pour les autres types de questionnaire
+            $nom_association = $assoc;
+        }
+
     
 
         $h = !empty($h) ? (int)$h : 0; // Convertit en entier, ou 0 si vide/null

@@ -156,16 +156,16 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+    document.addEventListener("DOMContentLoaded", function () {
         const numeroDepartement = document.getElementById("numeroDepartement");
 
+        if (!numeroDepartement) return; // Empêche l’erreur
+
         numeroDepartement.addEventListener("input", function() {
-            // Supprime tout ce qui n'est pas un chiffre
             this.value = this.value.replace(/\D/g, '');
-            // Limite à 2 chiffres
             if (this.value.length > 2) this.value = this.value.slice(0,2);
         });
-
-
+    });
 
 // ----------------- Questionnaire Réseau : "Autres" (dans menu déroulant) ---------------------
 
