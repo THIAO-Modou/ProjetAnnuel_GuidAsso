@@ -132,6 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $non_comm = $_POST['nonCommuniqueCheckbox'] ?? '';
         $BN = $_POST['BN'] ?? '';
         $horsDep = $_POST['horsDepartementCheckbox'] ?? '';
+        $numeroDepartement = $_POST['numeroDepartement'] ?? 0;
         $reponse = $_POST['reponse'] ?? ''; 
         $question = $_POST['question'] ?? '';
         $permanence = $_POST['permanence'] ?? null;
@@ -250,7 +251,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             elseif ($horsDept) {
                 $commune = "Hors département";
                 $INSEE = 0;
-                $numeroDepartement = $_POST['numeroDepartement'] ?? '';
                 $CP = $Arrondissement = $EPCI = "N/A";
             }
             // Cas : commune saisie
@@ -305,10 +305,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt_insert_assoc->bindParam(':activiteSec', $actS);
             $stmt_insert_assoc->execute();
         }
-       
 
         //Isertion contact pour RDV
-    
         // Vérification si le contact existe
         $stmt_contact = $pdo->prepare("SELECT IDCONTACT FROM CONTACT WHERE NOMCONTACT = :nom_contact AND PRENOMCONTACT = :prenom_contact");
         $stmt_contact->bindParam(':nom_contact', $nom_contact);
@@ -330,7 +328,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $id_contact = $pdo->lastInsertId();
         }
         
-
         //RESEAU
         if($reseau){
              // Vérification si la structure existe

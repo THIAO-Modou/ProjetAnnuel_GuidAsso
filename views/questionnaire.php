@@ -430,12 +430,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                             
                         </div>
                     </div><br>
-
-
-
                     <?php endif; ?>
-                   
-
 
                     <?php if ($formulaireActif && !empty($champsActifs) && in_array('activite_reseau', $champsActifs)): ?>
                         <div id="activite_reseau" class="activites-themes-container">
@@ -505,7 +500,6 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                             <label><input type="radio" class="type" name="employeur" value="N/A"> N/A</label>
                         </div>
                         </div>
-
                     <?php endif; ?>
 
                     <div id="contact">
@@ -531,8 +525,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                             <label><input type="radio" class="genre" name="genre" value="Non genré" > Non genré </label>
                         </div>
                     </div>
-                    </div>
-                    
+                    </div>   
                 <?php endif; ?>
                 </div>
 
