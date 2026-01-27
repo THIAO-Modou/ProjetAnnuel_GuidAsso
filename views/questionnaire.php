@@ -327,7 +327,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                     <?php if ($formulaireActif && !empty($champsActifs) && in_array('nom_structure', $champsActifs)): ?>
                         <div id="nom_structure" class="form-group">
                             <label class="bold" for="structure">Nom de la structure <span class="etoile">*</span> :</label>
-                            <input type="text" placeholder="Nom de la structure" id="structure" name="structure" required>
+                            <input type="text" placeholder="Nom de la structure" id="structure" name="structure">
                             <div class="suggestions-box" id="structureSuggestions"></div>
                         </div>
                     <?php endif; ?> 
@@ -337,7 +337,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                         <!-- Nom de l'association avec prédiction --> 
                         <div id="assoFieldLS" class="form-group">
                             <label class="bold" for="assoc">Nom de l'association <span class="etoile"><? if(!$anonyme) echo'*'; ?></span> :</label>
-                            <input type="text" placeholder="Nom de l'association" id="association" name="assoc" <? if(!$anonyme): ?> required <?endif ?>; >
+                            <input type="text" placeholder="Nom de l'association" id="association" name="assoc" <? if(!$anonyme): ?> <?endif ?>; >
                             <div class="suggestions-box" id="associationSuggestions"></div>
                         </div> 
                         <!-- Projet asso -->
@@ -375,6 +375,8 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                                     <option value="Atelier Guid'Asso">Atelier Guid'Asso</option>
                                     <option value="Atelier (autre)">Atelier (autre)</option>
                                     <option value="Café Guid'Asso">Café Guid'Asso</option>
+                                    <option value="Organisation événement">Organisation événement</option>
+                                    <option value="Communication interne/externe">Communication interne/externe</option>
                                     <option value="Réunion thématique">Réunion thématique publique Guid'Asso</option>
                                     <option value="Rencontres associatives">Rencontres associatives, assises, forums, etc...</option>
                                 </select>
