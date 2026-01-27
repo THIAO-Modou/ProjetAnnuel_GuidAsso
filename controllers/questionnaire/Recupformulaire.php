@@ -195,14 +195,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $nom_association = "Projet d'association";
             } elseif (empty($assoc) && $choix === "noncommunique") {
                 $nom_association = "Nom non communiqué";
-<<<<<<< HEAD
             } 
             //else {
                 //throw new Exception("Veuillez renseigner un nom d'association ou choisir une option alternative, mais pas les deux.");
             //}
-=======
-            }
->>>>>>> 0f487aaebe71306911ce7e3d1b60f5dedacb8318
         }else $nom_association = $assoc;
     
 
