@@ -369,14 +369,15 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                             <label id="bold-left" class="bold" for="evenement">Quel événement ? <span class="etoile">*</span>:</label>
                                 <select id="evenement" name="evenement" class="longueurraccourcie" required>
                                     <option value="">...</option>
+                                    <?php if ($idFonction == 2): ?>
+                                        <option value="reunion_reseau">Réunion réseau</option>
+                                    <?php endif; ?>
                                     <option value="Tour de la Vienne">Tour de la Vienne</option>
                                     <option value="Formation CFGA">Formation CFGA</option>
                                     <option value="Formation (autre)">Formation (autre)</option>
                                     <option value="Atelier Guid'Asso">Atelier Guid'Asso</option>
                                     <option value="Atelier (autre)">Atelier (autre)</option>
                                     <option value="Café Guid'Asso">Café Guid'Asso</option>
-                                    <option value="Organisation événement">Organisation événement</option>
-                                    <option value="Communication interne/externe">Communication interne/externe</option>
                                     <option value="Réunion thématique">Réunion thématique publique Guid'Asso</option>
                                     <option value="Rencontres associatives">Rencontres associatives, assises, forums, etc...</option>
                                 </select>
@@ -502,6 +503,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                             <label><input type="radio" class="type" name="employeur" value="N/A"> N/A</label>
                         </div>
                         </div>
+
                     <?php endif; ?>
 
                     <div id="contact">
@@ -527,7 +529,8 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                             <label><input type="radio" class="genre" name="genre" value="Non genré" > Non genré </label>
                         </div>
                     </div>
-                    </div>   
+                    </div>
+                    
                 <?php endif; ?>
                 </div>
 
@@ -556,6 +559,8 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                                 <option value="Formation">Formation</option>
                                 <option value="Dissolution">Dissolution</option>
                                 <option value="Médiation/Crise">Médiation/Crise</option>
+                                <option value="Organisation événement">Organisation événement</option>
+                                <option value="Communication interne/externe">Communication interne/externe</option>
                                 <option value="Autre">Autre</option>
                             </select>
                             <div id="autreThemeContainer3" style="display:none;">
