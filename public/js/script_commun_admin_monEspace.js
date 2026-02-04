@@ -83,8 +83,8 @@ response.entries.forEach(entry => {
         	<td>
             	<a href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(entry.EMAILUtilisateur)}"
    target="_blank"
-   style="text-decoration:none;color:#007bff;">
-   📧 Envoyer un mail
+   style="text-decoration:none;font-size:24px;">
+   📧
 </a>
 
         	</td>

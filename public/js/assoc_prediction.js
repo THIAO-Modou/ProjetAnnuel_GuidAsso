@@ -16,6 +16,7 @@ $(document).ready(function(){
                     method: "POST",
                     data: {query: query},
                     success: function(data){
+                        console.log("Réponse brute :", data);
                         $(suggestionsBoxSelector).fadeIn().html(data);
                     }
                 });
@@ -51,7 +52,13 @@ $(document).ready(function(){
     }
 
     // Appliquer l'autocomplétion aux champs d'association
-    setupAutocomplete('#association', '#associationSuggestions', '/../controllers/predict_PHP/recup_assoc.php'); // Nom association
+    //setupAutocomplete('#association', '#associationSuggestions', '/../controllers/predict_PHP/recup_assoc.php'); // Nom association
+    setupAutocomplete(
+        '#association',
+        '#associationSuggestions',
+        '/../controllers/predict_PHP/api_association.php'
+    );
+
     setupAutocomplete('#association_fiche', '#associationSuggestions_fiche', '/../controllers/predict_PHP/recup_assoc.php'); // Fiche Asso 
 });
 

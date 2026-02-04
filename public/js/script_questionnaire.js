@@ -259,6 +259,29 @@ document.addEventListener("DOMContentLoaded", function() {
     validateRessourcesSelection("ressourcesForm", "ressourcesError");
 });
 
+//--------------Autocompletion de commune
+$(document).on('click', suggestionsBoxSelector + ' li', function(){
+    const nom = $(this).data('nom');
+    const rna = $(this).data('rna');
+    const commune = $(this).data('commune');
+    const objet = $(this).data('objet');
+
+    $('#association').val(nom);
+    $('#rna_id').val(rna);
+
+    // Auto-remplissage
+    if ($('#commune').length) {
+        $('#commune').val(commune);
+    }
+
+    if ($('#objet').length) {
+        $('#objet').val(objet);
+    }
+
+    $(suggestionsBoxSelector).fadeOut();
+});
+
+
 //--------------------------------------------------------------------------------------
 //------------------------------- VISIONNEUSE PAGE QUESTIONNAIRE -----------------------
 //--------------------------------------------------------------------------------------

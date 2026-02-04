@@ -285,3 +285,25 @@
         padding: 10px;
     }
 }
+
+/* Responsive : sous 900px */
+@media (max-width: 900px) {
+  #assoc_div.assoc-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  #assoc_div .asso-name {
+    width: 100%;
+  }
+
+  #assoc_div .asso-name input#association {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #assoc_div .asso-declare {
+    flex-wrap: wrap;
+  }
+}

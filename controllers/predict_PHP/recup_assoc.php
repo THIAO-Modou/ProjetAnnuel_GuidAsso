@@ -52,26 +52,4 @@ if(isset($_POST["query"])){
     }
 }
 
-/*
-// 🔴 Code mis en commentaire : Récupération automatique de la commune via le code postal
-// if(isset($_POST["codepostal"])){
-//     $codepostal = $_POST["codepostal"];
-
-//     // Vérifier si la colonne "CODEPOSTAL" existe bien dans la table COMMUNE
-//     $checkColumn = $pdo->query("SHOW COLUMNS FROM COMMUNE LIKE 'CODEPOSTAL'")->fetch();
-//     $codePostalColumn = $checkColumn ? "CODEPOSTAL" : "Code_Postal"; // Adapte selon le vrai nom
-
-//     // Requête SQL avec le bon nom de colonne
-//     $stmt = $pdo->prepare("SELECT Commune FROM COMMUNE WHERE $codePostalColumn = :codepostal LIMIT 1");
-//     $stmt->execute(['codepostal' => $codepostal]);
-//     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-//     // Retourner la commune si trouvée, sinon rien
-//     if ($result) {
-//         echo htmlspecialchars($result["Commune"] ?? '', ENT_QUOTES, 'UTF-8');
-//     } else {
-//         echo ''; // Pas de commune trouvée
-//     }
-// }
-*/
 ?>
