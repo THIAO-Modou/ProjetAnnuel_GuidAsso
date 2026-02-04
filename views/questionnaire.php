@@ -341,26 +341,14 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                             <div class="suggestions-box" id="associationSuggestions"></div>
                         </div> 
                         <!-- Projet asso -->
-                      <div class="projetAsso">
-  <label class="bold">Avez-vous une association ?</label><br>
-
-  <label>
-    <input type="radio" name="choixAsso" value="oui" checked>
-    Oui
-  </label>
-
-  <label>
-    <input type="radio" name="choixAsso" value="non">
-    Non
-  </label>
-
-  <label>
-    <input type="radio" name="choixAsso" value="projet">
-    Projet d’association
-  </label>
-</div>
-
-
+                        <div class="projetAsso">
+                            <label class="bold">Avez-vous une association ?</label><br>
+                            <label><input type="radio" name="choixAsso" value="oui" checked> Oui</label>
+                            <label><input type="radio" name="choixAsso" value="non"> Non </label>
+                            <label><input type="radio" name="choixAsso" value="projet"> Projet d’association</label>
+                        </div>
+                            <!--Ce champ servira pour le DJEDVA -->
+                        <input type="hidden" id="rna_id" name="rna_id">
                     </div>
                     <?php endif; ?>
 
