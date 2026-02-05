@@ -1925,5 +1925,56 @@ textarea {
 }
 
 
+/* === Organisation du bloc Nom association + Association déclarée === */
+
+#assoc_div.assoc-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* Bloc Nom association */
+#assoc_div .asso-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+}
+
+#assoc_div .asso-name label {
+  white-space: nowrap;
+  margin: 0;
+}
+
+#assoc_div .asso-name input#association {
+  min-width: 260px;
+  width: 32vw;
+  max-width: 420px;
+}
+
+/* Bloc Association déclarée */
+#assoc_div .asso-declare {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+#assoc_div .asso-declare legend {
+  font-weight: 600;
+  margin-right: 8px;
+  white-space: nowrap;
+}
+
+#assoc_div .asso-declare label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
 
 
