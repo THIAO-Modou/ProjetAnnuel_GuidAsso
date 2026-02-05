@@ -73,7 +73,12 @@ foreach ($records as $record) {
         continue;
     }
 
-    // Texte affiché dans la liste : "31 - AGAMA (Toulouse)"
+    // Filtrer pour ne garder que les associations dont le NOM contient la chaîne recherchée
+    if (stripos($nom, $_POST['query']) === false) {
+        continue;
+    }
+
+    // Texte affiché dans la liste 
     $label = trim($depCode . ' - ' . $nom . ' (' . $commune . ')');
 
     echo "
@@ -93,7 +98,7 @@ foreach ($records as $record) {
             data-cp=\"{$cp}\"
         >
             <strong>{$label}</strong><br>
-            <small>{$cp} {$commune}</small>
+            <small>{$commune}</small>
         </li>
     ";
 }

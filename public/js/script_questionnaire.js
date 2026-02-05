@@ -233,7 +233,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // ----------------- Vérifie si ressource cochée  ---------------------
 
-
 document.addEventListener("DOMContentLoaded", function() {
     function validateRessourcesSelection(formId, errorId) {
         const form = document.getElementById(formId);
@@ -260,27 +259,16 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 //--------------Autocompletion de commune
-$(document).on('click', suggestionsBoxSelector + ' li', function(){
-    const nom = $(this).data('nom');
-    const rna = $(this).data('rna');
-    const commune = $(this).data('commune');
-    const objet = $(this).data('objet');
+$(document).on("associationSelected", function(event, data) {
 
-    $('#association').val(nom);
-    $('#rna_id').val(rna);
+    // Remplir le nom de l'association
+    $('#association').val(data.nom);
 
-    // Auto-remplissage
-    if ($('#commune').length) {
-        $('#commune').val(commune);
+    // Remplir la commune automatiquement
+    if (data.commune) {
+        $('#commune').val(data.commune);
     }
-
-    if ($('#objet').length) {
-        $('#objet').val(objet);
-    }
-
-    $(suggestionsBoxSelector).fadeOut();
 });
-
 
 //--------------------------------------------------------------------------------------
 //------------------------------- VISIONNEUSE PAGE QUESTIONNAIRE -----------------------

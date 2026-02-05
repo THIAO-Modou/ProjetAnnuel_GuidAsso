@@ -547,6 +547,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                 <!---------------------------------------------------------------->
             <!------------------EXPORT PAR UTILISATEURS----------------------->
             <?php if ($idFonction == 2) { ?> 
+            <br>
                 <label style="margin-top: 20px;">
                     <input type="checkbox" name="user-select" value="export-user" 
                         onclick='setupCheckboxToggle("export-user", "export-user-container")'> 

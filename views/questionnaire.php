@@ -1,4 +1,5 @@
 <?php 
+// Demarrage de la session utilisateur
 session_start(); 
 //Supprimer les indicateurs en session dès l’arrivée sur la page
 unset(
@@ -29,8 +30,8 @@ if ($user) {
     $prenom = "Utilisateur inconnu";
 }
 
-//  Envoi des infos sous forme de JSON accessible en JavaScript
-echo "<script>var userData = " . json_encode($data) . ";</script>";
+// Envoi des infos sous forme de JSON accessible en JavaScript
+echo "<script>var userData = " . json_encode($user ?? null) . ";</script>";
 ?> 
 
 <!DOCTYPE html>
@@ -282,7 +283,6 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
 
     // Vérifier si le formulaire sélectionné existe, sinon mettre un tableau vide
         $champsActifs = $formulaireActif ? ($champsFormulaires[$formulaireActif] ?? []) : [];
-        $formulaireActif = $_GET['formulaire'] ?? null;
     ?>
         <div class="formulaire-container-vert" 
             id="<?= htmlspecialchars($formulaireActif) ?>" 
@@ -336,8 +336,8 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                     <div id="assoc_div">
                         <!-- Nom de l'association avec prédiction --> 
                         <div id="assoFieldLS" class="form-group">
-                            <label class="bold" for="assoc">Nom de l'association <span class="etoile"><? if(!$anonyme) echo'*'; ?></span> :</label>
-                            <input type="text" placeholder="Nom de l'association" id="association" name="assoc" <? if(!$anonyme): ?> <?endif ?>; >
+                            <label class="bold" for="assoc">Nom de l'association <span class="etoile"><?php if(!$anonyme) echo'*'; ?></span> :</label>
+                            <input type="text" placeholder="Nom de l'association" id="association" name="assoc" <?php if(!$anonyme): ?> <?php endif ?>; >
                             <div class="suggestions-box" id="associationSuggestions"></div>
                         </div> 
                         <!-- Projet asso -->
@@ -496,8 +496,8 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                     <?php if ($formulaireActif && !empty($champsActifs) && in_array('contact', $champsActifs)): ?>
                     <div id="contact">
                         <div id="nom_contact" class="form-group" >
-                        <label class="bold" for="Nom Contact">Nom du Contact <span class="etoile"><? if($longsuivi || $evenementform || $rechercheform || $RDV):?>*<? endif?></span> :</label>
-                        <input type="text" placeholder="Nom Contact" id="NcontactInput3" name="nom_contact" <? if($longsuivi || $evenementform || $rechercheform || $RDV): ?>required <? endif ?>>
+                        <label class="bold" for="Nom Contact">Nom du Contact <span class="etoile"><?php if($longsuivi || $evenementform || $rechercheform || $RDV):?>*<?php endif?></span> :</label>
+                        <input type="text" placeholder="Nom Contact" id="NcontactInput3" name="nom_contact" <?php if($longsuivi || $evenementform || $rechercheform || $RDV): ?>required <?php endif ?>>
                         <div class="suggestions-box" id="contactSuggestions3"></div>
                     </div>
         
@@ -508,7 +508,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                     </div>
                 
                     <div id="civilite" >
-                        <label class="bold" for="type" required>Civilité <span class="etoile"><? if(!$anonyme) echo'*' ?></span> : </label>
+                        <label class="bold" for="type" required>Civilité <span class="etoile"><?php if(!$anonyme) echo'*' ?></span> : </label>
                         <div class="radio-group">
                             <label><input type="radio" class="genre" name="genre" value="Madame" required> Madame</label>
                             <label><input type="radio" class="genre" name="genre" value="Monsieur" > Monsieur </label>
@@ -527,9 +527,9 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                 <?php endif; ?>
 
                 <?php if ($formulaireActif && !empty($champsActifs) && in_array('thematique_generale', $champsActifs)): ?>
-                    <? if(!$rechercheform){ ?><br><? }?> <div id="thematique_generale" class="colonne_div">
+                    <?php if(!$rechercheform){ ?><br><?php }?> <div id="thematique_generale" class="colonne_div">
                         <div class="colonne" style="width: 10px;">
-                            <label class="bold" for="sujet">Thématique générale de <? if($evenementform) echo"l'evenement";?> <? if(!$evenementform) echo "la question";?> <span class="etoile">*</span> :</label>
+                            <label class="bold" for="sujet">Thématique générale de <?php if($evenementform) echo"l'evenement";?> <?php if(!$evenementform) echo "la question";?> <span class="etoile">*</span> :</label>
                             <select id="themeG3" name="themeG" class="longueurraccourcie" required>
                                 <option value="">...</option>
                                 <option value="Aide aux déclarations">Aide aux déclarations</option>
@@ -551,7 +551,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                             </div>
                         </div>
                         <div class="colonne">
-                        <label class="bold" for="sujet">Autres thématiques de <? if($evenementform) echo"l'evenement";?> <? if(!$evenementform ) echo "la question";?> (si utile) :</label>
+                        <label class="bold" for="sujet">Autres thématiques de <?php if($evenementform) echo"l'evenement";?> <?php if(!$evenementform ) echo "la question";?> (si utile) :</label>
                             <div class="theme-group">
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Aide aux déclarations"> Aide aux déclarations</label>
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Statuts/ag & projet & gouvernance"> Statuts/ag & projet & gouvernance</label>
@@ -655,8 +655,8 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                     <div id = "rdv_dans_la_cadre" class="form-group-radio-bouton">
                         <label class="bold" for="permanence"> Rendez-vous dans le cadre d'une permanence ? :</label>
                         <div class="radio-group">
-                            <label><input type="radio" id="oui" name="permanence" value="Oui"> Oui</label></label>
-                            <label><input type="radio" id="non" name="permanence" value="Non"> Non</label></label>
+                            <label><input type="radio" id="permanence_oui" name="permanence" value="Oui"> Oui</label></label>
+                            <label><input type="radio" id="permanence_non" name="permanence" value="Non"> Non</label></label>
                         </div>
                     </div><br>
                 <?php endif; ?>
@@ -772,7 +772,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                             <textarea type="text" placeholder="Bloc note" id="BN" name="BN" rows="4" cols="50"></textarea>
                         </div> 
                           <!-- Piece jointe -->
-                        <? if(!$QR){ ?>
+                        <?php if(!$QR){ ?>
                              <div class="form-group" style="margin-left: 15%;">
                                     <label class="bold" for="PJ">Pièce jointe bloc-note :</label>
                                     <input type="file" id="PJ" name="PJ" accept=".pdf, .doc, .docx">
@@ -785,7 +785,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
 
                                 <div style="margin-bottom: 20px;"></div>
                             </div>
-                        <? } ?>
+                        <?php } ?>
 
                     </div>
                 <?php endif; ?>
@@ -822,8 +822,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 <?php if ($formulaireActif && !empty($champsActifs) && in_array('accompagnement_recherche', $champsActifs)): ?>
                     <div id="accompagnement_recherche">
                         <label class="bold">Cet accompagnement a-t-il nécessité des recherches ? :</label>
-                            <input type="radio" id="accompagnement" name="recherche" value="Oui"> Oui
-                            <input type="radio" id="non" name="recherche" value="Non"> Non
+                            <input type="radio" id="recherche_oui" name="recherche" value="Oui"> Oui
+                            <input type="radio" id="recherche_non" name="recherche" value="Non"> Non
                     </div>
                 <?php endif; ?>
 
@@ -834,13 +834,13 @@ document.addEventListener("DOMContentLoaded", function () {
                             
                         </label>
                         <div class="radio-group" >
-                            <label><input type="radio" id="oui" name="temps" value="Oui"> Oui </label>
-                            <label><input type="radio" id="non" name="temps" value="Non"> Non </label>
+                            <label><input type="radio" id="temps_oui" name="temps" value="Oui"> Oui </label>
+                            <label><input type="radio" id="temps_non" name="temps" value="Non"> Non </label>
                         </div>
                     </div>
                 <?php endif; ?>
 
-                <? if($idFonction ==1 || $idFonction == 2){
+                <?php if($idFonction ==1 || $idFonction == 2){
                     echo'<button class="button-vert" type="submit" class="center-button">Envoyer</button>';
                 }    
                  else {
