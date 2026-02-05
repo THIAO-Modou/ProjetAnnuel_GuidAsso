@@ -415,11 +415,13 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                         </div>
 
                         <!-- Champ département (caché par défaut) -->
-                        <div id="departementField" style="display:none; margin-top:8px;">
-                            <label class="bold" for="numeroDepartement">Numéro du département :</label>
-                            <input type="number" id="numeroDepartement" name="numeroDepartement" placeholder="Ex : 75" maxlength="2" pattern="\d{2}" min="1" max="99" >
-                            
-                        </div>
+                         <div id="departementField" style="display:none; ">
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <label class="bold" for="numeroDepartement" >Numéro du département :</label>
+                                <input type="number" id="numeroDepartement" name="numeroDepartement" placeholder="Ex : 75" maxlength="2" pattern="\d{2}" min="1" max="999" style="width: 70px;"  >
+                            </div>    
+                        </div>   
+                        
                     </div><br>
                     <?php endif; ?>
 
@@ -570,6 +572,8 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Formation"> Formation</label>
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Disolution"> Dissolution</label>
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Médiation/Crise"> Médiation/Crise</label>
+                                <label><input type="checkbox" class="theme" name="theme[]" value="Médiation/Crise"> Organisation événement</label>
+                                <label><input type="checkbox" class="theme" name="theme[]" value="Médiation/Crise"> Communication interne/externe</label>
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Autre3" onclick="afficherChampAutre3()"> Autre </label>
                                 <input type="text" id="autreChamp3" name="autreChamp" style="display:none;" placeholder="Précisez autre">
                             </div>
