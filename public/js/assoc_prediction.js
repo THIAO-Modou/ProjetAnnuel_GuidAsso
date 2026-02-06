@@ -8,16 +8,43 @@ console.log(" Le fichier assoc_prediction.js est bien chargé !");
 
 $(document).ready(function(){
 
+
+    // Departement filter sent to the API (default from DB, override when checkbox is checked)
+    function getDepartementFilter() {
+        const checkbox = document.getElementById("horsDepartement");
+        const input = document.getElementById("numeroDepartement");
+        const error = document.getElementById("departementError");
+
+        if (!input) return "";
+
+        if (checkbox && checkbox.checked) {
+            const value = (input.value || "").toString().trim();
+            if (error) {
+                error.style.display = value ? "none" : "block";
+            }
+            return value;
+        }
+
+        if (error) error.style.display = "none";
+        return (input.dataset.default || input.value || "").toString().trim();
+    }
+
     function setupAutocomplete(inputSelector, suggestionsBoxSelector, ajaxURL) {
 
         $(document).on('keyup', inputSelector, function(){
             const query = $(this).val().trim();
 
             if(query !== ''){
+                const dep = getDepartementFilter();
+                const checkbox = document.getElementById("horsDepartement");
+                if (checkbox && checkbox.checked && dep === "") {
+                    $(suggestionsBoxSelector).fadeOut();
+                    return;
+                }
                 $.ajax({
                     url: ajaxURL,
                     method: "POST",
-                    data: {query: query},
+                    data: {query: query, dep: dep},
                     success: function(data){
                         $(suggestionsBoxSelector).fadeIn().html(data);
                     }

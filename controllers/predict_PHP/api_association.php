@@ -2,18 +2,37 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+include_once __DIR__ . '/../../config/BD.php';
+
 if (!isset($_POST['query']) || strlen(trim($_POST['query'])) < 2) {
     exit;
 }
 
 $query = urlencode($_POST['query']);
 
+// Filtre departement:
+// - par defaut on utilise le NumeroDepartement de la table GUIDASSO
+// - si l'utilisateur coche "Hors departement", le front envoie le champ saisi
+
+$depFilter = isset($_POST['dep']) ? trim($_POST['dep']) : '';
+if ($depFilter === '') {
+    $depFilter = getNumeroDepartement() ?? '';
+}
+if ($depFilter !== '' && ctype_digit((string)$depFilter)) {
+    $depFilter = str_pad((string)$depFilter, 2, '0', STR_PAD_LEFT);
+}
+
 $base = "https://public.opendatasoft.com/api/records/1.0/search/";
 $params = [
     "dataset" => "ref-france-association-repertoire-national",
     "q"       => $query,
-    "rows"    => 50 // un peu plus large pour trier par département
+    "rows"    => 1000 // plus large pour couvrir davantage de resultats
 ];
+
+if ($depFilter !== '') {
+    // API filtering by dep_code to avoid local post-filtering limits
+    $params["refine.dep_code"] = $depFilter;
+}
 
 $url = $base . "?" . http_build_query($params, encoding_type: PHP_QUERY_RFC3986);
 
@@ -56,7 +75,8 @@ foreach ($records as $record) {
 
     $nom        = htmlspecialchars($f['title'] ?? $f['short_title'] ?? '', ENT_QUOTES);
     $rna        = htmlspecialchars($f['id'] ?? '', ENT_QUOTES);
-    $depCode    = htmlspecialchars($f['dep_code'] ?? '', ENT_QUOTES);
+    $depCodeRaw = $f['dep_code'] ?? '';
+    $depCode    = htmlspecialchars($depCodeRaw, ENT_QUOTES);
     $depName    = htmlspecialchars($f['dep_name'] ?? '', ENT_QUOTES);
     $commune    = htmlspecialchars($f['com_name_asso'] ?? $f['routed_address_manager'] ?? '', ENT_QUOTES);
     $siret      = htmlspecialchars($f['siret'] ?? '', ENT_QUOTES);
@@ -78,7 +98,7 @@ foreach ($records as $record) {
         continue;
     }
 
-    // Texte affiché dans la liste 
+// Texte affiché dans la liste 
     $label = trim($depCode . ' - ' . $nom . ' (' . $commune . ')');
 
     echo "

@@ -19,6 +19,7 @@ if (!isset($_SESSION['MAIL'])) {
     exit();
 }
 $user = getUserInfoByEmail($_SESSION['MAIL']);
+$numeroDepartement = getNumeroDepartement();
 
 if ($user) {
     $nom = $user['NOMPERSONNE'];
@@ -296,7 +297,7 @@ echo "<script>var userData = " . json_encode($user ?? null) . ";</script>";
 
                 <?php if ($formulaireActif && !empty($champsActifs) && in_array('horsDepartement', $champsActifs)): ?>  
                 <!-- HORS DEPARTEMENT -->
-                        <div class="horsDep" id="horsDepartement" style="display: flex; align-items: center; gap: 7%px; flex-wrap: wrap;">
+                        <div class="horsDep" id="horsDepartementContainer" style="display: flex; align-items: center; gap: 7%px; flex-wrap: wrap;">
                             <input class="checkbox" type="checkbox" id="horsDepartement" name="horsDepartementCheckbox">
                             <label class="bold" for="horsDepartement"> : Hors département</label>
                         </div>
@@ -305,23 +306,11 @@ echo "<script>var userData = " . json_encode($user ?? null) . ";</script>";
                         <div id="departementField" style="display:none; margin-top:8px;">
                             <div style="display:flex; align-items:center; gap:10px;">
                                 <label class="bold" for="numeroDepartement">Numéro du département :</label>
-                                <input type="number" id="numeroDepartement" name="numeroDepartement" placeholder="Ex : 75" maxlength="2" pattern="\d{2}" min="1" max="99"  style="width:70px;">
+                                <input type="number" id="numeroDepartement" name="numeroDepartement" placeholder="Ex : 75" maxlength="2" pattern="\d{2}" min="1" max="99"  style="width:70px;" value="<?= htmlspecialchars($numeroDepartement ?? '') ?>" data-default="<?= htmlspecialchars($numeroDepartement ?? '') ?>">
                             </div>  
-                        </div>
-                    <?php endif; ?>
-
-                    <?php if ($formulaireActif && !empty($champsActifs) && in_array('type_rdv_radio', $champsActifs)): ?>    
-                        <!-- HORS DEPARTEMENT -->
-                        <div class="horsDep" id="horsDepartement" style="display: flex; align-items: center; gap: 7%px; flex-wrap: wrap;">
-                            <input class="checkbox" type="checkbox" id="horsDepartement" name="horsDepartementCheckbox">
-                            <label class="bold" for="horsDepartement"> : Hors département</label>
-                        </div>
-
-                        <!-- Champ département (caché par défaut) -->
-                        <div id="departementField" style="display:none; margin-top:8px;">
-                            <label class="bold" for="numeroDepartement">Numéro du département :</label>
-                            <input type="number" id="numeroDepartement" name="numeroDepartement" placeholder="Ex : 75" maxlength="2" pattern="\d{2}" min="1" max="99" >
-                            
+                            <div id="departementError" style="display:none; margin-top:6px; color:#b00020; font-weight:600;">
+                                Veuillez saisir un numero de departement.
+                            </div>
                         </div>
                     <?php endif; ?>
 

@@ -81,4 +81,18 @@ function getUserInfoByEmail($email) {
     return $stmt->fetch(PDO::FETCH_ASSOC) ?: null; // 🔹 Retourne un tableau ou null si aucun résultat
 }
 
+// Recupere le numero de departement par defaut (unique dans GUIDASSO)
+function getNumeroDepartement() {
+    global $pdo;
+
+    if (!isset($pdo)) {
+        throw new Exception("Erreur : connexion a la base de donnees non etablie.");
+    }
+
+    $stmt = $pdo->query("SELECT NumeroDepartement FROM GUIDASSO LIMIT 1");
+    $value = $stmt->fetchColumn();
+
+    return $value !== false ? $value : null;
+}
+
 ?>

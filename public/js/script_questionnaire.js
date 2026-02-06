@@ -134,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
   const communeInput = document.getElementById("commune");
   const horsDepartementCheckbox = document.getElementById("horsDepartement");
+  const numeroDepartement = document.getElementById("numeroDepartement");
 
   if (!communeInput || !horsDepartementCheckbox) return;
 
@@ -151,6 +152,11 @@ document.addEventListener("DOMContentLoaded", function () {
   communeInput.addEventListener("input", function () {
     if (this.value.trim() !== "") {
       horsDepartementCheckbox.checked = false;
+      // Forcer la mise a jour de l'affichage du champ departement
+      horsDepartementCheckbox.dispatchEvent(new Event("change"));
+      if (numeroDepartement && numeroDepartement.dataset.default) {
+        numeroDepartement.value = numeroDepartement.dataset.default;
+      }
     }
   });
 });
@@ -158,14 +164,34 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("DOMContentLoaded", function () {
         const checkbox = document.getElementById("horsDepartement");
         const departementField = document.getElementById("departementField");
+        const numeroDepartement = document.getElementById("numeroDepartement");
+        const departementError = document.getElementById("departementError");
+
+        if (!checkbox || !departementField) return;
 
         checkbox.addEventListener("change", function () {
             if (this.checked) {
                 departementField.style.display = "block";
+                if (departementError) {
+                    const value = (numeroDepartement && numeroDepartement.value || "").trim();
+                    departementError.style.display = value ? "none" : "block";
+                }
             } else {
                 departementField.style.display = "none";
+                if (departementError) departementError.style.display = "none";
+                if (numeroDepartement && numeroDepartement.dataset.default) {
+                    numeroDepartement.value = numeroDepartement.dataset.default;
+                }
             }
         });
+
+        if (numeroDepartement) {
+            numeroDepartement.addEventListener("input", function () {
+                if (departementError) {
+                    departementError.style.display = this.value.trim() ? "none" : "block";
+                }
+            });
+        }
     });
     document.addEventListener("DOMContentLoaded", function () {
         const numeroDepartement = document.getElementById("numeroDepartement");
