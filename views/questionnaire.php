@@ -294,6 +294,22 @@ echo "<script>var userData = " . json_encode($user ?? null) . ";</script>";
             <section id="QR-form" class="QR-form">
                 <form id="longsuivi" method="post" action="/../controllers/questionnaire/Recupformulaire.php" enctype="multipart/form-data">
 
+                <?php if ($formulaireActif && !empty($champsActifs) && in_array('horsDepartement', $champsActifs)): ?>  
+                <!-- HORS DEPARTEMENT -->
+                        <div class="horsDep" id="horsDepartement" style="display: flex; align-items: center; gap: 7%px; flex-wrap: wrap;">
+                            <input class="checkbox" type="checkbox" id="horsDepartement" name="horsDepartementCheckbox">
+                            <label class="bold" for="horsDepartement"> : Hors département</label>
+                        </div>
+
+                        <!-- Champ département (caché par défaut) -->
+                        <div id="departementField" style="display:none; margin-top:8px;">
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <label class="bold" for="numeroDepartement">Numéro du département :</label>
+                                <input type="number" id="numeroDepartement" name="numeroDepartement" placeholder="Ex : 75" maxlength="2" pattern="\d{2}" min="1" max="99"  style="width:70px;">
+                            </div>  
+                        </div>
+                    <?php endif; ?>
+
                     <?php if ($formulaireActif && !empty($champsActifs) && in_array('type_rdv_radio', $champsActifs)): ?>    
                         <!-- HORS DEPARTEMENT -->
                         <div class="horsDep" id="horsDepartement" style="display: flex; align-items: center; gap: 7%px; flex-wrap: wrap;">
@@ -422,20 +438,6 @@ echo "<script>var userData = " . json_encode($user ?? null) . ";</script>";
                             <label class="bold" for="commune">Commune<span class="etoile"> <?php if(!$QR) echo'*'; ?> </span> : </label>
                             <input type="text" placeholder="Commune" id="commune" name="commune" >
                             <div id="communeSuggestions" class="suggestions-box"></div>
-                        </div>
-
-                        <!-- HORS DEPARTEMENT -->
-                        <div class="horsDep">
-                            <input class="checkbox" type="checkbox" id="horsDepartement" name="horsDepartementCheckbox">
-                            <label class="bold" for="horsDepartement"> : Hors département</label>
-                        </div>
-
-                        <!-- Champ département (caché par défaut) -->
-                        <div id="departementField" style="display:none; margin-top:8px;">
-                            <div style="display:flex; align-items:center; gap:10px;">
-                                <label class="bold" for="numeroDepartement">Numéro du département :</label>
-                                <input type="number" id="numeroDepartement" name="numeroDepartement" placeholder="Ex : 75" maxlength="2" pattern="\d{2}" min="1" max="99"  style="width:70px;">
-                            </div>  
                         </div>
                     </div><br>
                     <?php endif; ?>
