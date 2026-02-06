@@ -27,26 +27,35 @@ document.addEventListener("DOMContentLoaded", function () {
         if (formToShow) {
             hideAllForms(); // Cache tous les formulaires
             formToShow.style.display = 'block'; // Affiche le bon formulaire
-            visionneuseContainer.style.display = 'none';
+            if (visionneuseContainer) {
+                visionneuseContainer.style.display = 'none';
+            }
             setTimeout(() => {
                 formToShow.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 300);
         } else {
-            visionneuseContainer.style.display = 'block';
+            if (visionneuseContainer) {
+                visionneuseContainer.style.display = 'block';
+            }
         }
     }
     showRelevantForm(); // Vérifie au chargement s’il faut afficher un formulaire spécifique
 
     // Gestion des boutons qui affichent un formulaire spécifique
-    document.querySelectorAll('.dashboard-button-green, .dashboard-button-blue').forEach(button => {
+    document.querySelectorAll('.dashboard-button-green, .dashboard-button-blue, .dashboard-button-red').forEach(button => {
         button.addEventListener('click', function () {
             // Récupère l’id du formulaire à afficher depuis l’attribut onclick
-            const targetId = this.getAttribute('onclick').match(/showForm\('(.+?)'\)/)[1];
+            const onclickAttr = this.getAttribute('onclick') || '';
+            const match = onclickAttr.match(/setActiveButton\([^,]+,\s*'(.+?)'\)/);
+            const targetId = match ? match[1] : null;
+            if (!targetId) return;
             hideAllForms();
             const targetForm = document.getElementById(targetId);
             if (targetForm) {
                 targetForm.style.display = 'block';
-                visionneuseContainer.style.display = 'none';
+                if (visionneuseContainer) {
+                    visionneuseContainer.style.display = 'none';
+                }
                 setTimeout(() => {
                     targetForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 300);
@@ -57,7 +66,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Fonction pour afficher ou non la visionneuse selon les formulaires visibles
     function checkAndShowVisionneuse() {
         let anyFormVisible = Array.from(forms).some(form => form.style.display === 'block');
-        visionneuseContainer.style.display = anyFormVisible ? 'none' : 'block';
+        if (visionneuseContainer) {
+            visionneuseContainer.style.display = anyFormVisible ? 'none' : 'block';
+        }
     }
 
     // Comportement des boutons dans le dashboard principal

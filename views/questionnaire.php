@@ -29,9 +29,9 @@ if ($user) {
     $prenom = "Utilisateur inconnu";
 }
 
-//  Envoi des infos sous forme de JSON accessible en JavaScript
-echo "<script>var userData = " . json_encode($data) . ";</script>";
-?> 
+// Envoi des infos sous forme de JSON accessible en JavaScript
+echo "<script>var userData = " . json_encode($user ?? null) . ";</script>";
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -271,13 +271,13 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
     <?php
         // Définition des champs à afficher selon le formulaire
         $champsFormulaires = [
-            'QR' => ["type_rdv_radio", "assoc_div", "commune_div", "activites-themes-container", "thematique_generale", "classification_guidasso", "bloc_note_div"],
-            'RDV' => ["type_rdv_radio", "assoc_div", "commune_div", "activites-themes-container", "employeur", "contact", "email", "thematique_generale", "question_utile", "reponse", "dossier_provenant", "temps_h_mn", "bloc_note_div", "piece_jointe_div","classification_guidasso"],
-            'longsuivi' => ["type_rdv", "assoc_div", "commune_div", "activites-themes-container", "employeur", "contact", "email", "thematique_generale", "dossier_provenant",  "temps_consacre", "nombre_rdv", "classification_guidasso", "accompagnement_recherche", "bloc_note_div", "piece_jointe_div"],
-            'reseau' => ["type_rdv_radio", "nom_structure", "commune_div", "activite_reseau", "contact", "email", "thematique_generale", "dossier_provenant",  "temps_h_mn", "classification_guidasso", "accompagnement_recherche", "bloc_note_div", "piece_jointe_div"],
-            'evenement' => ["type_evenement", "thematique_generale", "titre_evenement", "nombre_personne", "date","commune_div", "temps_h_mn", "feuille_evenement", "commentaire", "bloc_note_div", "piece_jointe_div", "classification_guidasso", "bloc_note_div", "piece_jointe_div"],
+            'QR' => ["horsDepartement", "type_rdv_radio", "assoc_div", "commune_div", "activites-themes-container", "thematique_generale", "classification_guidasso", "bloc_note_div"],
+            'RDV' => ["horsDepartement","type_rdv_radio", "assoc_div", "commune_div", "activites-themes-container", "employeur", "contact", "email", "thematique_generale", "question_utile", "reponse", "dossier_provenant", "temps_h_mn", "bloc_note_div", "piece_jointe_div","classification_guidasso"],
+            'longsuivi' => ["horsDepartement", "type_rdv", "assoc_div", "commune_div", "activites-themes-container", "employeur", "contact", "email", "thematique_generale", "dossier_provenant",  "temps_consacre", "nombre_rdv", "classification_guidasso", "accompagnement_recherche", "bloc_note_div", "piece_jointe_div"],
+            'reseau' => ["horsDepartement", "type_rdv_radio", "nom_structure", "commune_div", "activite_reseau", "contact", "email", "thematique_generale", "dossier_provenant",  "temps_h_mn", "classification_guidasso", "accompagnement_recherche", "bloc_note_div", "piece_jointe_div"],
+            'evenement' => ["horsDepartement", "type_evenement", "thematique_generale", "titre_evenement", "nombre_personne", "date","commune_div", "temps_h_mn", "feuille_evenement", "commentaire", "bloc_note_div", "piece_jointe_div", "classification_guidasso", "bloc_note_div", "piece_jointe_div"],
             'recherche' => ["thematique_generale", "ressource", "temps_h_mn", "commentaire", "dossier_provenant", "fiche_synthese"],
-            'anonyme' => ["type_rdv_radio", "assoc_div", "commune_div", "activites-themes-container", "employeur", "contact", "email", "thematique_generale", "question_utile", "reponse", "temps_h_mn", "dossier_provenant",  "accompagnement_recherche", "bloc_note_div", "piece_jointe_div", "classification_guidasso"]
+            'anonyme' => ["horsDepartement","type_rdv_radio", "assoc_div", "commune_div", "activites-themes-container", "employeur", "contact", "email", "thematique_generale", "question_utile", "reponse" , 	"temps_h_mn","dossier_provenant" , 	"accompagnement_recherche" , 	"bloc_note_div" , 	"piece_jointe_div" , 	"classification_guidasso"]
         ];
 
     // Vérifier si le formulaire sélectionné existe, sinon mettre un tableau vide
@@ -293,6 +293,22 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
             <!------------------------------------------------->
             <section id="QR-form" class="QR-form">
                 <form id="longsuivi" method="post" action="/../controllers/questionnaire/Recupformulaire.php" enctype="multipart/form-data">
+
+                    <?php if ($formulaireActif && !empty($champsActifs) && in_array('type_rdv_radio', $champsActifs)): ?>    
+                        <!-- HORS DEPARTEMENT -->
+                        <div class="horsDep" id="horsDepartement" style="display: flex; align-items: center; gap: 7%px; flex-wrap: wrap;">
+                            <input class="checkbox" type="checkbox" id="horsDepartement" name="horsDepartementCheckbox">
+                            <label class="bold" for="horsDepartement"> : Hors département</label>
+                        </div>
+
+                        <!-- Champ département (caché par défaut) -->
+                        <div id="departementField" style="display:none; margin-top:8px;">
+                            <label class="bold" for="numeroDepartement">Numéro du département :</label>
+                            <input type="number" id="numeroDepartement" name="numeroDepartement" placeholder="Ex : 75" maxlength="2" pattern="\d{2}" min="1" max="99" >
+                            
+                        </div>
+                    <?php endif; ?>
+
                     <?php if ($formulaireActif && !empty($champsActifs) && in_array('type_rdv', $champsActifs)): ?>    
                         <div id="type_rdv" style="display: flex; align-items: center; gap: 15px;">
                             <label class="bold-checkbox" for="type">Type(s) de rendez-vous : <span class="etoile">*</span>
@@ -336,8 +352,8 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                     <div id="assoc_div">
                         <!-- Nom de l'association avec prédiction --> 
                         <div id="assoFieldLS" class="form-group">
-                            <label class="bold" for="assoc">Nom de l'association <span class="etoile"><? if(!$anonyme) echo'*'; ?></span> :</label>
-                            <input type="text" placeholder="Nom de l'association" id="association" name="assoc" <? if(!$anonyme): ?> <?endif ?>; >
+                            <label class="bold" for="assoc">Nom de l'association <span class="etoile"><?php if(!$anonyme) echo'*'; ?></span> :</label>
+                            <input type="text" placeholder="Nom de l'association" id="association" name="assoc" <?php if(!$anonyme): ?>required<?php endif; ?>>
                             <div class="suggestions-box" id="associationSuggestions"></div>
                         </div> 
                         <!-- Projet asso -->
@@ -410,19 +426,6 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                             <label class="bold" for="commune">Commune<span class="etoile"> <?php if(!$QR) echo'*'; ?> </span> : </label>
                             <input type="text" placeholder="Commune" id="commune" name="commune" >
                             <div id="communeSuggestions" class="suggestions-box"></div>
-                        </div>
-
-                        <!-- HORS DEPARTEMENT -->
-                        <div class="horsDep">
-                            <input class="checkbox" type="checkbox" id="horsDepartement" name="horsDepartementCheckbox">
-                            <label class="bold" for="horsDepartement"> : Hors département</label>
-                        </div>
-
-                        <!-- Champ département (caché par défaut) -->
-                        <div id="departementField" style="display:none; margin-top:8px;">
-                            <label class="bold" for="numeroDepartement">Numéro du département :</label>
-                            <input type="number" id="numeroDepartement" name="numeroDepartement" placeholder="Ex : 75" maxlength="2" pattern="\d{2}" min="1" max="99" >
-                            
                         </div>
                     </div><br>
                     <?php endif; ?>
@@ -497,12 +500,11 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                         </div>
                     <?php endif; ?>
 
-                    <div id="contact">
                     <?php if ($formulaireActif && !empty($champsActifs) && in_array('contact', $champsActifs)): ?>
                     <div id="contact">
                         <div id="nom_contact" class="form-group" >
-                        <label class="bold" for="Nom Contact">Nom du Contact <span class="etoile"><? if($longsuivi || $evenementform || $rechercheform || $RDV):?>*<? endif?></span> :</label>
-                        <input type="text" placeholder="Nom Contact" id="NcontactInput3" name="nom_contact" <? if($longsuivi || $evenementform || $rechercheform || $RDV): ?>required <? endif ?>>
+                        <label class="bold" for="Nom Contact">Nom du Contact <span class="etoile"><?php if($longsuivi || $evenementform || $rechercheform || $RDV):?>*<?php endif?></span> :</label>
+                        <input type="text" placeholder="Nom Contact" id="NcontactInput3" name="nom_contact" <?php if($longsuivi || $evenementform || $rechercheform || $RDV): ?>required<?php endif; ?>>
                         <div class="suggestions-box" id="contactSuggestions3"></div>
                     </div>
         
@@ -513,7 +515,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                     </div>
                 
                     <div id="civilite" >
-                        <label class="bold" for="type" required>Civilité <span class="etoile"><? if(!$anonyme) echo'*' ?></span> : </label>
+                        <label class="bold" for="type" required>Civilité <span class="etoile"><?php if(!$anonyme) echo'*' ?></span> : </label>
                         <div class="radio-group">
                             <label><input type="radio" class="genre" name="genre" value="Madame" required> Madame</label>
                             <label><input type="radio" class="genre" name="genre" value="Monsieur" > Monsieur </label>
@@ -521,8 +523,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                         </div>
                     </div>
                     </div>   
-                <?php endif; ?>
-                </div>
+                    <?php endif; ?>
 
                 <?php if ($formulaireActif && !empty($champsActifs) && in_array('email', $champsActifs)): ?>
                     <div id="email" class="form-group" >
@@ -532,9 +533,9 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                 <?php endif; ?>
 
                 <?php if ($formulaireActif && !empty($champsActifs) && in_array('thematique_generale', $champsActifs)): ?>
-                    <? if(!$rechercheform){ ?><br><? }?> <div id="thematique_generale" class="colonne_div">
+                    <?php if(!$rechercheform){ ?><br><?php }?> <div id="thematique_generale" class="colonne_div">
                         <div class="colonne" style="width: 10px;">
-                            <label class="bold" for="sujet">Thématique générale de <? if($evenementform) echo"l'evenement";?> <? if(!$evenementform) echo "la question";?> <span class="etoile">*</span> :</label>
+                            <label class="bold" for="sujet">Thématique générale de <?php if($evenementform) echo"l'evenement";?> <?php if(!$evenementform) echo "la question";?> <span class="etoile">*</span> :</label>
                             <select id="themeG3" name="themeG" class="longueurraccourcie" required>
                                 <option value="">...</option>
                                 <option value="Aide aux déclarations">Aide aux déclarations</option>
@@ -556,7 +557,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                             </div>
                         </div>
                         <div class="colonne">
-                        <label class="bold" for="sujet">Autres thématiques de <? if($evenementform) echo"l'evenement";?> <? if(!$evenementform ) echo "la question";?> (si utile) :</label>
+                        <label class="bold" for="sujet">Autres thématiques de <?php if($evenementform) echo"l'evenement";?> <?php if(!$evenementform ) echo "la question";?> (si utile) :</label>
                             <div class="theme-group">
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Aide aux déclarations"> Aide aux déclarations</label>
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Statuts/ag & projet & gouvernance"> Statuts/ag & projet & gouvernance</label>
@@ -570,7 +571,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Formation"> Formation</label>
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Disolution"> Dissolution</label>
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Médiation/Crise"> Médiation/Crise</label>
-                                <label><input type="checkbox" class="theme" name="theme[]" value="Autre3" onclick="afficherChampAutre3()"> Autre </label>
+                                <label><input type="checkbox" class="theme" name="theme[]" value="Autre3"> Autre </label>
                                 <input type="text" id="autreChamp3" name="autreChamp" style="display:none;" placeholder="Précisez autre">
                             </div>
                         </div>
@@ -777,7 +778,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                             <textarea type="text" placeholder="Bloc note" id="BN" name="BN" rows="4" cols="50"></textarea>
                         </div> 
                           <!-- Piece jointe -->
-                        <? if(!$QR){ ?>
+                        <?php if(!$QR){ ?>
                              <div class="form-group" style="margin-left: 15%;">
                                     <label class="bold" for="PJ">Pièce jointe bloc-note :</label>
                                     <input type="file" id="PJ" name="PJ" accept=".pdf, .doc, .docx">
@@ -790,7 +791,7 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
 
                                 <div style="margin-bottom: 20px;"></div>
                             </div>
-                        <? } ?>
+                        <?php } ?>
 
                     </div>
                 <?php endif; ?>
@@ -845,7 +846,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 <?php endif; ?>
 
-                <? if($idFonction ==1 || $idFonction == 2){
+                <?php if($idFonction ==1 || $idFonction == 2){
                     echo'<button class="button-vert" type="submit" class="center-button">Envoyer</button>';
                 }    
                  else {
