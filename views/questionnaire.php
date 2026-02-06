@@ -1,6 +1,5 @@
-<?php
-// Demarrage de la session utilisateur
-session_start();
+<?php 
+session_start(); 
 //Supprimer les indicateurs en session dès l’arrivée sur la page
 unset(
     $_SESSION['QR'],
@@ -30,9 +29,9 @@ if ($user) {
     $prenom = "Utilisateur inconnu";
 }
 
-// Envoi des infos sous forme de JSON accessible en JavaScript
-echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
-?>
+//  Envoi des infos sous forme de JSON accessible en JavaScript
+echo "<script>var userData = " . json_encode($data) . ";</script>";
+?> 
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -47,8 +46,8 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
     <script src="/../public/js/commune_prediction.js"></script>
     <script src="/../public/js/nom_prediction.js"></script>
      
-    <script src="/../public/js/prenom_prediction.js"></script>
-    <script src="/../public/js/structure_prediction.js"></script>
+    <script src="/../public/js/prenom_prediction.js"></script> 
+    <script src="/../public/js/structure_prediction.js"></script> 
 
     <script src="/../public/js/script_questionnaire.js" defer></script>
     <script src="/../public/js/ecouteur_activite.js"></script>
@@ -60,7 +59,7 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
 
     <link rel="stylesheet" href="/../public/css/responsive_questionnaire.css">
     <!-- <link rel="stylesheet" href="/../public/css/responsive_home.css"> -->
-   
+    
 </head>
 <body data-show-form="<?= isset($_SESSION['show_form']) ? $_SESSION['show_form'] : '' ?>">
    <script>
@@ -118,49 +117,49 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
         <!--image en haut à droite-->
         <!--img src="guid'asso.jpg" class="top-right-image"-->
         <div class="image-container">
-<a href="/../views/pageadmin.php">
-    <img src="/../public/img/LogoRéseau1.png" alt="Logo Réseau">
-</a>
-<a href="/../views/pageadmin.php">
-    <img src="/../public/img/LogoInformation.png" alt="Logo Information">
-</a>
-<a href="/../views/pageadmin.php">
-    <img src="/../public/img/LogoOrientation1.png" alt="Logo Orientation">
-</a>
-<a href="/../views/pageadmin.php">
-    <img src="/../public/img/LogoAccompagnementG1.png" alt="Logo Accompagnement">
-</a>
+	<a href="/../views/pageadmin.php">
+    	<img src="/../public/img/LogoRéseau1.png" alt="Logo Réseau">
+	</a>
+	<a href="/../views/pageadmin.php">
+    	<img src="/../public/img/LogoInformation.png" alt="Logo Information">
+	</a>
+	<a href="/../views/pageadmin.php">
+    	<img src="/../public/img/LogoOrientation1.png" alt="Logo Orientation">
+	</a>
+	<a href="/../views/pageadmin.php">
+    	<img src="/../public/img/LogoAccompagnementG1.png" alt="Logo Accompagnement">
+	</a>
 </div>
         <br>
         <div class="setting-button-container">
             <?php if ($idFonction == 2 || $idFonction == 3) { ?>
                 <a href="https://guide-asso-m2.geniephy.net/views/pageadmin.php" class="setting-button"> Page Admin</a>
-           
+            
             <?php }if ($idFonction == 1) { ?>
                 <a href="https://guide-asso-m2.geniephy.net/views/mon_espace.php" class="setting-button">Mon espace</a>
             <?php } if ($idFonction == 4) { ?>
                 <a href="https://guide-asso-m2.geniephy.net/views/mon_espace.php" class="setting-button">Mon espace</a>
             <?php } ?>
-           
+            
 
            <a href="/../config/deconnexion.php" class="setting-button">Se déconnecter</a>
 
         </div>
     </h3>
-   
+    
     <!------ tableau de bord ---->
     <section id="dashboard" class="dashboard">
         <h1 class="dashboard-title">Questionnaire Guid'Asso</h1>
         <div id="buttons-container" class="buttons-container">
-            <button id="btnQR" class="dashboard-button dashboard-button-green <?= ($_SESSION['QR'] ? false) ? 'active' : ''; ?>" onclick="setActiveButton(this, 'QR')">Question/Réponse rapide</button>
-            <button id="btnRDV" class="dashboard-button dashboard-button-green <?= ($_SESSION['RDV'] ? false) ? 'active' : ''; ?>" onclick="setActiveButton(this, 'RDV')">Rendez-vous / Question écrite</button>
-            <button id="btnLongsuivi" class="dashboard-button dashboard-button-green <?= ($_SESSION['longsuivi'] ? false) ? 'active' : ''; ?>" onclick="setActiveButton(this, 'longsuivi')">Long suivi</button>
-            <button id="btnReseau" class="dashboard-button dashboard-button-green <?= ($_SESSION['reseau'] ? false) ? 'active' : ''; ?>" onclick="setActiveButton(this, 'reseau')">Réseau</button>
+            <button id="btnQR" class="dashboard-button dashboard-button-green <?= ($_SESSION['QR'] ?? false) ? 'active' : ''; ?>" onclick="setActiveButton(this, 'QR')">Question/Réponse rapide</button>
+            <button id="btnRDV" class="dashboard-button dashboard-button-green <?= ($_SESSION['RDV'] ?? false) ? 'active' : ''; ?>" onclick="setActiveButton(this, 'RDV')">Rendez-vous / Question écrite</button>
+            <button id="btnLongsuivi" class="dashboard-button dashboard-button-green <?= ($_SESSION['longsuivi'] ?? false) ? 'active' : ''; ?>" onclick="setActiveButton(this, 'longsuivi')">Long suivi</button>
+            <button id="btnReseau" class="dashboard-button dashboard-button-green <?= ($_SESSION['reseau'] ?? false) ? 'active' : ''; ?>" onclick="setActiveButton(this, 'reseau')">Réseau</button>
 
-             <button id="btnAnonyme" class="dashboard-button dashboard-button-red <?= ($_SESSION['anonyme'] ? false) ? 'active' : ''; ?>" onclick="setActiveButton(this, 'anonyme')">Anonym. / Confid.</button>
+             <button id="btnAnonyme" class="dashboard-button dashboard-button-red <?= ($_SESSION['anonyme'] ?? false) ? 'active' : ''; ?>" onclick="setActiveButton(this, 'anonyme')">Anonym. / Confid.</button>
              
-            <button id="btnRecherche" class="dashboard-button dashboard-button-blue <?= ($_SESSION['recherche'] ? false) ? 'active' : ''; ?>" onclick="setActiveButton(this, 'recherche')">Recherche & Ressources</button>
-            <button id="btnEvenement" class="dashboard-button dashboard-button-blue <?= ($_SESSION['evenement'] ? false) ? 'active' : ''; ?>" onclick="setActiveButton(this, 'evenement')">Évènement</button>
+            <button id="btnRecherche" class="dashboard-button dashboard-button-blue <?= ($_SESSION['recherche'] ?? false) ? 'active' : ''; ?>" onclick="setActiveButton(this, 'recherche')">Recherche & Ressources</button>
+            <button id="btnEvenement" class="dashboard-button dashboard-button-blue <?= ($_SESSION['evenement'] ?? false) ? 'active' : ''; ?>" onclick="setActiveButton(this, 'evenement')">Évènement</button>
 
             <button id="ficheAssocBtn" class="dashboard-button dashboard-button-purple">Fiche association</button>
         </div>
@@ -182,12 +181,12 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
         </div>
         <?php unset($_SESSION['success_message']); // Efface après affichage ?>
     <?php endif; ?>
-   
+    
 
     <?php
         // VARIABLE POUR RECUPERER LE FORMULAIR ACTIF
-        $formulaireActif = $_GET['formulaire'] ? null;
-       
+        $formulaireActif = $_GET['formulaire'] ?? null;
+        
         // Definition et stockage des états des boutons en session pour un ussage dans d'autres pages
         $_SESSION['RDV'] = ($formulaireActif === 'RDV'); $RDV = ($formulaireActif ==='RDV');
         $_SESSION['reseau'] = ($formulaireActif === 'reseau');$reseau = ($formulaireActif ==='reseau');
@@ -196,7 +195,7 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
         $_SESSION['evenement'] = ($formulaireActif === 'evenement'); $evenementform = ($formulaireActif ==='evenement');
         $_SESSION['recherche'] = ($formulaireActif === 'recherche'); $rechercheform = ($formulaireActif ==='recherche');
         $_SESSION['anonyme'] = ($formulaireActif === 'anonyme'); $anonyme = ($formulaireActif ==='anonyme');
-       
+        
         if($evenementform || $rechercheform):
             $couleurCadre = "#3a7ee2";
         elseif($QR || $RDV || $longsuivi || $reseau):
@@ -205,7 +204,7 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
             $couleurCadre = "#ae161f";
         endif;
 
-       
+        
         // Liste des formulaires
         $formulaires = ['QR', 'RDV', 'reseau', 'longsuivi', 'evenement', 'recherche', 'anonyme'];
 
@@ -225,7 +224,7 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
 
     ?>
 
-     <!-- Message d'erreur -->
+     <!-- Message d'erreur --> 
             <?php if (!empty($_SESSION['error_message_longsuivi'])): ?>
                 <div id="error-container" class="error-container" style="display: block;">
                     <div class="error-message-form">
@@ -282,10 +281,11 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
         ];
 
     // Vérifier si le formulaire sélectionné existe, sinon mettre un tableau vide
-        $champsActifs = $formulaireActif ? ($champsFormulaires[$formulaireActif] ? []) : [];
+        $champsActifs = $formulaireActif ? ($champsFormulaires[$formulaireActif] ?? []) : [];
+        $formulaireActif = $_GET['formulaire'] ?? null;
     ?>
-        <div class="formulaire-container-vert"
-            id="<?= htmlspecialchars($formulaireActif) ?>"
+        <div class="formulaire-container-vert" 
+            id="<?= htmlspecialchars($formulaireActif) ?>" 
             style="display: <?= (!empty($formulaireActif)) ? 'block' : 'none'; ?>; border: 1px solid <?= htmlspecialchars($couleurCadre) ?>;">
 
             <!------------------------------------------------->
@@ -303,7 +303,7 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                                 </span>
                                 <!-- fin bulle aide -->
                             </label>
-                           
+                            
                             <span>
                                 <label><input type="checkbox" class="type" name="type[]" value="Par mail"> Par mail</label>
                                 <label><input type="checkbox" class="type" name="type[]" value="Par téléphone/visio"> Par téléphone/visio </label>
@@ -330,26 +330,30 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                             <input type="text" placeholder="Nom de la structure" id="structure" name="structure">
                             <div class="suggestions-box" id="structureSuggestions"></div>
                         </div>
-                    <?php endif; ?>
+                    <?php endif; ?> 
 
                     <?php if ($formulaireActif && !empty($champsActifs) && in_array('assoc_div', $champsActifs)): ?>
                     <div id="assoc_div">
-                        <!-- Nom de l'association avec prédiction -->
+                        <!-- Nom de l'association avec prédiction --> 
                         <div id="assoFieldLS" class="form-group">
-                            <label class="bold" for="assoc">Nom de l'association <span class="etoile"><?php if(!$anonyme) echo'*'; ?></span> :</label>
-                            <input type="text" placeholder="Nom de l'association" id="association" name="assoc" <?php if(!$anonyme): ?> <?php endif ?>; >
+                            <label class="bold" for="assoc">Nom de l'association <span class="etoile"><? if(!$anonyme) echo'*'; ?></span> :</label>
+                            <input type="text" placeholder="Nom de l'association" id="association" name="assoc" <? if(!$anonyme): ?> <?endif ?>; >
                             <div class="suggestions-box" id="associationSuggestions"></div>
-                        </div>
+                        </div> 
                         <!-- Projet asso -->
-                        <div class="projetAsso">
-                            <label class="bold">Association déclaré ?</label><br>
-                            <label><input type="radio" name="choixAsso" value="oui" checked> Oui</label>
-                            <label><input type="radio" name="choixAsso" value="non"> Non </label>
-                            <label><input type="radio" name="choixAsso" value="projet"> Projet d’association</label>
-                            <label><input type="radio" name="choixAsso" value="non communiqué"> non communiqué</label>
-                        </div>
-                            <!--Ce champ servira pour le DJEDVA -->
-                        <input type="hidden" id="rna_id" name="rna_id">
+                      <div class="projetAsso">
+                    <label class="bold">Avez-vous une association ?</label><br>
+
+                    <label>
+                        <input type="radio" name="choixAsso" value="oui" checked> Oui
+                    </label>
+
+                    <label><input type="radio" name="choixAsso" value="non"> Non </label>
+
+                    <label><input type="radio" name="choixAsso" value="projet"> Projet d’association</label>
+                    </div>
+
+
                     </div>
                     <?php endif; ?>
 
@@ -358,50 +362,49 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                             <label id="bold-left" class="bold" for="evenement">Quel événement ? <span class="etoile">*</span>:</label>
                                 <select id="evenement" name="evenement" class="longueurraccourcie" required>
                                     <option value="">...</option>
-                                    <?php if ($idFonction == 2): ?>
-                                        <option value="reunion_reseau">Réunion réseau</option>
-                                    <?php endif; ?>
                                     <option value="Tour de la Vienne">Tour de la Vienne</option>
                                     <option value="Formation CFGA">Formation CFGA</option>
                                     <option value="Formation (autre)">Formation (autre)</option>
                                     <option value="Atelier Guid'Asso">Atelier Guid'Asso</option>
                                     <option value="Atelier (autre)">Atelier (autre)</option>
                                     <option value="Café Guid'Asso">Café Guid'Asso</option>
+                                    <option value="Organisation événement">Organisation événement</option>
+                                    <option value="Communication interne/externe">Communication interne/externe</option>
                                     <option value="Réunion thématique">Réunion thématique publique Guid'Asso</option>
                                     <option value="Rencontres associatives">Rencontres associatives, assises, forums, etc...</option>
                                 </select>
                         </div>
-                    <?php endif; ?>
+                    <?php endif; ?> 
 
                      <?php if ($formulaireActif && !empty($champsActifs) && in_array('titre_evenement', $champsActifs)): ?>
-                        <div id="titre_evenement" class="form-group">  
+                        <div id="titre_evenement" class="form-group">   
                         <label class="bold" for="atelier">Titre de l'évènement : </label>
                         <input type="text" id="atelier" name="titre_ev">
                         </div>
                         <ul id="predictionsTheme"></ul>
                     <?php endif; ?>
 
-                   
+                    
                     <?php if ($formulaireActif && !empty($champsActifs) && in_array('nombre_personne', $champsActifs)): ?>
-                        <div id="nombre_personne" class="form-group">
+                        <div id="nombre_personne" class="form-group"> 
                             <label class="bold" for="compteur">Nombre de personnes <span class="etoile">*</span> : </label>
                             <input type="number" id="champIncremental" oninput="incrementerChamp(this)" name="personne" required>
                         </div>
                     <?php endif; ?>
 
                     <?php if ($formulaireActif && !empty($champsActifs) && in_array('date', $champsActifs)): ?>
-                        <div id="date" class="form-group">
+                        <div id="date" class="form-group"> 
                         <label class="bold" for="Date">Date de l'évènement <span class="etoile">*</span> :</label>
-                        <input type="date" placeholder="Date" id="Date" name="Date" required >  
-                        <div style="margin-bottom: 20px;"></div>
+                        <input type="date" placeholder="Date" id="Date" name="Date" required >   
+                        <div style="margin-bottom: 20px;"></div> 
                     </div>
                     <?php endif; ?>
-                   
+                    
 
                     <!-------------------COMMUNE------------------>
                    <?php if ($formulaireActif && !empty($champsActifs) && in_array('commune_div', $champsActifs)): ?>
 
-                    <div id="commune_div">
+                    <div id="commune_div"> 
                         <!-- Nom de la commune  avec prédiction -->
                         <div id="communeFieldLongsuivi" class="form-group">
                             <label class="bold" for="commune">Commune<span class="etoile"> <?php if(!$QR) echo'*'; ?> </span> : </label>
@@ -444,7 +447,7 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                         </div>
                     <?php endif; ?>
 
-                    <?php if ($formulaireActif && !empty($champsActifs) && in_array('activites-themes-container', $champsActifs)): ?>
+                    <?php if ($formulaireActif && !empty($champsActifs) && in_array('activites-themes-container', $champsActifs)): ?> 
                         <div id="activites-themes-container" class="colonne_div">
                             <div class="colonne">
                                 <label class="bold" for="act_principale"> Activité principale de l'association <span class="etoile">*</span> : </label>
@@ -492,34 +495,32 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                             <label><input type="radio" class="type" name="employeur" value="N/A"> N/A</label>
                         </div>
                         </div>
-
                     <?php endif; ?>
 
                     <div id="contact">
                     <?php if ($formulaireActif && !empty($champsActifs) && in_array('contact', $champsActifs)): ?>
                     <div id="contact">
                         <div id="nom_contact" class="form-group" >
-                        <label class="bold" for="Nom Contact">Nom du Contact <span class="etoile"><?php if($longsuivi || $evenementform || $rechercheform || $RDV):?>*<?php endif?></span> :</label>
-                        <input type="text" placeholder="Nom Contact" id="NcontactInput3" name="nom_contact" <?php if($longsuivi || $evenementform || $rechercheform || $RDV): ?>required <?php endif ?>>
+                        <label class="bold" for="Nom Contact">Nom du Contact <span class="etoile"><? if($longsuivi || $evenementform || $rechercheform || $RDV):?>*<? endif?></span> :</label>
+                        <input type="text" placeholder="Nom Contact" id="NcontactInput3" name="nom_contact" <? if($longsuivi || $evenementform || $rechercheform || $RDV): ?>required <? endif ?>>
                         <div class="suggestions-box" id="contactSuggestions3"></div>
                     </div>
-       
+        
                     <div id="prenom_contact" class="form-group" >
                         <label class="bold" for="Prénom Contact">Prénom du Contact : </label>
                         <input type="text" placeholder="Prénom Contact" id="PcontactInput3" name="prenom_contact">
                         <div class="suggestions-box" id="PcontactSuggestions3"></div>
                     </div>
-               
+                
                     <div id="civilite" >
-                        <label class="bold" for="type" required>Civilité <span class="etoile"><?php if(!$anonyme) echo'*' ?></span> : </label>
+                        <label class="bold" for="type" required>Civilité <span class="etoile"><? if(!$anonyme) echo'*' ?></span> : </label>
                         <div class="radio-group">
                             <label><input type="radio" class="genre" name="genre" value="Madame" required> Madame</label>
                             <label><input type="radio" class="genre" name="genre" value="Monsieur" > Monsieur </label>
                             <label><input type="radio" class="genre" name="genre" value="Non genré" > Non genré </label>
                         </div>
                     </div>
-                    </div>
-                   
+                    </div>   
                 <?php endif; ?>
                 </div>
 
@@ -531,9 +532,9 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                 <?php endif; ?>
 
                 <?php if ($formulaireActif && !empty($champsActifs) && in_array('thematique_generale', $champsActifs)): ?>
-                    <?php if(!$rechercheform){ ?><br><?php }?> <div id="thematique_generale" class="colonne_div">
+                    <? if(!$rechercheform){ ?><br><? }?> <div id="thematique_generale" class="colonne_div">
                         <div class="colonne" style="width: 10px;">
-                            <label class="bold" for="sujet">Thématique générale de <?php if($evenementform) echo"l'evenement";?> <?php if(!$evenementform) echo "la question";?> <span class="etoile">*</span> :</label>
+                            <label class="bold" for="sujet">Thématique générale de <? if($evenementform) echo"l'evenement";?> <? if(!$evenementform) echo "la question";?> <span class="etoile">*</span> :</label>
                             <select id="themeG3" name="themeG" class="longueurraccourcie" required>
                                 <option value="">...</option>
                                 <option value="Aide aux déclarations">Aide aux déclarations</option>
@@ -548,8 +549,6 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                                 <option value="Formation">Formation</option>
                                 <option value="Dissolution">Dissolution</option>
                                 <option value="Médiation/Crise">Médiation/Crise</option>
-                                <option value="Organisation événement">Organisation événement</option>
-                                <option value="Communication interne/externe">Communication interne/externe</option>
                                 <option value="Autre">Autre</option>
                             </select>
                             <div id="autreThemeContainer3" style="display:none;">
@@ -557,7 +556,7 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                             </div>
                         </div>
                         <div class="colonne">
-                        <label class="bold" for="sujet">Autres thématiques de <?php if($evenementform) echo"l'evenement";?> <?php if(!$evenementform ) echo "la question";?> (si utile) :</label>
+                        <label class="bold" for="sujet">Autres thématiques de <? if($evenementform) echo"l'evenement";?> <? if(!$evenementform ) echo "la question";?> (si utile) :</label>
                             <div class="theme-group">
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Aide aux déclarations"> Aide aux déclarations</label>
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Statuts/ag & projet & gouvernance"> Statuts/ag & projet & gouvernance</label>
@@ -571,19 +570,17 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Formation"> Formation</label>
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Disolution"> Dissolution</label>
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Médiation/Crise"> Médiation/Crise</label>
-                                <label><input type="checkbox" class="theme" name="theme[]" value="Médiation/Crise"> Organisation événement</label>
-                                <label><input type="checkbox" class="theme" name="theme[]" value="Médiation/Crise"> Communication interne/externe</label>
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Autre3" onclick="afficherChampAutre3()"> Autre </label>
                                 <input type="text" id="autreChamp3" name="autreChamp" style="display:none;" placeholder="Précisez autre">
                             </div>
                         </div>
-                    </div>
-                <?php endif;?>
+                    </div> 
+                <?php endif;?> 
 
                 <?php if ($formulaireActif && !empty($champsActifs) && in_array('ressource', $champsActifs)): ?>
                     <!-- Ressources -->
-                <div id="ressource" class="activites-themes-container">  
-                    <div >
+                <div id="ressource" class="activites-themes-container">   
+                    <div > 
                     <label class="bold" for="Ressources">Ressource(s) <span class="etoile">*</span> : </label>
                         <div class="theme-group" name="Ressources" id="ressourcesGroup" required>
                             <label><input type="checkbox" class="ressources" name="ressources[]" value="associations.gouv.fr">associations.gouv.fr</label>
@@ -602,8 +599,8 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                     </div>
                 </div>
                 <?php endif; ?>
-               
-                <?php if ($formulaireActif && !empty($champsActifs) && in_array('question_utile', $champsActifs)): ?>            
+                
+                <?php if ($formulaireActif && !empty($champsActifs) && in_array('question_utile', $champsActifs)): ?>             
                     <div id="question_utile" class="form-group" >
                         <label class="bold" for="question">Quelle était la question si utile :</label>
                         <input type="text" placeholder="Question" id="question" name="question">
@@ -611,7 +608,7 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                 <?php endif; ?>  
 
                 <?php if ($formulaireActif && !empty($champsActifs) && in_array('reponse', $champsActifs)): ?>
-                    <div id="reponse" class="form-group" >
+                    <div id="reponse" class="form-group" > 
                         <label class="bold" for="Réponse">Réponse si besoin :</label>
                         <input type="text" placeholder="Réponse" id="Réponse" name="reponse">
                     </div>
@@ -659,12 +656,12 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                 <!------------------------------------------------------------------------------->
                 <!------------------------ A active avec le id au besoin ------------------------>
                 <!------------------------------------------------------------------------------->
-                <?php if ($formulaireActif && !empty($champsActifs) && in_array('rdv_dans_la_cadre', $champsActifs)): ?>  
+                <?php if ($formulaireActif && !empty($champsActifs) && in_array('rdv_dans_la_cadre', $champsActifs)): ?>   
                     <div id = "rdv_dans_la_cadre" class="form-group-radio-bouton">
                         <label class="bold" for="permanence"> Rendez-vous dans le cadre d'une permanence ? :</label>
                         <div class="radio-group">
-                            <label><input type="radio" id="permanence_oui" name="permanence" value="Oui"> Oui</label></label>
-                            <label><input type="radio" id="permanence_non" name="permanence" value="Non"> Non</label></label>
+                            <label><input type="radio" id="oui" name="permanence" value="Oui"> Oui</label></label>
+                            <label><input type="radio" id="non" name="permanence" value="Non"> Non</label></label>
                         </div>
                     </div><br>
                 <?php endif; ?>
@@ -672,7 +669,7 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                 <?php if ($formulaireActif && !empty($champsActifs) && in_array('temps_h_mn', $champsActifs)): ?>
                     <div id="temps_h_mn" class="time-input-container">
                         <label class="bold">Temps consacré  <span class="etoile">*</span>:
-                           
+                            
                         </label>
                         <label class="bold" for="heures">Heures : </label>
                             <input type="text" id="heures" name="heures" pattern="^\d*$" title="Entrez un nombre entier positif">
@@ -716,13 +713,13 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                                 <option value="Région">Région</option>
                                 <option value="Autre">Autre</option>
                            </select>
-                       
+                        
                             <div id="autre_provenance" class="autre-field" style="display:none;">
                              <label class="bold">Précisez :</label>
                                  <input type="text" name="provenance_autre" class="longueurraccourcie">
                             </div>
                         </div>
-                       
+                        
 
 
                         <!-- Dossier partagé avec... -->
@@ -751,7 +748,7 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                                     <input type="text" name="partage_autre" class="longueurraccourcie">
                             </div>
                         </div>
-                       
+                        
                     </div>
 
 
@@ -764,7 +761,7 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                         <div style="margin-bottom: 20px;"></div>
                     </div>
                 <?php endif; ?>
-               
+                
                 <?php if ($formulaireActif && !empty($champsActifs) && in_array('commentaire', $champsActifs)): ?>
                     <div id="commentaire" class="form-group">
                         <label class="bold" for="saisie_libre">Commentaire(s) / Détail(s) supplémentaire(s) (si besoin) :</label>
@@ -773,14 +770,14 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
                 <?php endif; ?>
 
                 <?php if ($formulaireActif && !empty($champsActifs) && in_array('bloc_note_div', $champsActifs)): ?>
-                    <div id="bloc_note_div" >
-                        <!-- Bloc note -->  
-                         <div class="form-group">
+                    <div id="bloc_note_div" > 
+                        <!-- Bloc note -->   
+                         <div class="form-group"> 
                             <label class="bold" for="BN">Bloc note personnel :</label>
                             <textarea type="text" placeholder="Bloc note" id="BN" name="BN" rows="4" cols="50"></textarea>
-                        </div>
+                        </div> 
                           <!-- Piece jointe -->
-                        <?php if(!$QR){ ?>
+                        <? if(!$QR){ ?>
                              <div class="form-group" style="margin-left: 15%;">
                                     <label class="bold" for="PJ">Pièce jointe bloc-note :</label>
                                     <input type="file" id="PJ" name="PJ" accept=".pdf, .doc, .docx">
@@ -793,7 +790,7 @@ echo "<script>var userData = " . json_encode($user ? null) . ";</script>";
 
                                 <div style="margin-bottom: 20px;"></div>
                             </div>
-                        <?php } ?>
+                        <? } ?>
 
                     </div>
                 <?php endif; ?>
@@ -824,14 +821,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <!-- Piece jointe -->
                 <?php if ($formulaireActif && !empty($champsActifs) && in_array('piece_jointe_div', $champsActifs)): ?>
-                   
+                    
                 <?php endif; ?>
 
                 <?php if ($formulaireActif && !empty($champsActifs) && in_array('accompagnement_recherche', $champsActifs)): ?>
                     <div id="accompagnement_recherche">
                         <label class="bold">Cet accompagnement a-t-il nécessité des recherches ? :</label>
-                            <input type="radio" id="recherche_oui" name="recherche" value="Oui"> Oui
-                            <input type="radio" id="recherche_non" name="recherche" value="Non"> Non
+                            <input type="radio" id="accompagnement" name="recherche" value="Oui"> Oui
+                            <input type="radio" id="non" name="recherche" value="Non"> Non
                     </div>
                 <?php endif; ?>
 
@@ -839,16 +836,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     <!-- Transmission -->
                     <div id="fiche_synthese" class="form-groupRecherche">
                         <label class="bold-2">Cette recherche a donné lieu à la création/modification d'une fiche de synthèse :
-                           
+                            
                         </label>
                         <div class="radio-group" >
-                            <label><input type="radio" id="temps_oui" name="temps" value="Oui"> Oui </label>
-                            <label><input type="radio" id="temps_non" name="temps" value="Non"> Non </label>
+                            <label><input type="radio" id="oui" name="temps" value="Oui"> Oui </label>
+                            <label><input type="radio" id="non" name="temps" value="Non"> Non </label>
                         </div>
                     </div>
                 <?php endif; ?>
 
-                <?php if($idFonction ==1 || $idFonction == 2){
+                <? if($idFonction ==1 || $idFonction == 2){
                     echo'<button class="button-vert" type="submit" class="center-button">Envoyer</button>';
                 }    
                  else {
@@ -858,7 +855,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </span>';
                  }?>
                 </form>
-            </section>        
+            </section>         
         </div>
     </div>
 
@@ -878,7 +875,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <div class="footer-image">
              
-            <a
+            <a 
             <?php if ($idFonction == 2 || $idFonction == 3)  echo'href="/../views/pageadmin.php"' ?>
             <?php if ($idFonction == 1 || $idFonction == 4)  echo'href="/../views/mon_espace.php"' ?>
             class="btn-home" title="Retour à l'accueil">
