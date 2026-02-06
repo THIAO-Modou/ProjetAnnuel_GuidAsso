@@ -18,15 +18,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $adresse_utilisateur = $_SESSION['MAIL'] ?? 'inconnu';
 
         // 🔹 Vérification et nettoyage des champs
-        $nom = isset($_POST['nom']) ? htmlspecialchars(trim($_POST['nom'])) : '';
-        $prenom = isset($_POST['prenom']) ? htmlspecialchars(trim($_POST['prenom'])) : '';
+        $nom = isset($_POST['nom']) ? trim($_POST['nom']) : '';
+        $prenom = isset($_POST['prenom']) ? trim($_POST['prenom']) : '';
         $mail = isset($_POST['email']) ? filter_var($_POST['email'], FILTER_SANITIZE_EMAIL) : '';
+        $structure = isset($_POST['structure']) ? trim($_POST['structure']) : '';
         $role = isset($_POST['role']) ? intval($_POST['role']) : 0;
         $mdp = isset($_POST['mdp']) ? trim($_POST['mdp']) : '';
         $mdp2 = isset($_POST['confirm_mdp']) ? trim($_POST['confirm_mdp']) : '';
-        $classification = isset($_POST['classification']) ? htmlspecialchars(trim($_POST['classification'])) : '';
+        $classification = isset($_POST['classification']) ? trim($_POST['classification']) : '';
 
-        if (empty($nom) || empty($prenom) || empty($mail) || empty($role) || empty($mdp) || empty($mdp2) || empty($classification)) {
+        if (empty($nom) || empty($prenom) || empty($mail) || empty($structure) || empty($role) || empty($mdp) || empty($mdp2) || empty($classification)) {
             throw new Exception("Tous les champs sont obligatoires.");
         }
 
@@ -67,12 +68,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]);
 
         // 🔹 Insertion de l'utilisateur en base
-        $stmt = $pdo->prepare("INSERT INTO GUIDASSO (NOMPERSONNE, PRENOMPERSONNE, MAIL, MOTDEPASSE, IDFONCTION, CLASSIFICATION) 
-                               VALUES (:nom, :prenom, :mail, :password, :role, :classification)");
+        $stmt = $pdo->prepare("INSERT INTO GUIDASSO (NOMPERSONNE, PRENOMPERSONNE, MAIL, STRUCTURE, MOTDEPASSE, IDFONCTION, CLASSIFICATION) 
+                               VALUES (:nom, :prenom, :mail, :structure, :password, :role, :classification)");
         $stmt->execute([
             ':nom' => $nom,
             ':prenom' => $prenom,
             ':mail' => $mail,
+            ':structure' => $structure,
             ':password' => $hashed_password,
             ':role' => $role,
             ':classification' => $classification,

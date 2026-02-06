@@ -201,6 +201,10 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                         <input type="text" id="prenom" name="prenom" required>
                     </div>
                     <div class="admin-form-group">
+                        <label for="structure0">Nom de la structure :</label>
+                        <input type="text" id="structure0" name="structure" required>
+                    </div>
+                    <div class="admin-form-group">
                         <label for="email">Adresse mail :</label>
                         <input type="email" id="email" name="email" required>
                     </div>
@@ -313,6 +317,11 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                     </div>
 
                     <div class="admin-form-group">
+                        <label for="structure1">Nom de la structure :</label>
+                        <input type="text" id="structure1" name="structure1">
+                    </div>
+
+                    <div class="admin-form-group">
                         <label for="role">Rôle :</label>
                         <select id="role" name="role">
                             <option value="1">Utilisateur</option>
@@ -370,6 +379,11 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                     <div class="admin-form-group">
                         <label for="prenom2">Prénom :</label>
                         <input type="text" id="prenom2" name="prenom2">
+                    </div>
+
+                    <div class="admin-form-group">
+                        <label for="structure2">Nom de la structure :</label>
+                        <input type="text" id="structure2" name="structure2">
                     </div>
 
                     <div class="admin-form-group">
@@ -556,6 +570,10 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
 
                 <div id="export-user-container" style="display:none; margin-top:10px;">
                     <p>Sélectionner un ou plusieurs utilisateurs :</p>
+                    <label style="display:block; text-align:left; font-weight:bold; margin:6px 0 8px 0;">
+                        <input type="checkbox" id="toggle-all-users">
+                        Tout cocher / tout décocher
+                    </label>
 
                     <div id="checkbox-list" style="max-height:200px; overflow-y:auto; padding-left:10px; text-align:left;">
                         <?php
@@ -593,6 +611,17 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                 document.getElementById("importForm").submit(); // Soumet le formulaire pour déclencher l’import
             }
         });
+
+        // ----------------------------------------------------------
+        // ------- TOUT COCHER / TOUT DECOCHER (EXPORT USER) ----------
+        // ----------------------------------------------------------
+        const toggleAllUsers = document.getElementById("toggle-all-users");
+        if (toggleAllUsers) {
+            toggleAllUsers.addEventListener("change", function () {
+                const checkboxes = document.querySelectorAll("#checkbox-list input[type='checkbox']");
+                checkboxes.forEach(cb => cb.checked = toggleAllUsers.checked);
+            });
+        }
 
         // -----------------------------------------------
         // ----- COMPORTEMENT DE LA CASE "export-date" ---

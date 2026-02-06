@@ -428,6 +428,19 @@ echo "<script>var userData = " . json_encode($user ?? null) . ";</script>";
                             <input type="text" placeholder="Commune" id="commune" name="commune" >
                             <div id="communeSuggestions" class="suggestions-box"></div>
                         </div>
+                        <!-- HORS DEPARTEMENT -->
+                        <div class="horsDep">
+                            <input class="checkbox" type="checkbox" id="horsDepartement" name="horsDepartementCheckbox">
+                            <label class="bold" for="horsDepartement"> : Hors département</label>
+                        </div>
+
+                        <!-- Champ département (caché par défaut) -->
+                        <div id="departementField" style="display:none; margin-top:8px;">
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <label class="bold" for="numeroDepartement">Numéro du département :</label>
+                                <input type="number" id="numeroDepartement" name="numeroDepartement" placeholder="Ex : 75" maxlength="2" pattern="\d{2}" min="1" max="99" style="width:70px;">
+                            </div>
+                        </div>
                     </div><br>
                     <?php endif; ?>
 

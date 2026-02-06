@@ -697,10 +697,21 @@ textarea {
 .projetAsso {
     display: flex;
     align-items: center; /* Aligne la checkbox et le label verticalement */
-    gap: 15px; /* Ajoute un espace entre la checkbox et le texte */
-    padding-left: 25%;
-    padding-top : -30px;
+    gap: 12px; /* Ajoute un espace entre la checkbox et le texte */
+    flex-wrap: wrap;
+    padding-left: 0;
+    padding-top: 0;
+    width: 100%;
 
+}
+
+.projetAsso .bold {
+    flex: 0 0 180px;
+    margin-bottom: 0;
+}
+
+.projetAsso label {
+    white-space: nowrap;
 }
 
 .projetAsso input[type="checkbox"] {
@@ -734,6 +745,7 @@ textarea {
     padding-bottom: 30px;
     padding-top : -60px;
 }
+
 
 .horsDep input[type="checkbox"] {
     width: 16px; /* Ajuste la taille de la checkbox */

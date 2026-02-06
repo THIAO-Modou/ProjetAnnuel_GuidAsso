@@ -15,7 +15,8 @@ if (isset($_POST['query'])) {
             // Construire une liste HTML avec les résultats
             echo '<ul>';
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                echo '<li>' . htmlspecialchars($row['NOMPERSONNE']) . '</li>';
+                $nom = htmlspecialchars($row['NOMPERSONNE']);
+                echo '<li data-nom="' . $nom . '">' . $nom . '</li>';
             }
             echo '</ul>';
         } else {

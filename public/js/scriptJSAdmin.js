@@ -158,6 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (data) {
                         $('#nom1').val(data.NOMPERSONNE || '');
                         $('#prenom1').val(data.PRENOMPERSONNE || '');
+                        $('#structure1').val(data.STRUCTURE || '');
                         $('#email1').val(email).prop('readonly', true);
                         if (data.CLASSIFICATION) {
                             $('input[name="classification"][value="' + data.CLASSIFICATION + '"]').prop('checked', true);
@@ -212,10 +213,14 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (data && !data.error) {
                             $('#email2').val(data.MAIL || '').prop('readonly', true);
                             $('#prenom2').val(data.PRENOMPERSONNE || '');
+                            $('#structure2').val(data.STRUCTURE || '');
                             if (data.CLASSIFICATION) {
                                 $('input[name="classification"][value="' + data.CLASSIFICATION + '"]').prop('checked', true);
                             }
                             $('#details-container2').fadeIn();
+                        } else {
+                            alert(data?.error || "Aucune donnée trouvée pour ce nom.");
+                            $('#details-container2').hide();
                         }
                     },
                     error: function () {
@@ -241,7 +246,10 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             $(document).on('click', '#nomSuggestions li', function () {
-                const selectedNom = $(this).data('nom'); // récupère le nom seulement
+                const selectedNom = ($(this).data('nom') || $(this).text() || '').trim();
+                if (!selectedNom) {
+                    return;
+                }
                 $('#nom2').val(selectedNom);             // insère uniquement le nom
                 $('#nomSuggestions').fadeOut();
                 fetchUserDetailsByName(selectedNom);     // charge les infos liées à ce nom

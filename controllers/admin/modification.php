@@ -32,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $nom = trim($_POST['nom1'] ?? '');
             $prenom = trim($_POST['prenom1'] ?? '');
             $classification = trim($_POST['classification'] ?? '');
+            $structure = trim($_POST['structure1'] ?? '');
             $role = isset($_POST['role']) ? intval($_POST['role']) : 0; // Nouveau champ pour le rôle
 
             if (empty($email)) $missingFields[] = "Adresse email";
@@ -54,10 +55,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 throw new Exception("Adresse email non reconnue. Veuillez vérifier l'email saisi.");
             }
 
+            if ($structure === '') {
+                $structure = $existingUser['STRUCTURE'] ?? null;
+            }
+
             // Mise à jour du profil incluant le rôle (IDFONCTION)
-            $stmt = $pdo->prepare("UPDATE GUIDASSO SET NOMPERSONNE = :nom, PRENOMPERSONNE = :prenom, CLASSIFICATION = :classification, IDFONCTION = :role WHERE MAIL = :mail");
+            $stmt = $pdo->prepare("UPDATE GUIDASSO SET NOMPERSONNE = :nom, PRENOMPERSONNE = :prenom, STRUCTURE = :structure, CLASSIFICATION = :classification, IDFONCTION = :role WHERE MAIL = :mail");
             $stmt->bindParam(':nom', $nom);
             $stmt->bindParam(':prenom', $prenom);
+            $stmt->bindParam(':structure', $structure);
             $stmt->bindParam(':classification', $classification);
             $stmt->bindParam(':role', $role);
             $stmt->bindParam(':mail', $email);
@@ -72,6 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $prenom = trim($_POST['prenom2'] ?? '');
             $email = filter_var($_POST['email2'] ?? '', FILTER_SANITIZE_EMAIL); // Email en lecture seule
             $classification = trim($_POST['classification'] ?? '');
+            $structure = trim($_POST['structure2'] ?? '');
             $role = isset($_POST['role']) ? intval($_POST['role']) : 0; // Nouveau champ pour le rôle
 
             if (empty($email)) $missingFields[] = "Adresse email";
@@ -94,10 +101,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 throw new Exception("L'utilisateur avec cet email n'existe pas. Vérifiez vos informations.");
             }
 
+            if ($structure === '') {
+                $structure = $existingUser['STRUCTURE'] ?? null;
+            }
+
             // Mise à jour du profil incluant le rôle (IDFONCTION)
-            $stmt = $pdo->prepare("UPDATE GUIDASSO SET NOMPERSONNE = :nom, PRENOMPERSONNE = :prenom, CLASSIFICATION = :classification, IDFONCTION = :role WHERE MAIL = :mail");
+            $stmt = $pdo->prepare("UPDATE GUIDASSO SET NOMPERSONNE = :nom, PRENOMPERSONNE = :prenom, STRUCTURE = :structure, CLASSIFICATION = :classification, IDFONCTION = :role WHERE MAIL = :mail");
             $stmt->bindParam(':nom', $nom);
             $stmt->bindParam(':prenom', $prenom);
+            $stmt->bindParam(':structure', $structure);
             $stmt->bindParam(':classification', $classification);
             $stmt->bindParam(':role', $role);
             $stmt->bindParam(':mail', $email);

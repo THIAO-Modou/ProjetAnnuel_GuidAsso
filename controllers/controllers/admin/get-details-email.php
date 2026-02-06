@@ -6,7 +6,7 @@ if (isset($_POST['email1'])) {
     $email = $_POST['email1'];
 
     // Préparer une requête SQL pour récupérer les données
-    $stmt = $pdo->prepare("SELECT NOMPERSONNE, PRENOMPERSONNE, MAIL, CLASSIFICATION FROM GUIDASSO WHERE MAIL = ?");
+    $stmt = $pdo->prepare("SELECT NOMPERSONNE, PRENOMPERSONNE, MAIL, STRUCTURE, CLASSIFICATION FROM GUIDASSO WHERE MAIL = ?");
     $stmt->execute([$email]);
 
     // Vérifier si une ligne correspond
