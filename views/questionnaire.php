@@ -341,19 +341,15 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
                             <div class="suggestions-box" id="associationSuggestions"></div>
                         </div> 
                         <!-- Projet asso -->
-                      <div class="projetAsso">
-                    <label class="bold">Avez-vous une association ?</label><br>
-
-                    <label>
-                        <input type="radio" name="choixAsso" value="oui" checked> Oui
-                    </label>
-
-                    <label><input type="radio" name="choixAsso" value="non"> Non </label>
-
-                    <label><input type="radio" name="choixAsso" value="projet"> Projet d’association</label>
-                    </div>
-
-
+                        <div class="projetAsso">
+                            <label class="bold">Association déclarée ?</label>
+                            <label><input type="radio" name="choixAsso" value="oui" checked> Oui</label>
+                            <label><input type="radio" name="choixAsso" value="non"> Non </label>
+                            <label><input type="radio" name="choixAsso" value="projet"> Projet d’association</label>
+                            <label><input type="radio" name="choixAsso" value="nom non communiqué"> Nom non communiqué</label>
+                        </div>
+                            <!--Ce champ servira pour le DJEDVA -->
+                        <input type="hidden" id="rna_id" name="rna_id">
                     </div>
                     <?php endif; ?>
 
@@ -420,9 +416,10 @@ echo "<script>var userData = " . json_encode($data) . ";</script>";
 
                         <!-- Champ département (caché par défaut) -->
                         <div id="departementField" style="display:none; margin-top:8px;">
-                            <label class="bold" for="numeroDepartement">Numéro du département :</label>
-                            <input type="number" id="numeroDepartement" name="numeroDepartement" placeholder="Ex : 75" maxlength="2" pattern="\d{2}" min="1" max="99" >
-                            
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <label class="bold" for="numeroDepartement">Numéro du département :</label>
+                                <input type="number" id="numeroDepartement" name="numeroDepartement" placeholder="Ex : 75" maxlength="2" pattern="\d{2}" min="1" max="99"  style="width:70px;">
+                            </div>  
                         </div>
                     </div><br>
                     <?php endif; ?>
