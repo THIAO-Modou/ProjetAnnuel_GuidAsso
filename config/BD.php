@@ -95,4 +95,68 @@ function getNumeroDepartement() {
     return $value !== false ? $value : null;
 }
 
+// Retourne la liste unique des activites (code_craig) depuis la table matrix
+function getCraigActivities() {
+    global $pdo;
+
+    if (!isset($pdo)) {
+        throw new Exception("Erreur : connexion a la base de donnees non etablie.");
+    }
+
+    $stmt = $pdo->query("SELECT DISTINCT code_craig FROM matrix WHERE code_craig IS NOT NULL AND code_craig <> '' AND LOWER(code_craig) <> 'autre' ORDER BY code_craig");
+    $values = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    if (!$values) {
+        return [];
+    }
+
+    $values = array_map('trim', $values);
+    $values = array_filter($values, function ($v) {
+        if ($v === '') {
+            return false;
+        }
+        return mb_strtolower($v, 'UTF-8') !== 'autre';
+    });
+
+    return array_values(array_unique($values));
+}
+
+// Retourne le code_craig a partir d'un social_object (ex: 006020 -> 006000 si besoin)
+function getCraigActivityFromSocialObject($socialObject) {
+    global $pdo;
+
+    if (!isset($pdo)) {
+        throw new Exception("Erreur : connexion a la base de donnees non etablie.");
+    }
+
+    $code = preg_replace('/\D+/', '', (string)$socialObject);
+    if ($code === '' || $code === '000000') {
+        return null;
+    }
+
+    $code = str_pad($code, 6, '0', STR_PAD_LEFT);
+
+    $stmt = $pdo->prepare("SELECT code_craig FROM matrix WHERE social_object = :code LIMIT 1");
+    $stmt->bindParam(":code", $code, PDO::PARAM_STR);
+    $stmt->execute();
+    $value = $stmt->fetchColumn();
+    if ($value !== false && $value !== null && $value !== '') {
+        return trim((string)$value);
+    }
+
+    $intCode = (int)$code;
+    $baseCode = intdiv($intCode, 1000) * 1000;
+    $baseCodeStr = sprintf("%06d", $baseCode);
+    if ($baseCodeStr !== $code) {
+        $stmt = $pdo->prepare("SELECT code_craig FROM matrix WHERE social_object = :code LIMIT 1");
+        $stmt->bindParam(":code", $baseCodeStr, PDO::PARAM_STR);
+        $stmt->execute();
+        $value = $stmt->fetchColumn();
+        if ($value !== false && $value !== null && $value !== '') {
+            return trim((string)$value);
+        }
+    }
+
+    return null;
+}
+
 ?>

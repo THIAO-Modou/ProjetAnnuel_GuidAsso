@@ -80,9 +80,13 @@ foreach ($records as $record) {
     $depName    = htmlspecialchars($f['dep_name'] ?? '', ENT_QUOTES);
     $commune    = htmlspecialchars($f['com_name_asso'] ?? $f['routed_address_manager'] ?? '', ENT_QUOTES);
     $siret      = htmlspecialchars($f['siret'] ?? '', ENT_QUOTES);
-    $objetCode1 = htmlspecialchars($f['social_object1'] ?? '', ENT_QUOTES);
-    $objetCode2 = htmlspecialchars($f['social_object2'] ?? '', ENT_QUOTES);
+    $objetCode1Raw = $f['social_object1'] ?? '';
+    $objetCode2Raw = $f['social_object2'] ?? '';
+    $objetCode1 = htmlspecialchars($objetCode1Raw, ENT_QUOTES);
+    $objetCode2 = htmlspecialchars($objetCode2Raw, ENT_QUOTES);
     $objetTxt   = htmlspecialchars($f['object'] ?? '', ENT_QUOTES);
+    $activityMain = getCraigActivityFromSocialObject($objetCode1Raw);
+    $activitySec = getCraigActivityFromSocialObject($objetCode2Raw);
 
     $streetNum  = htmlspecialchars($f['street_number_asso'] ?? '', ENT_QUOTES);
     $streetType = htmlspecialchars($f['street_type_asso'] ?? '', ENT_QUOTES);
@@ -111,6 +115,8 @@ foreach ($records as $record) {
             data-siret=\"{$siret}\"
             data-objet-code1=\"{$objetCode1}\"
             data-objet-code2=\"{$objetCode2}\"
+            data-activity-main=\"" . htmlspecialchars($activityMain ?? '', ENT_QUOTES) . "\"
+            data-activity-sec=\"" . htmlspecialchars($activitySec ?? '', ENT_QUOTES) . "\"
             data-objet-txt=\"{$objetTxt}\"
             data-street-num=\"{$streetNum}\"
             data-street-type=\"{$streetType}\"

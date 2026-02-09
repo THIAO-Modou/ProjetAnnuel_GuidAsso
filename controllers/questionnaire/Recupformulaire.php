@@ -109,6 +109,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $classification = $_POST['classification'] ?? '';
         $assoc = trim($_POST['assoc'] ?? '');
         $activite_principale = $_POST['act_principale'] ?? '';
+        $autreActivitePrincipale = $_POST['autreActivitePrincipale'] ?? '';
+        $autreActiviteSecondaire = $_POST['autreActiviteSecondaire'] ?? '';
         $activiteSec = $_POST['act_sec'] ?? [];
         $nom_contact = $_POST['nom_contact'] ?? '';
         $prenom_contact = $_POST['prenom_contact'] ?? '';
@@ -158,7 +160,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         // Gestion des activités secondaires et thèmes multiples pour RDV
-        $actS = is_array($activiteSec) ? implode(", ", $activiteSec) : "";
+        if ($activite_principale === "Autre" && trim($autreActivitePrincipale) !== "") {
+            $activite_principale = trim($autreActivitePrincipale);
+        }
+
+        if (is_array($activiteSec)) {
+            if (trim($autreActiviteSecondaire) !== "") {
+                $activiteSec = array_values(array_filter($activiteSec, function ($v) {
+                    return $v !== "Autre";
+                }));
+                $activiteSec[] = trim($autreActiviteSecondaire);
+            }
+            $actS = implode(", ", $activiteSec);
+        } else {
+            $actS = trim($autreActiviteSecondaire) !== "" ? trim($autreActiviteSecondaire) : "";
+        }
         $theme = is_array($themes) ? implode(", ", $themes) : "";
         if (!empty($autreChamp)) {
             $theme .= !empty($theme) ? ", " . $autreChamp : $autreChamp;

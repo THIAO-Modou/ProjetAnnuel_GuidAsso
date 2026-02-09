@@ -64,7 +64,6 @@ let table = `
         	<th>Nom contact</th>
         	<th>Thématique</th>
         	<th>Référent Guid'Asso</th>
-        	<th>Email Référent</th>
     	</tr>
 	</thead>
 	<tbody></tbody>
@@ -80,14 +79,6 @@ response.entries.forEach(entry => {
         	<td>${entry.CIVILITE || ""} ${entry.NOMCONTACT || ""}</td>
         	<td>${entry.THEMEGENERAL || ""} ${entry.AUTRETHEMATIQUE || ""}</td>
         	<td>${entry.NOMUTILISATEUR || ""} ${entry.PRENOMUTILISATEUR || ""}</td>
-        	<td>
-            	<a href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(entry.EMAILUtilisateur)}"
-   target="_blank"
-   style="text-decoration:none;font-size:24px;">
-   📧
-</a>
-
-        	</td>
     	</tr>`);
 });
 
@@ -627,4 +618,5 @@ document.addEventListener('DOMContentLoaded', function () {
         lastScrollY = scrollY;
     });
 });
+
 

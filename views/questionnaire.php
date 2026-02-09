@@ -20,6 +20,13 @@ if (!isset($_SESSION['MAIL'])) {
 }
 $user = getUserInfoByEmail($_SESSION['MAIL']);
 $numeroDepartement = getNumeroDepartement();
+$activitesCraig = [];
+try {
+    $activitesCraig = getCraigActivities();
+    sort($activitesCraig, SORT_NATURAL | SORT_FLAG_CASE);
+} catch (Exception $e) {
+    $activitesCraig = [];
+}
 
 if ($user) {
     $nom = $user['NOMPERSONNE'];
@@ -461,34 +468,30 @@ echo "<script>var userData = " . json_encode($user ?? null) . ";</script>";
                                 <label class="bold" for="act_principale"> Activité principale de l'association <span class="etoile">*</span> : </label>
                                 <select id="act_principale" name="act_principale" class="longueurraccourcie" required>
                                     <option value="">...</option>
-                                    <option value="Culture, loisirs">Culture, loisirs</option>
-                                    <option value="Sport, activités indoor et plein-air">Sport, activités indoor et plein-air</option>
-                                    <option value="Lien social, éducation, insertion, logement">Lien social, éducation, insertion, logement</option>
-                                    <option value="ducation populaire, Jeunesse">Education populaire, Jeunesse</option>
-                                    <option value="Caritatif et solidarité">Caritatif et solidarité</option>
-                                    <option value="Service aux personnes, santé et handicap">Service aux personnes, santé et handicap</option>
-                                    <option value="Environnement, écologie et développement durable">Environnement, écologie et développement durable</option>
-                                    <option value="Patrimoine, tourisme">Patrimoine, tourisme</option>
-                                    <option value="Science, recherche, technologies">Science, recherche, technologies</option>
-                                    <option value="Emploi, économie, ESS">Emploi, économie, ESS</option>
-                                    <option value="Sécurité, secours, défense">Sécurité, secours, défense</option>
+                                    <?php foreach ($activitesCraig as $activite): ?>
+                                        <option value="<?= htmlspecialchars($activite, ENT_QUOTES) ?>">
+                                            <?= htmlspecialchars($activite, ENT_QUOTES) ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                    <option value="Autre">Autre</option>
                                 </select>
+                                <div id="autreActivitePrincipaleContainer" style="display:none;">
+                                    <label for="autreActivitePrincipale">Précisez autre :</label>
+                                    <input type="text" id="autreActivitePrincipale" name="autreActivitePrincipale" placeholder="Précisez autre">
+                                </div>
                             </div>
 
                             <div class="colonne">
                             <label class="bold" for="sujet">Autres activités de l'association :</label>
                                 <div class="theme-group">
-                                    <label><input type="checkbox" class="act_sec" name="act_sec[]" value="Culture, loisirs"> Culture, loisirs</label>
-                                    <label><input type="checkbox" class="act_sec" name="act_sec[]" value="Sport, activités indoor et plein-air"> Sport, activités indoor et plein-air</label>
-                                    <label><input type="checkbox" class="act_sec" name="act_sec[]" value="Lien social, éducation, insertion, logement"> Lien social, éducation, insertion, logement</label>
-                                    <label><input type="checkbox" class="act_sec" name="act_sec[]" value="Education populaire, Jeunesse"> Education populaire, Jeunesse</label>
-                                    <label><input type="checkbox" class="act_sec" name="act_sec[]" value="Caritatif et solidarité"> Caritatif et solidarité</label>
-                                    <label><input type="checkbox" class="act_sec" name="act_sec[]" value="Service aux personnes, santé et handicap"> Service aux personnes, santé et handicap</label>
-                                    <label><input type="checkbox" class="act_sec" name="act_sec[]" value="Environnement, écologie et développement durable"> Environnement, écologie et développement durable</label>
-                                    <label><input type="checkbox" class="act_sec" name="act_sec[]" value="Patrimoine, tourisme"> Patrimoine, tourisme</label>
-                                    <label><input type="checkbox" class="act_sec" name="act_sec[]" value="Science, recherche, technologies"> Science, recherche, technologies</label>
-                                    <label><input type="checkbox" class="act_sec" name="act_sec[]" value="Emploi, économie, ESS"> Emploi, économie, ESS</label>
-                                    <label><input type="checkbox" class="act_sec" name="act_sec[]" value="Sécurité, secours, défense"> Sécurité, secours, défense</label>
+                                    <?php foreach ($activitesCraig as $activite): ?>
+                                        <label>
+                                            <input type="checkbox" class="act_sec" name="act_sec[]" value="<?= htmlspecialchars($activite, ENT_QUOTES) ?>">
+                                            <?= htmlspecialchars($activite, ENT_QUOTES) ?>
+                                        </label>
+                                    <?php endforeach; ?>
+                                    <label><input type="checkbox" class="act_sec" name="act_sec[]" value="Autre"> Autre </label>
+                                    <input type="text" id="autreActiviteSecondaire" name="autreActiviteSecondaire" style="display:none;" placeholder="Précisez autre">
                                 </div>
                             </div>
                         </div>

@@ -207,6 +207,24 @@ document.addEventListener("DOMContentLoaded", function () {
 // ----------------- Questionnaire Réseau : "Autres" (dans menu déroulant) ---------------------
 
 document.addEventListener("DOMContentLoaded", function() {
+    function setupSelectOther(selectId, autreContainerId, autreInputId, otherValue) {
+        const select = document.getElementById(selectId);
+        const autreContainer = document.getElementById(autreContainerId);
+        const autreInput = document.getElementById(autreInputId);
+
+        if (!select || !autreContainer || !autreInput) {
+            return;
+        }
+
+        select.addEventListener("change", function() {
+            if (select.value === otherValue) {
+                autreContainer.style.display = "block";
+            } else {
+                autreContainer.style.display = "none";
+                autreInput.value = "";
+            }
+        });
+    }
     function setupThemeToggle(selectId, autreContainerId, autreInputId) {
         const select = document.getElementById(selectId);
         const autreContainer = document.getElementById(autreContainerId);
@@ -254,18 +272,40 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    function setupActSecOther(checkboxValue, autreChampId) {
+        const checkbox = document.querySelector(`input[name='act_sec[]'][value='${checkboxValue}']`);
+        const autreChamp = document.getElementById(autreChampId);
+
+        if (!checkbox || !autreChamp) {
+            return;
+        }
+
+        checkbox.addEventListener("change", function() {
+            if (checkbox.checked) {
+                autreChamp.style.display = "block";
+            } else {
+                autreChamp.style.display = "none";
+                autreChamp.value = "";
+            }
+        });
+    }
+
     // Appliquer la gestion des sélections pour tous les champs concernés
     setupThemeToggle("themeG", "autreThemeContainer", "autreTheme"); // Q&R
     setupThemeToggle("themeG1", "autreThemeContainer1", "autreTheme1"); // RDV
     setupThemeToggle("themeG2", "autreThemeContainer2", "autreTheme2"); // Evenement
     setupThemeToggle("themeG3", "autreThemeContainer3", "autreTheme3"); // Longsuivi
     setupThemeToggle("themeG6", "autreThemeContainer6", "autreTheme6"); // Réseau
+
+    setupSelectOther("act_principale", "autreActivitePrincipaleContainer", "autreActivitePrincipale", "Autre");
     
     setupCheckboxToggle("Autre", "autreChamp"); //Q&R
     setupCheckboxToggle("Autre1", "autreChamp1"); // RDV
     setupCheckboxToggle("Autre2", "autreChamp2"); // Evenement
     setupCheckboxToggle("Autre3", "autreChamp3"); // Longsuivi
     setupCheckboxToggle("Autre6", "autreChamp6"); // Réseau
+
+    setupActSecOther("Autre", "autreActiviteSecondaire");
 });
 
 // ----------------- Vérifie si ressource cochée  ---------------------
@@ -304,6 +344,68 @@ $(document).on("associationSelected", function(event, data) {
     // Remplir la commune automatiquement
     if (data.commune) {
         $('#commune').val(data.commune);
+    }
+
+    const activityMain = (data.activityMain || "").toString().trim();
+    const activitySec = (data.activitySec || "").toString().trim();
+
+    // Activite principale (select)
+    const selectMain = document.getElementById("act_principale");
+    if (selectMain) {
+        let matched = false;
+        if (activityMain) {
+            Array.from(selectMain.options).forEach(opt => {
+                if (opt.value === activityMain || opt.text.trim().toLowerCase() === activityMain.toLowerCase()) {
+                    selectMain.value = opt.value;
+                    matched = true;
+                }
+            });
+        }
+
+        if (!matched && activityMain) {
+            selectMain.value = "Autre";
+            const autreContainer = document.getElementById("autreActivitePrincipaleContainer");
+            const autreInput = document.getElementById("autreActivitePrincipale");
+            if (autreContainer && autreInput) {
+                autreContainer.style.display = "block";
+                autreInput.value = activityMain.toLowerCase() === "autre" ? "" : activityMain;
+            }
+        }
+
+        selectMain.dispatchEvent(new Event("change"));
+    }
+
+    // Autres activites (checkbox)
+    const actSecCheckboxes = document.querySelectorAll("input.act_sec[type='checkbox']");
+    actSecCheckboxes.forEach(cb => { cb.checked = false; });
+    const autreSecInput = document.getElementById("autreActiviteSecondaire");
+    if (autreSecInput) {
+        autreSecInput.style.display = "none";
+        autreSecInput.value = "";
+    }
+
+    if (activitySec) {
+        let matched = false;
+        actSecCheckboxes.forEach(cb => {
+            if (cb.value === activitySec || cb.value.toLowerCase() === activitySec.toLowerCase()) {
+                cb.checked = true;
+                matched = true;
+            }
+        });
+
+        if (!matched) {
+            const autreCb = document.querySelector("input.act_sec[type='checkbox'][value='Autre']");
+            if (autreCb) {
+                autreCb.checked = true;
+            }
+            if (autreSecInput) {
+                autreSecInput.style.display = "block";
+                autreSecInput.value = activitySec.toLowerCase() === "autre" ? "" : activitySec;
+            }
+        } else if (activitySec.toLowerCase() === "autre" && autreSecInput) {
+            autreSecInput.style.display = "block";
+            autreSecInput.value = "";
+        }
     }
 });
 
@@ -354,6 +456,7 @@ $(document).ready(function() {
                                     <th>Nom contact</th>              
                                     <th>Thématique</th>
                                     <th>Référent guid'asso</th>
+                                    <th>Email Référent</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -371,6 +474,9 @@ $(document).ready(function() {
                                 <td>${entry.CIVILITE || ''} ${entry.NOMCONTACT || ''}</td>
                                 <td>${entry.THEMEGENERAL || ''} ${entry.AUTRETHEMATIQUE || ''}</td>
                                 <td>${entry.NOMUTILISATEUR || ''} ${entry.PRENOMUTILISATEUR || ''}</td>
+                                <td>
+                                    ${entry.EMAILUTILISATEUR ? `<a href="mailto:${encodeURIComponent(entry.EMAILUTILISATEUR)}" style="text-decoration:none;font-size:20px;">&#9993;</a>` : ''}
+                                </td>
                                 <td>${entry.TYPEQUESTIONNAIRE || ''}</td>
                             </tr>`);
                     });
@@ -624,5 +730,6 @@ document.addEventListener('DOMContentLoaded', function () {
         lastScrollY = scrollY;
     });
 });
+
 
 
