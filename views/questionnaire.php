@@ -295,24 +295,6 @@ echo "<script>var userData = " . json_encode($user ?? null) . ";</script>";
             <section id="QR-form" class="QR-form">
                 <form id="longsuivi" method="post" action="/../controllers/questionnaire/Recupformulaire.php" enctype="multipart/form-data">
 
-                <?php if ($formulaireActif && !empty($champsActifs) && in_array('horsDepartement', $champsActifs)): ?>  
-                <!-- HORS DEPARTEMENT -->
-                        <div class="horsDep" id="horsDepartementContainer" style="display: flex; align-items: center; gap: 7%px; flex-wrap: wrap;">
-                            <input class="checkbox" type="checkbox" id="horsDepartement" name="horsDepartementCheckbox">
-                            <label class="bold" for="horsDepartement"> : Hors département</label>
-                        </div>
-
-                        <!-- Champ département (caché par défaut) -->
-                        <div id="departementField" style="display:none; margin-top:8px;">
-                            <div style="display:flex; align-items:center; gap:10px;">
-                                <label class="bold" for="numeroDepartement">Numéro du département :</label>
-                                <input type="number" id="numeroDepartement" name="numeroDepartement" placeholder="Ex : 75" maxlength="2" pattern="\d{2}" min="1" max="99"  style="width:70px;" value="<?= htmlspecialchars($numeroDepartement ?? '') ?>" data-default="<?= htmlspecialchars($numeroDepartement ?? '') ?>">
-                            </div>  
-                            <div id="departementError" style="display:none; margin-top:6px; color:#b00020; font-weight:600;">
-                                Veuillez saisir un numero de departement.
-                            </div>
-                        </div>
-                    <?php endif; ?>
 
                     <?php if ($formulaireActif && !empty($champsActifs) && in_array('type_rdv', $champsActifs)): ?>    
                         <div id="type_rdv" style="display: flex; align-items: center; gap: 15px;">
@@ -355,6 +337,26 @@ echo "<script>var userData = " . json_encode($user ?? null) . ";</script>";
 
                     <?php if ($formulaireActif && !empty($champsActifs) && in_array('assoc_div', $champsActifs)): ?>
                     <div id="assoc_div">
+                <?php if ($formulaireActif && !empty($champsActifs) && in_array('horsDepartement', $champsActifs)): ?>
+                <!-- HORS DEPARTEMENT -->
+                        <div class="horsDepRow" style="display:flex; align-items:center; justify-content:space-between; width:100%; flex-wrap:nowrap;">
+                            <div class="horsDep" id="horsDepartementContainer" style="margin-right:auto;">
+                                <input class="checkbox" type="checkbox" id="horsDepartement" name="horsDepartementCheckbox">
+                                <label class="bold" for="horsDepartement"> : Hors département</label>
+                            </div>
+
+                            <!-- Champ département (caché par défaut) -->
+                            <div id="departementField" style="display:none; margin-left:auto;">
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <label class="bold" for="numeroDepartement">N° Dpt :</label>
+                                    <input type="number" id="numeroDepartement" name="numeroDepartement" placeholder="Ex : 75" maxlength="2" pattern="\d{2}" min="1" max="99"  style="width:70px;" value="<?= htmlspecialchars($numeroDepartement ?? '') ?>" data-default="<?= htmlspecialchars($numeroDepartement ?? '') ?>">
+                                </div>
+                                <div id="departementError" style="display:none; margin-top:6px; color:#b00020; font-weight:600;">
+                                    Veuillez saisir un numero de departement.
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                         <!-- Nom de l'association avec prédiction --> 
                         <div id="assoFieldLS" class="form-group">
                             <label class="bold" for="assoc">Nom de l'association <span class="etoile"><?php if(!$anonyme) echo'*'; ?></span> :</label>
@@ -379,6 +381,7 @@ echo "<script>var userData = " . json_encode($user ?? null) . ";</script>";
                             <label id="bold-left" class="bold" for="evenement">Quel événement ? <span class="etoile">*</span>:</label>
                                 <select id="evenement" name="evenement" class="longueurraccourcie" required>
                                     <option value="">...</option>
+                                    <option value="Réunion réseau">Réunion réseau</option>
                                     <option value="Tour de la Vienne">Tour de la Vienne</option>
                                     <option value="Formation CFGA">Formation CFGA</option>
                                     <option value="Formation (autre)">Formation (autre)</option>
@@ -428,20 +431,8 @@ echo "<script>var userData = " . json_encode($user ?? null) . ";</script>";
                             <input type="text" placeholder="Commune" id="commune" name="commune" >
                             <div id="communeSuggestions" class="suggestions-box"></div>
                         </div>
-                        <!-- HORS DEPARTEMENT -->
-                        <div class="horsDep">
-                            <input class="checkbox" type="checkbox" id="horsDepartement" name="horsDepartementCheckbox">
-                            <label class="bold" for="horsDepartement"> : Hors département</label>
-                        </div>
-
-                        <!-- Champ département (caché par défaut) -->
-                        <div id="departementField" style="display:none; margin-top:8px;">
-                            <div style="display:flex; align-items:center; gap:10px;">
-                                <label class="bold" for="numeroDepartement">Numéro du département :</label>
-                                <input type="number" id="numeroDepartement" name="numeroDepartement" placeholder="Ex : 75" maxlength="2" pattern="\d{2}" min="1" max="99" style="width:70px;">
-                            </div>
-                        </div>
-                    </div><br>
+                    </div>  
+                       <br>
                     <?php endif; ?>
 
                     <?php if ($formulaireActif && !empty($champsActifs) && in_array('activite_reseau', $champsActifs)): ?>
@@ -564,6 +555,8 @@ echo "<script>var userData = " . json_encode($user ?? null) . ";</script>";
                                 <option value="Formation">Formation</option>
                                 <option value="Dissolution">Dissolution</option>
                                 <option value="Médiation/Crise">Médiation/Crise</option>
+                                <option value="Organisation événement">Organisation événement</option>
+                                <option value="Communication interne/externe">Communication interne/externe</option>
                                 <option value="Autre">Autre</option>
                             </select>
                             <div id="autreThemeContainer3" style="display:none;">
@@ -585,6 +578,8 @@ echo "<script>var userData = " . json_encode($user ?? null) . ";</script>";
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Formation"> Formation</label>
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Disolution"> Dissolution</label>
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Médiation/Crise"> Médiation/Crise</label>
+                                <label><input type="checkbox" class="theme" name="theme[]" value="Organisation événement"> Organisation événement</label>
+                                <label><input type="checkbox" class="theme" name="theme[]" value="Communication interne/externe"> Communication interne/externe</label>
                                 <label><input type="checkbox" class="theme" name="theme[]" value="Autre3"> Autre </label>
                                 <input type="text" id="autreChamp3" name="autreChamp" style="display:none;" placeholder="Précisez autre">
                             </div>
