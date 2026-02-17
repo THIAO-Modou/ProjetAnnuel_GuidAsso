@@ -8,7 +8,84 @@ if (!isset($_POST['query']) || strlen(trim($_POST['query'])) < 2) {
     exit;
 }
 
-$query = urlencode($_POST['query']);
+$query = trim($_POST['query']);
+
+// Construit une requete Lucene compatible ODS pour simuler "contient":
+// "agam" => title:agam* OR title:gam* OR title:am*
+// Puis on garde le filtre PHP stripos() pour garantir le vrai "contient".
+function buildContainsFieldQuery(string $field, string $input): string {
+    $terms = preg_split('/\s+/', $input);
+    $parts = [];
+
+    foreach ($terms as $term) {
+        $term = trim($term);
+        if ($term === '') {
+            continue;
+        }
+
+        // Nettoie les caracteres speciaux Lucene
+        $clean = preg_replace('/[+\-!(){}\[\]^"~*?:\\\\\/]/', ' ', $term);
+        $clean = trim(preg_replace('/\s+/', ' ', $clean));
+
+        if ($clean === '') {
+            continue;
+        }
+
+        $len = strlen($clean);
+        $variants = [];
+
+        // Max 4 suffixes pour limiter le volume de la requete
+        for ($i = 0; $i < $len; $i++) {
+            $suffix = substr($clean, $i);
+            if (strlen($suffix) < 2) {
+                break;
+            }
+            $variants[] = $field . ':' . $suffix . '*';
+            if (count($variants) >= 4) {
+                break;
+            }
+        }
+
+        if (!empty($variants)) {
+            $parts[] = '(' . implode(' OR ', array_unique($variants)) . ')';
+        }
+    }
+
+    if (empty($parts)) {
+        return '';
+    }
+
+    return '(' . implode(' AND ', $parts) . ')';
+}
+
+// Fallback sans requete SQL: extrait le premier code et le ramene au millier (006020 -> 006000).
+function fallbackCraigCodeFromSocialObject($socialObject): ?string {
+    $raw = (string)$socialObject;
+    if ($raw === '') {
+        return null;
+    }
+
+    if (preg_match('/\d{3,}/', $raw, $m) !== 1) {
+        return null;
+    }
+
+    $digits = preg_replace('/\D+/', '', $m[0]);
+    if ($digits === '') {
+        return null;
+    }
+
+    $digits = str_pad($digits, 6, '0', STR_PAD_LEFT);
+    $base = intdiv((int)$digits, 1000) * 1000;
+
+    return sprintf('%06d', $base);
+}
+
+$titleQuery = buildContainsFieldQuery('title', $query);
+$shortTitleQuery = buildContainsFieldQuery('short_title', $query);
+
+if ($titleQuery === '' && $shortTitleQuery === '') {
+    exit;
+}
 
 // Filtre departement:
 // - par defaut on utilise le NumeroDepartement de la table GUIDASSO
@@ -25,7 +102,7 @@ if ($depFilter !== '' && ctype_digit((string)$depFilter)) {
 $base = "https://public.opendatasoft.com/api/records/1.0/search/";
 $params = [
     "dataset" => "ref-france-association-repertoire-national",
-    "q"       => $query,
+    "q"       => $titleQuery . ' OR ' . $shortTitleQuery,
     "rows"    => 1000 // plus large pour couvrir davantage de resultats
 ];
 
@@ -73,7 +150,8 @@ foreach ($records as $record) {
 
     $f = $record['fields'];
 
-    $nom        = htmlspecialchars($f['title'] ?? $f['short_title'] ?? '', ENT_QUOTES);
+    $nomRaw     = $f['title'] ?? $f['short_title'] ?? '';
+    $nom        = htmlspecialchars($nomRaw, ENT_QUOTES);
     $rna        = htmlspecialchars($f['id'] ?? '', ENT_QUOTES);
     $depCodeRaw = $f['dep_code'] ?? '';
     $depCode    = htmlspecialchars($depCodeRaw, ENT_QUOTES);
@@ -87,6 +165,12 @@ foreach ($records as $record) {
     $objetTxt   = htmlspecialchars($f['object'] ?? '', ENT_QUOTES);
     $activityMain = getCraigActivityFromSocialObject($objetCode1Raw);
     $activitySec = getCraigActivityFromSocialObject($objetCode2Raw);
+    if (empty($activityMain)) {
+        $activityMain = fallbackCraigCodeFromSocialObject($objetCode1Raw);
+    }
+    if (empty($activitySec)) {
+        $activitySec = fallbackCraigCodeFromSocialObject($objetCode2Raw);
+    }
 
     $streetNum  = htmlspecialchars($f['street_number_asso'] ?? '', ENT_QUOTES);
     $streetType = htmlspecialchars($f['street_type_asso'] ?? '', ENT_QUOTES);
@@ -98,7 +182,7 @@ foreach ($records as $record) {
     }
 
     // Filtrer pour ne garder que les associations dont le NOM contient la chaîne recherchée
-    if (stripos($nom, $_POST['query']) === false) {
+    if (stripos($nomRaw, $query) === false) {
         continue;
     }
 

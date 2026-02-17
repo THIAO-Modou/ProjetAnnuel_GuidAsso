@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
     function showRelevantForm() {
         let formToShow = null;
         let hasError = false;
+        const urlParams = new URLSearchParams(window.location.search);
+        const activeFormId = urlParams.get("formulaire") || document.body?.dataset?.showForm || "";
 
         errorContainers.forEach(errorContainer => {
             if (errorContainer.innerText.trim() !== '') {
@@ -23,6 +25,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 hasError = true;
             }
         });
+
+        // Fallback: le bloc erreur est hors du formulaire, on utilise le formulaire actif dans l'URL.
+        if (hasError && !formToShow && activeFormId) {
+            formToShow = document.getElementById(activeFormId);
+        }
 
         if (formToShow) {
             hideAllForms(); // Cache tous les formulaires
@@ -35,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 300);
         } else {
             if (visionneuseContainer) {
-                visionneuseContainer.style.display = 'block';
+                visionneuseContainer.style.display = hasError ? 'none' : 'block';
             }
         }
     }
@@ -340,14 +347,24 @@ $(document).on("associationSelected", function(event, data) {
 
     // Remplir le nom de l'association
     $('#association').val(data.nom);
+    $('#rna_id').val(data.rna || "");
 
     // Remplir la commune automatiquement
     if (data.commune) {
         $('#commune').val(data.commune);
     }
 
+    const normalize = (value) => (value || "")
+        .toString()
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+
     const activityMain = (data.activityMain || "").toString().trim();
-    const activitySec = (data.activitySec || "").toString().trim();
+    const activitySecRaw = (data.activitySec || "").toString().trim();
+    const activitySecCandidates = activitySecRaw
+        ? activitySecRaw.split(/[;,|]/).map(v => v.trim()).filter(Boolean)
+        : [];
 
     // Activite principale (select)
     const selectMain = document.getElementById("act_principale");
@@ -355,7 +372,7 @@ $(document).on("associationSelected", function(event, data) {
         let matched = false;
         if (activityMain) {
             Array.from(selectMain.options).forEach(opt => {
-                if (opt.value === activityMain || opt.text.trim().toLowerCase() === activityMain.toLowerCase()) {
+                if (normalize(opt.value) === normalize(activityMain) || normalize(opt.text) === normalize(activityMain)) {
                     selectMain.value = opt.value;
                     matched = true;
                 }
@@ -384,10 +401,11 @@ $(document).on("associationSelected", function(event, data) {
         autreSecInput.value = "";
     }
 
-    if (activitySec) {
+    if (activitySecCandidates.length > 0) {
         let matched = false;
         actSecCheckboxes.forEach(cb => {
-            if (cb.value === activitySec || cb.value.toLowerCase() === activitySec.toLowerCase()) {
+            const cbNorm = normalize(cb.value);
+            if (activitySecCandidates.some(v => normalize(v) === cbNorm)) {
                 cb.checked = true;
                 matched = true;
             }
@@ -400,9 +418,9 @@ $(document).on("associationSelected", function(event, data) {
             }
             if (autreSecInput) {
                 autreSecInput.style.display = "block";
-                autreSecInput.value = activitySec.toLowerCase() === "autre" ? "" : activitySec;
+                autreSecInput.value = normalize(activitySecRaw) === "autre" ? "" : activitySecRaw;
             }
-        } else if (activitySec.toLowerCase() === "autre" && autreSecInput) {
+        } else if (normalize(activitySecRaw) === "autre" && autreSecInput) {
             autreSecInput.style.display = "block";
             autreSecInput.value = "";
         }

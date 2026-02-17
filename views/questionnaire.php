@@ -301,6 +301,7 @@ echo "<script>var userData = " . json_encode($user ?? null) . ";</script>";
             <!------------------------------------------------->
             <section id="QR-form" class="QR-form">
                 <form id="longsuivi" method="post" action="/../controllers/questionnaire/Recupformulaire.php" enctype="multipart/form-data">
+                    <input type="hidden" name="formulaire_actif" value="<?= htmlspecialchars($formulaireActif ?? '', ENT_QUOTES) ?>">
 
 
                     <?php if ($formulaireActif && !empty($champsActifs) && in_array('type_rdv', $champsActifs)): ?>    
@@ -349,7 +350,7 @@ echo "<script>var userData = " . json_encode($user ?? null) . ";</script>";
                         <div class="horsDepRow" style="display:flex; align-items:center; justify-content:space-between; width:100%; flex-wrap:nowrap;">
                             <div class="horsDep" id="horsDepartementContainer" style="margin-right:auto;">
                                 <input class="checkbox" type="checkbox" id="horsDepartement" name="horsDepartementCheckbox">
-                                <label class="bold" for="horsDepartement"> : Hors département</label>
+                                <label class="bold" for="horsDepartement"> : Association hors département</label>
                             </div>
 
                             <!-- Champ département (caché par défaut) -->

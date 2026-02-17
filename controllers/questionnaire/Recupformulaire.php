@@ -16,6 +16,27 @@ $evenementForm = $_SESSION['evenement'] ?? false;
 $rechercheForm = $_SESSION['recherche'] ?? false;
 $anonyme = $_SESSION['anonyme'] ?? false;
 
+function resolveActiveFormForRedirect(array $post, bool $RDV, bool $reseau, bool $QR, bool $longsuivi, bool $evenementForm, bool $rechercheForm, bool $anonyme): string
+{
+    $allowed = ['QR', 'RDV', 'reseau', 'longsuivi', 'evenement', 'recherche', 'anonyme'];
+    $fromPost = trim((string)($post['formulaire_actif'] ?? ''));
+    if (in_array($fromPost, $allowed, true)) {
+        return $fromPost;
+    }
+
+    if ($RDV) return 'RDV';
+    if ($reseau) return 'reseau';
+    if ($QR) return 'QR';
+    if ($longsuivi) return 'longsuivi';
+    if ($evenementForm) return 'evenement';
+    if ($rechercheForm) return 'recherche';
+    if ($anonyme) return 'anonyme';
+
+    return '';
+}
+
+$redirectForm = resolveActiveFormForRedirect($_POST, $RDV, $reseau, $QR, $longsuivi, $evenementForm, $rechercheForm, $anonyme);
+$redirectUrl = "/../../views/questionnaire.php" . ($redirectForm !== '' ? "?formulaire=" . urlencode($redirectForm) : "");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
@@ -108,6 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $structure = $_POST['structure'] ?? '';
         $classification = $_POST['classification'] ?? '';
         $assoc = trim($_POST['assoc'] ?? '');
+        $rna = trim($_POST['rna_id'] ?? '');
         $activite_principale = $_POST['act_principale'] ?? '';
         $autreActivitePrincipale = $_POST['autreActivitePrincipale'] ?? '';
         $autreActiviteSecondaire = $_POST['autreActiviteSecondaire'] ?? '';
@@ -222,6 +244,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $nom_association = $assoc;
         }
 
+        if ($nom_association === '' || $nom_association === "Projet d'association" || $nom_association === "Nom non communiqué") {
+            $rna = "";
+        }
+
     
 
         $h = !empty($h) ? (int)$h : 0; // Convertit en entier, ou 0 si vide/null
@@ -294,39 +320,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         // Vérification ou insertion de l'association
-        $stmt_assoc = $pdo->prepare("SELECT NOMASSO FROM ASSOCIATION WHERE NOMASSO = :nom_association");
+        $stmt_assoc = $pdo->prepare("SELECT NOMASSO, RNA FROM ASSOCIATION WHERE NOMASSO = :nom_association");
         $stmt_assoc->execute([':nom_association' => $nom_association]);
         $row_assoc = $stmt_assoc->fetch(PDO::FETCH_ASSOC);
 
         if (!$row_assoc) {
-            $sql_insert_assoc = "INSERT INTO ASSOCIATION (NOMASSO, CODEPOSTAL, EPCI, ACTIVITEPRINCIPALEASSO, ACTIVITESECONDAIRE) 
-                                VALUES (:nom_association, :cp, :epci, :activite, :activiteSec)";
+            $sql_insert_assoc = "INSERT INTO ASSOCIATION (NOMASSO, RNA, CODEPOSTAL, EPCI, ACTIVITEPRINCIPALEASSO, ACTIVITESECONDAIRE) 
+                                VALUES (:nom_association, :rna, :cp, :epci, :activite, :activiteSec)";
             $stmt_insert_assoc = $pdo->prepare($sql_insert_assoc);
             $stmt_insert_assoc->execute([
                 ':nom_association' => $nom_association,
+                ':rna' => $rna !== '' ? $rna : null,
                 ':cp' => $CP,
                 ':epci' => $EPCI,
                 ':activite' => $activite_principale,
                 ':activiteSec' => $actS
             ]);
+        } elseif (!empty($rna) && empty($row_assoc['RNA'])) {
+            $stmt_update_assoc = $pdo->prepare("UPDATE ASSOCIATION SET RNA = :rna WHERE NOMASSO = :nom_association");
+            $stmt_update_assoc->execute([
+                ':rna' => $rna,
+                ':nom_association' => $nom_association
+            ]);
         }
 
         // Vérification si l'association existe
-        $stmt_assoc = $pdo->prepare("SELECT NOMASSO FROM ASSOCIATION WHERE NOMASSO = :nom_association");
+        $stmt_assoc = $pdo->prepare("SELECT NOMASSO, RNA FROM ASSOCIATION WHERE NOMASSO = :nom_association");
         $stmt_assoc->bindParam(':nom_association', $nom_association);
         $stmt_assoc->execute();
         $row_assoc = $stmt_assoc->fetch(PDO::FETCH_ASSOC);
 
         if (!$row_assoc) {
             // Insérer l'association si elle n'existe pas
-            $stmt_insert_assoc = $pdo->prepare("INSERT INTO ASSOCIATION (NOMASSO, CODEPOSTAL, EPCI, ACTIVITEPRINCIPALEASSO, ACTIVITESECONDAIRE)
-                                                VALUES (:nom_association, :cp, :epci, :activite, :activiteSec)");
+            $stmt_insert_assoc = $pdo->prepare("INSERT INTO ASSOCIATION (NOMASSO, RNA, CODEPOSTAL, EPCI, ACTIVITEPRINCIPALEASSO, ACTIVITESECONDAIRE)
+                                                VALUES (:nom_association, :rna, :cp, :epci, :activite, :activiteSec)");
             $stmt_insert_assoc->bindParam(':nom_association', $nom_association);
+            $stmt_insert_assoc->bindParam(':rna', $rna);
             $stmt_insert_assoc->bindParam(':cp', $CP);
             $stmt_insert_assoc->bindParam(':epci', $EPCI);
             $stmt_insert_assoc->bindParam(':activite', $activite_principale);
             $stmt_insert_assoc->bindParam(':activiteSec', $actS);
             $stmt_insert_assoc->execute();
+        } elseif (!empty($rna) && empty($row_assoc['RNA'])) {
+            $stmt_update_assoc = $pdo->prepare("UPDATE ASSOCIATION SET RNA = :rna WHERE NOMASSO = :nom_association");
+            $stmt_update_assoc->execute([
+                ':rna' => $rna,
+                ':nom_association' => $nom_association
+            ]);
         }
 
         //Isertion contact pour RDV
@@ -372,8 +412,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Insertion dans la table QUESTIONNAIRE
-        $sql = "INSERT INTO QUESTIONNAIRE (IDCONTACT, NOMSTRUCTURE, ACTIVITESTRUCTURE, NOMASSO, ACTIVITEPRINCIPALEASSO, ACTIVITESECONDAIRE, PERMANENCE, CLASSIFICATIONGUIDASSO, TRANSMISPAR, TRANSMISA, NATUREECHANGE, NBRDV, QUESTION, REPONSE, TEMPSPASSE, THEMEGENERAL, AUTRETHEMATIQUE, RESSOURCE, RECHERCHE, MAILGUIDASSO, NOMEVENEMENT, TITREEVENEMENT, AUDIENCE, DATEEVE, COMMUNE, CODE_INSEE, CODE_POSTAL, ARRONDISSEMENT, EPCI, FILE, BLOCNOTE, PJBLOCNOTE, EMPLOYEUR, TYPEQUESTIONNAIRE, NUMERODEPARTEMENT) 
-        VALUES (:id_contact, :nom_structure, :activite_structure, :nom_association, :activite_principale, :activite_secondaire, :permanence, :classification, :dossier_transmis_par, :dossier_transmis_a, :nature_echange, :nbrdv, :question, :reponse, :temps_passe, :theme_general, :autre_thematique, :ressources, :recherche, :mail_guidasso, :evenement, :titre_ev, :personne, :date_ev, :commune, :code_insee, :code_postal, :arrondissement, :epci, :file, :bloc_note, :pj_bloc_note, :employeur, :TypeQuestionnaire, :numeroDepartement)";
+        $sql = "INSERT INTO QUESTIONNAIRE (IDCONTACT, NOMSTRUCTURE, ACTIVITESTRUCTURE, NOMASSO, RNA, ACTIVITEPRINCIPALEASSO, ACTIVITESECONDAIRE, PERMANENCE, CLASSIFICATIONGUIDASSO, TRANSMISPAR, TRANSMISA, NATUREECHANGE, NBRDV, QUESTION, REPONSE, TEMPSPASSE, THEMEGENERAL, AUTRETHEMATIQUE, RESSOURCE, RECHERCHE, MAILGUIDASSO, NOMEVENEMENT, TITREEVENEMENT, AUDIENCE, DATEEVE, COMMUNE, CODE_INSEE, CODE_POSTAL, ARRONDISSEMENT, EPCI, FILE, BLOCNOTE, PJBLOCNOTE, EMPLOYEUR, TYPEQUESTIONNAIRE, NUMERODEPARTEMENT) 
+        VALUES (:id_contact, :nom_structure, :activite_structure, :nom_association, :rna, :activite_principale, :activite_secondaire, :permanence, :classification, :dossier_transmis_par, :dossier_transmis_a, :nature_echange, :nbrdv, :question, :reponse, :temps_passe, :theme_general, :autre_thematique, :ressources, :recherche, :mail_guidasso, :evenement, :titre_ev, :personne, :date_ev, :commune, :code_insee, :code_postal, :arrondissement, :epci, :file, :bloc_note, :pj_bloc_note, :employeur, :TypeQuestionnaire, :numeroDepartement)";
 
         $stmt = $pdo->prepare($sql);
 
@@ -398,6 +438,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':nom_structure' => $structure,  
             ':activite_structure' => $activite_principale,  
             ':nom_association' => $nom_association,
+            ':rna' => $rna !== '' ? $rna : null,
             ':activite_principale' => $activite_principale,
             ':activite_secondaire' => $actS,
             ':permanence' => $permanence,
@@ -434,12 +475,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $_SESSION['success_message'] = "Les données ont été enregistrées avec succès !";
        
-        header("Location: /../../views/questionnaire.php");
+        header("Location: " . $redirectUrl);
         exit();
     } catch (Exception $e) {
         $_SESSION['error_message_longsuivi'] = $e->getMessage();
        
-        header("Location: /../../views/questionnaire.php");
+        header("Location: " . $redirectUrl);
         exit();
     }
 }
