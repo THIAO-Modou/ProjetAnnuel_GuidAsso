@@ -4,6 +4,15 @@ ini_set('display_errors', 1);
 
 include_once __DIR__ . '/../../config/BD.php';
 
+if (!function_exists('getCraigActivityFromSocialObjet')) {
+    function getCraigActivityFromSocialObjet($socialObjet) {
+        if ($socialObjet === null) {
+            return '';
+        }
+        // Fallback: return the provided value as-is when no mapping is available.
+        return trim((string)$socialObjet);
+    }
+}
 if (!isset($_POST['query']) || strlen(trim($_POST['query'])) < 2) {
     exit;
 }
@@ -214,3 +223,8 @@ foreach ($records as $record) {
 }
 
 echo "</ul>";
+
+
+
+
+

@@ -119,13 +119,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Vérification des champs obligatoires
 
         // Récupération des données du formulaire
-        $type = $_POST['type'] ?? '';
-        $type = $_POST['type_radio'] ?? '';
+        $types = $_POST['type'] ?? [];
+        $typeRadio = $_POST['type_radio'] ?? '';
         $evenement = $_POST['evenement'] ?? '';
         $titre_ev = $_POST['titre_ev'] ?? '';
         $personne = $_POST['personne'] ?? 0;
         $Date = $_POST['Date'] ?? '';
-        $type = $_POST['structure'] ?? '';
         $structure = $_POST['structure'] ?? '';
         $classification = $_POST['classification'] ?? '';
         $assoc = trim($_POST['assoc'] ?? '');
@@ -136,25 +135,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $activiteSec = $_POST['act_sec'] ?? [];
         $nom_contact = $_POST['nom_contact'] ?? '';
         $prenom_contact = $_POST['prenom_contact'] ?? '';
-        $horsDep = $_POST['activite'] ?? '';
+        $activite = $_POST['activite'] ?? '';
         $employeur = $_POST['employeur'] ?? '';
-        $horsDep = $_POST['mail'] ?? null;
+        $email = $_POST['mail'] ?? null;
         $civilite = $_POST['genre'] ?? '';
         $themeG = $_POST['themeG'] ?? '';
         $ressources = $_POST['ressources'] ?? [];
         $themes = $_POST['theme'] ?? [];
-        $horsDep = $_POST['autreChamp'] ?? '';
         $dossierprovenantde = $_POST['Reponsepartagee'] ?? '';
         $dossiertransmisa = $_POST['Reponsepartagee1'] ?? '';
+        $provenance_autre = trim($_POST['provenance_autre'] ?? '');
+        $partage_autre = trim($_POST['partage_autre'] ?? '');
         $temps = $_POST['Temps'] ?? 00;
         $recherche = $_POST['recherche'] ?? null;
         $occurence = $_POST['occurence'] ?? 0;
         $autreT = $_POST['autreTheme'] ?? '';
-        $autreChamp = $_POST['autreChamp3'] ?? '';
+        $autreChamp = $_POST['autreChamp'] ?? '';
         $commune = $_POST['commune'] ?? '';
         $projet_asso = $_POST['projetAssoCheckbox'] ?? '';
         $non_comm = $_POST['nonCommuniqueCheckbox'] ?? '';
         $BN = $_POST['BN'] ?? '';
+        $commentaire = $_POST['saisie_libre'] ?? '';
         $horsDep = $_POST['horsDepartementCheckbox'] ?? '';
         $numeroDepartement = $_POST['numeroDepartement'] ?? '';
         $reponse = $_POST['reponse'] ?? ''; 
@@ -181,7 +182,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if($evenementForm) $TypeQuestionnaire = 'EV';
 
 
-        // Gestion des activités secondaires et thèmes multiples pour RDV
+        // Gestion des activites secondaires et themes multiples
         if ($activite_principale === "Autre" && trim($autreActivitePrincipale) !== "") {
             $activite_principale = trim($autreActivitePrincipale);
         }
@@ -201,26 +202,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!empty($autreChamp)) {
             $theme .= !empty($theme) ? ", " . $autreChamp : $autreChamp;
         }
-        if ($themeG === "Autre") {
-            $themeG = $autreT;
-        }
-
-
-        // Traitement des données pour stockage
-        $theme = !empty($themes) ? implode(", ", $themes) : "";
-        if (!empty($autreChamp3)) {
-            $theme .= !empty($theme) ? ", " . $autreChamp3 : $autreChamp3;
-        }
-
-        if (empty($_POST['ReponsepartageeLS'])) {
-            $missingFields[] = "Provenant de";
-        }
-        if (empty($_POST['ReponsepartageeLS1'])) {
-            $missingFields[] = "Partagé avec";
-        }
 
         if ($themeG == "Autre") {
             $themeG = $autreT;
+        }
+
+        if ($dossierprovenantde === "Autre" && $provenance_autre !== '') {
+            $dossierprovenantde = $provenance_autre;
+        }
+        if ($dossiertransmisa === "Autre" && $partage_autre !== '') {
+            $dossiertransmisa = $partage_autre;
         }
         
         $nom_association = '';
@@ -235,7 +226,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } elseif ($choix === "projet") {
                 $nom_association = "Projet d'association";
 
-            } elseif ($choix === "non") {
+            } elseif ($choix === "non" || $choix === "nom non communiqué") {
                 $nom_association = "Nom non communiqué";
             }
 
@@ -250,14 +241,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     
 
-        $h = !empty($h) ? (int)$h : 0; // Convertit en entier, ou 0 si vide/null
-        $m = (int)$m; // Assure que $m est un entier
-        $temps = ($h * 60) + $m; // Conversion en minutes
+        if ($longsuivi) {
+            $temps = !empty($temps) ? (int)$temps : 0;
+        } else {
+            $h = !empty($h) ? (int)$h : 0; // Convertit en entier, ou 0 si vide/null
+            $m = (int)$m; // Assure que $m est un entier
+            $temps = ($h * 60) + $m; // Conversion en minutes
+        }
 
         //Gerer type si longsuivi
         if(!$QR){
             $actS = !empty($activiteSec) ? implode(", ", $activiteSec) : "";
-            $typeS = is_array($type) ? implode(", ", $type) : "";
+            $typeS = is_array($types) ? implode(", ", $types) : "";
 
             // Vérification ou insertion du contact
             $sql_contact = "SELECT IDCONTACT FROM CONTACT WHERE NOMCONTACT = :nom_contact AND PRENOMCONTACT = :prenom_contact";
@@ -268,15 +263,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($row_contact) {
                 $id_contact = $row_contact['IDCONTACT'];
             } else {
-                $sql_insert_contact = "INSERT INTO CONTACT (NOMCONTACT, PRENOMCONTACT, CIVILITE) VALUES (:nom_contact, :prenom_contact, :civilite)";
-                $stmt_insert_contact = $pdo->prepare($sql_insert_contact);
-                $stmt_insert_contact->execute([
-                    ':nom_contact' => $nom_contact,
-                    ':prenom_contact' => $prenom_contact,
-                    ':civilite' => $civilite
-                ]);
-                $id_contact = $pdo->lastInsertId();
-            }
+            $sql_insert_contact = "INSERT INTO CONTACT (NOMCONTACT, PRENOMCONTACT, CIVILITE, EMAILCORRESPONDANT) VALUES (:nom_contact, :prenom_contact, :civilite, :email)";
+            $stmt_insert_contact = $pdo->prepare($sql_insert_contact);
+            $stmt_insert_contact->execute([
+                ':nom_contact' => $nom_contact,
+                ':prenom_contact' => $prenom_contact,
+                ':civilite' => $civilite,
+                ':email' => $email
+            ]);
+            $id_contact = $pdo->lastInsertId();
+        }
+        if (!empty($email) && !empty($id_contact)) {
+            $stmt_update_email = $pdo->prepare("UPDATE CONTACT SET EMAILCORRESPONDANT = :email WHERE IDCONTACT = :id_contact");
+            $stmt_update_email->execute([
+                ':email' => $email,
+                ':id_contact' => $id_contact
+            ]);
+        }
         } else{
             $sql_insert_contact = "INSERT INTO CONTACT (NOMCONTACT, PRENOMCONTACT, CIVILITE) VALUES (:nom_contact, :prenom_contact, :civilite)";
                 $stmt_insert_contact = $pdo->prepare($sql_insert_contact);
@@ -318,31 +321,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }           
         }
 
-
-        // Vérification ou insertion de l'association
-        $stmt_assoc = $pdo->prepare("SELECT NOMASSO, RNA FROM ASSOCIATION WHERE NOMASSO = :nom_association");
-        $stmt_assoc->execute([':nom_association' => $nom_association]);
-        $row_assoc = $stmt_assoc->fetch(PDO::FETCH_ASSOC);
-
-        if (!$row_assoc) {
-            $sql_insert_assoc = "INSERT INTO ASSOCIATION (NOMASSO, RNA, CODEPOSTAL, EPCI, ACTIVITEPRINCIPALEASSO, ACTIVITESECONDAIRE) 
-                                VALUES (:nom_association, :rna, :cp, :epci, :activite, :activiteSec)";
-            $stmt_insert_assoc = $pdo->prepare($sql_insert_assoc);
-            $stmt_insert_assoc->execute([
-                ':nom_association' => $nom_association,
-                ':rna' => $rna !== '' ? $rna : null,
-                ':cp' => $CP,
-                ':epci' => $EPCI,
-                ':activite' => $activite_principale,
-                ':activiteSec' => $actS
-            ]);
-        } elseif (!empty($rna) && empty($row_assoc['RNA'])) {
-            $stmt_update_assoc = $pdo->prepare("UPDATE ASSOCIATION SET RNA = :rna WHERE NOMASSO = :nom_association");
-            $stmt_update_assoc->execute([
-                ':rna' => $rna,
-                ':nom_association' => $nom_association
-            ]);
-        }
 
         // Vérification si l'association existe
         $stmt_assoc = $pdo->prepare("SELECT NOMASSO, RNA FROM ASSOCIATION WHERE NOMASSO = :nom_association");
@@ -390,6 +368,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt_insert_contact->execute();
             $id_contact = $pdo->lastInsertId();
         }
+        if (!empty($email) && !empty($id_contact) && $row_contact) {
+            $stmt_update_email = $pdo->prepare("UPDATE CONTACT SET EMAILCORRESPONDANT = :email WHERE IDCONTACT = :id_contact");
+            $stmt_update_email->execute([
+                ':email' => $email,
+                ':id_contact' => $id_contact
+            ]);
+        }
         
         //RESEAU
         if($reseau){
@@ -436,16 +421,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute([
             ':id_contact' => $id_contact,
             ':nom_structure' => $structure,  
-            ':activite_structure' => $activite_principale,  
+            ':activite_structure' => $activite,  
             ':nom_association' => $nom_association,
             ':rna' => $rna !== '' ? $rna : null,
             ':activite_principale' => $activite_principale,
             ':activite_secondaire' => $actS,
             ':permanence' => $permanence,
             ':classification' => $classification,
-            ':dossier_transmis_par' => $dossiertransmisa,
-            ':dossier_transmis_a' => $dossierprovenantde,
-            ':nature_echange' => $type,
+            ':dossier_transmis_par' => $dossierprovenantde,
+            ':dossier_transmis_a' => $dossiertransmisa,
+            ':nature_echange' => $typeRadio !== '' ? $typeRadio : (is_array($types) ? implode(", ", $types) : $types),
             ':nbrdv' => $occurence,
             ':question' => $question,
             ':reponse' => $reponse,
@@ -485,3 +470,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
+

@@ -342,15 +342,139 @@ document.addEventListener("DOMContentLoaded", function() {
     validateRessourcesSelection("ressourcesForm", "ressourcesError");
 });
 
-//--------------Autocompletion de commune
+//--------------Autocompletion de commune + auto-remplissage
+function normalizeText(value) {
+    return (value || "").toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function setSelectByText(selectEl, label) {
+    if (!selectEl || !label) return false;
+    const target = normalizeText(label);
+    for (const opt of selectEl.options) {
+        if (normalizeText(opt.text).includes(target)) {
+            selectEl.value = opt.value;
+            return true;
+        }
+    }
+    return false;
+}
+
+function setSelectByContainedText(selectEl, text) {
+    if (!selectEl || !text) return false;
+    const target = normalizeText(text);
+    for (const opt of selectEl.options) {
+        const optText = normalizeText(opt.text);
+        if (optText && target.includes(optText)) {
+            selectEl.value = opt.value;
+            return true;
+        }
+    }
+    return false;
+}
+
+
+function checkCheckboxByValue(name, label) {
+    if (!name || !label) return false;
+    const target = normalizeText(label);
+    let matched = false;
+    document.querySelectorAll('input[name="' + name + '"]').forEach(cb => {
+        const val = normalizeText(cb.value);
+        if (!matched && val && (val === target || val.includes(target) || target.includes(val))) {
+            cb.checked = true;
+            matched = true;
+        }
+    });
+    return matched;
+}
+
+function mapActivityFromObjet(text) {
+    const t = normalizeText(text);
+    const rules = [
+        { re: /(sport|football|tennis|basket|rugby|handball|gym|randonnee|cyclis|athlet|natation|danse)/, label: "Sport, activites indoor et plein-air" },
+        { re: /(culture|loisir|artist|musique|theatre|cinema|danse|lecture|festival)/, label: "Culture, loisirs" },
+        { re: /(jeunesse|education populaire|animation|centre social|scolaire|etudiant)/, label: "Education populaire, Jeunesse" },
+        { re: /(insertion|logement|social|education|soutien scolaire|egalite|mixite)/, label: "Lien social, education, insertion, logement" },
+        { re: /(caritatif|solidarite|humanitaire|aide alimentaire|don|entraide)/, label: "Caritatif et solidarite" },
+        { re: /(handicap|sante|soin|medical|autonomie|senior|personnes agees)/, label: "Service aux personnes, sante et handicap" },
+        { re: /(environnement|ecologie|developpement durable|nature|biodiversite|climat)/, label: "Environnement, ecologie et developpement durable" },
+        { re: /(patrimoine|tourisme|histoire|terroir|visite)/, label: "Patrimoine, tourisme" },
+        { re: /(science|recherche|technologie|numerique|informatique|robot)/, label: "Science, recherche, technologies" },
+        { re: /(emploi|economie|ess|entreprise|insertion pro|professionnel)/, label: "Emploi, economie, ESS" },
+        { re: /(securite|secours|defense|protection civile|pompiers)/, label: "Securite, secours, defense" }
+    ];
+
+    for (const rule of rules) {
+        if (rule.re.test(t)) return rule.label;
+    }
+
+    return "";
+}
+
+function mapThemeFromObjet(text) {
+    const t = normalizeText(text);
+    const rules = [
+        { re: /(statut|gouvernance|assemblee|ag|projet)/, label: "Statuts/ag & projet & gouvernance" },
+        { re: /(benevole|benevolat|engagement)/, label: "Engagement benevole" },
+        { re: /(juridique|reglementation|legal)/, label: "Reglementation & juridique" },
+        { re: /(evenement|festival|manifestation|forum|salon)/, label: "Evenementiel" },
+        { re: /(emploi|ccn|salari|rh)/, label: "Emploi & CCN" },
+        { re: /(compta|comptabil)/, label: "Comptabilite" },
+        { re: /(mecenat|financement|subvention|budget)/, label: "Mecenat & financement" },
+        { re: /(fiscal)/, label: "Fiscalite" },
+        { re: /(formation)/, label: "Formation" },
+        { re: /(dissolution)/, label: "Dissolution" },
+        { re: /(mediation|crise)/, label: "Mediation/Crise" },
+        { re: /(communication|presse|media|reseaux sociaux)/, label: "Communication interne/externe" }
+    ];
+
+    for (const rule of rules) {
+        if (rule.re.test(t)) return rule.label;
+    }
+
+    return "";
+}
+
+function getActiveThemeSelect() {
+    const activeForm = document.querySelector('.formulaire-container-vert[style*="display: block"], .formulaire-container-bleu[style*="display: block"], .formulaire-container-vert:not([style]), .formulaire-container-bleu:not([style])');
+    if (activeForm) {
+        const selectInForm = activeForm.querySelector('#themeG, #themeG1, #themeG2, #themeG3, #themeG6');
+        if (selectInForm) return selectInForm;
+    }
+    const ids = ["themeG", "themeG1", "themeG2", "themeG3", "themeG6"];
+    for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el) return el;
+    }
+    return null;
+}
+
+function getAutreThemeInput(selectId) {
+    const map = {
+        themeG: "autreTheme",
+        themeG1: "autreTheme1",
+        themeG2: "autreTheme2",
+        themeG3: "autreTheme3",
+        themeG6: "autreTheme6"
+    };
+    const inputId = map[selectId];
+    return inputId ? document.getElementById(inputId) : null;
+}
+
 $(document).on("associationSelected", function(event, data) {
+    const assocNom = data && data.nom ? data.nom : "";
+    if (assocNom) {
+        $('#association').val(assocNom);
+    }
 
-    // Remplir le nom de l'association
-    $('#association').val(data.nom);
-    $('#rna_id').val(data.rna || "");
+    if ($('#rna_id').length) {
+        $('#rna_id').val(data && data.rna ? data.rna : "");
+    }
 
-    // Remplir la commune automatiquement
-    if (data.commune) {
+    if (data && data.commune) {
+        const horsDepartementCheckbox = $('#horsDepartement');
+        if (horsDepartementCheckbox.length && horsDepartementCheckbox.prop('checked')) {
+            horsDepartementCheckbox.prop('checked', false).trigger('change');
+        }
         $('#commune').val(data.commune);
     }
 
@@ -360,73 +484,150 @@ $(document).on("associationSelected", function(event, data) {
         .toLowerCase()
         .replace(/\s+/g, " ");
 
-    const activityMain = (data.activityMain || "").toString().trim();
-    const activitySecRaw = (data.activitySec || "").toString().trim();
+    const activityMain = (data && data.activityMain || "").toString().trim();
+    const activitySecRaw = (data && data.activitySec || "").toString().trim();
     const activitySecCandidates = activitySecRaw
         ? activitySecRaw.split(/[;,|]/).map(v => v.trim()).filter(Boolean)
         : [];
+    const hasActivityData = activityMain !== "" || activitySecRaw !== "";
 
-    // Activite principale (select)
-    const selectMain = document.getElementById("act_principale");
-    if (selectMain) {
-        let matched = false;
-        if (activityMain) {
-            Array.from(selectMain.options).forEach(opt => {
-                if (normalize(opt.value) === normalize(activityMain) || normalize(opt.text) === normalize(activityMain)) {
-                    selectMain.value = opt.value;
+    if (hasActivityData) {
+        const selectMain = document.getElementById("act_principale");
+        if (selectMain) {
+            let matched = false;
+            if (activityMain) {
+                Array.from(selectMain.options).forEach(opt => {
+                    if (normalize(opt.value) === normalize(activityMain) || normalize(opt.text) === normalize(activityMain)) {
+                        selectMain.value = opt.value;
+                        matched = true;
+                    }
+                });
+            }
+
+            if (!matched && activityMain) {
+                selectMain.value = "Autre";
+                const autreContainer = document.getElementById("autreActivitePrincipaleContainer");
+                const autreInput = document.getElementById("autreActivitePrincipale");
+                if (autreContainer && autreInput) {
+                    autreContainer.style.display = "block";
+                    autreInput.value = activityMain.toLowerCase() === "autre" ? "" : activityMain;
+                }
+            }
+
+            selectMain.dispatchEvent(new Event("change"));
+        }
+
+        const actSecCheckboxes = document.querySelectorAll("input.act_sec[type='checkbox']");
+        actSecCheckboxes.forEach(cb => { cb.checked = false; });
+        const autreSecInput = document.getElementById("autreActiviteSecondaire");
+        if (autreSecInput) {
+            autreSecInput.style.display = "none";
+            autreSecInput.value = "";
+        }
+
+        if (activitySecCandidates.length > 0) {
+            let matched = false;
+            actSecCheckboxes.forEach(cb => {
+                const cbNorm = normalize(cb.value);
+                if (activitySecCandidates.some(v => normalize(v) === cbNorm)) {
+                    cb.checked = true;
                     matched = true;
                 }
             });
-        }
 
-        if (!matched && activityMain) {
-            selectMain.value = "Autre";
-            const autreContainer = document.getElementById("autreActivitePrincipaleContainer");
-            const autreInput = document.getElementById("autreActivitePrincipale");
-            if (autreContainer && autreInput) {
-                autreContainer.style.display = "block";
-                autreInput.value = activityMain.toLowerCase() === "autre" ? "" : activityMain;
-            }
-        }
-
-        selectMain.dispatchEvent(new Event("change"));
-    }
-
-    // Autres activites (checkbox)
-    const actSecCheckboxes = document.querySelectorAll("input.act_sec[type='checkbox']");
-    actSecCheckboxes.forEach(cb => { cb.checked = false; });
-    const autreSecInput = document.getElementById("autreActiviteSecondaire");
-    if (autreSecInput) {
-        autreSecInput.style.display = "none";
-        autreSecInput.value = "";
-    }
-
-    if (activitySecCandidates.length > 0) {
-        let matched = false;
-        actSecCheckboxes.forEach(cb => {
-            const cbNorm = normalize(cb.value);
-            if (activitySecCandidates.some(v => normalize(v) === cbNorm)) {
-                cb.checked = true;
-                matched = true;
-            }
-        });
-
-        if (!matched) {
-            const autreCb = document.querySelector("input.act_sec[type='checkbox'][value='Autre']");
-            if (autreCb) {
-                autreCb.checked = true;
-            }
-            if (autreSecInput) {
+            if (!matched) {
+                const autreCb = document.querySelector("input.act_sec[type='checkbox'][value='Autre']");
+                if (autreCb) {
+                    autreCb.checked = true;
+                }
+                if (autreSecInput) {
+                    autreSecInput.style.display = "block";
+                    autreSecInput.value = normalize(activitySecRaw) === "autre" ? "" : activitySecRaw;
+                }
+            } else if (normalize(activitySecRaw) === "autre" && autreSecInput) {
                 autreSecInput.style.display = "block";
-                autreSecInput.value = normalize(activitySecRaw) === "autre" ? "" : activitySecRaw;
+                autreSecInput.value = "";
             }
-        } else if (normalize(activitySecRaw) === "autre" && autreSecInput) {
-            autreSecInput.style.display = "block";
-            autreSecInput.value = "";
         }
+    }
+
+    const objetParts = [data && data.objetTxt, data && data.objetCode1, data && data.objetCode2].filter(Boolean);
+    const objetText = objetParts.join(' ');
+    if (!objetText) return;
+
+    if (!hasActivityData) {
+        const actSelect = document.getElementById('act_principale');
+        let actLabelChosen = '';
+        if (actSelect && !actSelect.value) {
+            let matched = false;
+            for (const part of objetParts) {
+                if (setSelectByText(actSelect, part)) {
+                    matched = true;
+                    actLabelChosen = actSelect.value;
+                    break;
+                }
+            }
+            if (!matched) {
+                matched = setSelectByContainedText(actSelect, objetText);
+                if (matched) actLabelChosen = actSelect.value;
+            }
+            if (!matched) {
+                const actLabel = mapActivityFromObjet(objetText);
+                if (actLabel) {
+                    matched = setSelectByText(actSelect, actLabel) || setSelectByContainedText(actSelect, actLabel);
+                    if (matched) actLabelChosen = actSelect.value;
+                }
+            }
+            console.debug('[asso] act_principale matched:', matched, 'objet:', objetText, 'value:', actSelect.value);
+        } else if (actSelect) {
+            actLabelChosen = actSelect.value;
+        }
+
+        if (actLabelChosen) {
+            checkCheckboxByValue('act_sec[]', actLabelChosen);
+        }
+    }
+
+    const themeSelect = getActiveThemeSelect();
+    let themeLabelChosen = '';
+    if (themeSelect && !themeSelect.value) {
+        let matched = false;
+        for (const part of objetParts) {
+            if (setSelectByText(themeSelect, part)) {
+                matched = true;
+                themeLabelChosen = themeSelect.value;
+                break;
+            }
+        }
+        if (!matched) {
+            matched = setSelectByContainedText(themeSelect, objetText);
+            if (matched) themeLabelChosen = themeSelect.value;
+        }
+        if (!matched) {
+            const themeLabel = mapThemeFromObjet(objetText);
+            if (themeLabel) {
+                matched = setSelectByText(themeSelect, themeLabel) || setSelectByContainedText(themeSelect, themeLabel);
+                if (matched) themeLabelChosen = themeSelect.value;
+            }
+        }
+        if (!matched) {
+            if (setSelectByText(themeSelect, 'Autre')) {
+                const autreInput = getAutreThemeInput(themeSelect.id);
+                if (autreInput && !autreInput.value) {
+                    autreInput.value = objetText.substring(0, 150);
+                }
+                $(themeSelect).trigger('change');
+            }
+        }
+        console.debug('[asso] themeG matched:', matched, 'objet:', objetText, 'value:', themeSelect.value);
+    } else if (themeSelect) {
+        themeLabelChosen = themeSelect.value;
+    }
+
+    if (themeLabelChosen) {
+        checkCheckboxByValue('theme[]', themeLabelChosen);
     }
 });
-
 //--------------------------------------------------------------------------------------
 //------------------------------- VISIONNEUSE PAGE QUESTIONNAIRE -----------------------
 //--------------------------------------------------------------------------------------
@@ -748,6 +949,9 @@ document.addEventListener('DOMContentLoaded', function () {
         lastScrollY = scrollY;
     });
 });
+
+
+
 
 
 

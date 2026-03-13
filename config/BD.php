@@ -17,7 +17,7 @@ function INSERTSQL($tableName, $values = []) {
     global $pdo;
     try {
         $fields = implode(',', array_keys($values));
-        $placeholders = implode(',', array_map(fn($val) => ":$val", array_keys($values)));
+        $placeholders = implode(',', array_map(function ($val) { return ":$val"; }, array_keys($values)));
         $sql = "INSERT INTO $tableName ($fields) VALUES ($placeholders)";
         $rows = $pdo->prepare($sql);
         return $rows->execute($values);
@@ -29,8 +29,8 @@ function INSERTSQL($tableName, $values = []) {
 function UPDATESQL($tableName, $values = [], $where = []) {
     global $pdo;
     try {
-        $setFields = array_map(fn($field) => "$field = :$field", array_keys($values));
-        $whereFields = array_map(fn($field) => "$field = :$field", array_keys($where));
+        $setFields = array_map(function ($field) { return "$field = :$field"; }, array_keys($values));
+        $whereFields = array_map(function ($field) { return "$field = :$field"; }, array_keys($where));
         $setClause = implode(', ', $setFields);
         $whereClause = implode(' AND ', $whereFields);
         $sql = "UPDATE $tableName SET $setClause WHERE $whereClause";
@@ -158,5 +158,3 @@ function getCraigActivityFromSocialObject($socialObject) {
 
     return null;
 }
-
-?>
